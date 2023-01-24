@@ -57,6 +57,7 @@ public class DbSeeder
                         Discount = 0.10,
                         Quantity = 10,
 
+                        ImagePath = "b_01.jpg"
                     },
                     new Book
                     {
@@ -70,6 +71,8 @@ public class DbSeeder
                         Price = 8,
                         Discount = 0,
                         Quantity = 15,
+
+                        ImagePath = "b_02.jpg"
                     }
                 }
             },
@@ -92,6 +95,7 @@ public class DbSeeder
                         Discount = 0.15,
                         Quantity = 20,
 
+                        ImagePath = "b_03.jpg"
                     },
                     new Book
                     {
@@ -105,6 +109,8 @@ public class DbSeeder
                         Price = 10,
                         Discount = 0,
                         Quantity = 23,
+
+                        ImagePath = "b_04.jpg"
                     }
                 }
             }

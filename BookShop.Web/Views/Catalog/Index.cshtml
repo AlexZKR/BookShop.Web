@@ -1,8 +1,10 @@
+@model CatalogViewModel
+
 <div class="container py-5">
     <div class="row">
 
         <div class="col-lg-3">
-            <h1 class="h2 pb-4">Категории</h1>
+            <h1 class="h2 pb-4">Фильтр</h1>
             <ul class="list-unstyled templatemo-accordion">
                 <li class="pb-3">
                     <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
@@ -10,8 +12,10 @@
                         <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul class="collapse show list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">Художественная</a></li>
-                        <li><a class="text-decoration-none" href="#">Нехудожественная</a></li>
+                        @foreach (var item in Model.Genres)
+                        {
+                            <li><a class="text-decoration-none" href="#">@item</a></li>
+                        }
                     </ul>
                 </li>
                 <li class="pb-3">
@@ -20,8 +24,10 @@
                         <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">Русский</a></li>
-                        <li><a class="text-decoration-none" href="#">Белорусский</a></li>
+                        @foreach (var item in Model.Languages)
+                        {
+                            <li><a class="text-decoration-none" href="#">@item</a></li>
+                        }
                     </ul>
                 </li>
                 <li class="pb-3">
@@ -30,9 +36,10 @@
                         <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">Мягкая</a></li>
-                        <li><a class="text-decoration-none" href="#">Твердая</a></li>
-                        <li><a class="text-decoration-none" href="#">Суперобложка</a></li>
+                        @foreach (var item in Model.Covers)
+                        {
+                            <li><a class="text-decoration-none" href="#">@item</a></li>
+                        }
                     </ul>
                 </li>
             </ul>
@@ -71,9 +78,9 @@
             @* Prod cards *@
             <div class="row">
 
-                @for (int i = 0; i < 5; i++)
+                @foreach (var item in Model.Books)
                 {
-                    <partial name="_ProductCardPartial" />
+                    <partial name="_ProductCardPartial" model=@item />
                 }
 
             </div>

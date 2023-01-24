@@ -49,9 +49,18 @@ public class Book
     public double Price { get; set; } = 0;
     [Display(Name = "В наличии")]
     public int Quantity { get; set; } = 0;
+
+
+
     [Range(0, 1)]
     [Display(Name = "Скидка")]
     public double Discount { get; set; } = 0;
+    [NotMapped]
+    [Display(Name = "Цена со скидкой")]
+    public double DiscountedPrice => Price - (Price * Discount);
+
+
+
     [Display(Name = "Изображение")]
     public string ImagePath { get; set; } = SD.NO_PHOTO;
     [NotMapped]
@@ -64,4 +73,7 @@ public class Book
     public int AuthorId { get; set; }
     [Display(Name = "Автор")]
     public Author Author { get; set; } = null!;
+
+    //ratings
+
 }
