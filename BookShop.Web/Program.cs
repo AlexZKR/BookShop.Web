@@ -14,6 +14,25 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+app.Logger.LogInformation("App created...");
+
+app.Logger.LogInformation("Seeding Database...");
+
+using (var scope = app.Services.CreateScope())
+{
+    var scopedProvider = scope.ServiceProvider;
+    try
+    {
+        var context = scopedProvider.GetRequiredService<AppDbContext>();
+        await DbSeeder.SeedDataAsync(context, app.Logger);
+    }
+    catch (System.Exception)
+    {
+
+        throw;
+    }
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

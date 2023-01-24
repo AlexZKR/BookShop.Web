@@ -36,7 +36,7 @@ public class Book
 
     [DataType(DataType.Text)]
     [StringLength(500)]
-    [Display(Name = "Жанр")]
+    [Display(Name = "Обложка")]
     public Cover Cover { get; set; }
     [DataType(DataType.Text)]
     [StringLength(500)]
@@ -46,7 +46,7 @@ public class Book
     //$$
     [Display(Name = "Полная стоимость товара, руб.")]
     [Range(0, int.MaxValue)]
-    public int Price { get; set; } = 0;
+    public double Price { get; set; } = 0;
     [Display(Name = "В наличии")]
     public int Quantity { get; set; } = 0;
     [Range(0, 1)]
@@ -60,5 +60,8 @@ public class Book
 
 
     //nav
+    [ForeignKey("AuthorId")]
+    public int AuthorId { get; set; }
+    [Display(Name = "Автор")]
     public Author Author { get; set; } = null!;
 }
