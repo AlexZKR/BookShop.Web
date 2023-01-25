@@ -5,7 +5,6 @@ namespace BookShop.Web.Models;
 public class ProductViewModel
 {
     public Book Book { get; set; } = null!;
-
     public List<Book> Related { get; set; } = null!;
 
     //static data

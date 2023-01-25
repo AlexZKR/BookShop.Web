@@ -122,7 +122,7 @@
                         @if (Model.Book.Discount > 0)
                         {
                             <p class="h3 py-2"><small class="text-danger"
-                                style="text-decoration: line-through;">@Model.Book.Price
+                                    style="text-decoration: line-through;">@Model.Book.Price
                                     руб.</small>
                                 @Model.Book.DiscountedPrice
                                 руб.</p>
@@ -244,21 +244,21 @@
 <!-- Close Content -->
 
 <!-- Start Article -->
-<section class="py-5">
-    <div class="container">
-        <div class="row text-left p-2 pb-3">
-            <h4>Похожие</h4>
-        </div>
+@* <section class="py-5">
+<div class="container">
+<div class="row text-left p-2 pb-3">
+<h4>Похожие</h4>
+</div> *@
 
-        <!--Start Carousel Wrapper-->
-        <div id="carousel-related-product">
-            @foreach (var item in Model.Related)
-            {
-                <partial name="_ProductCardPartial" model=@item />
-            }
 
-        </div>
-</section>
+
+@foreach (var item in Model.Related)
+{
+    <partial name="_ProductCardPartial" model=@item />
+}
+
+@* </div>
+</section> *@
 <!-- End Article -->
 
 

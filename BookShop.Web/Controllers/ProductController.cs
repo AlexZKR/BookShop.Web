@@ -14,6 +14,7 @@ public class ProductController : Controller
     {
         this.context = context;
     }
+    [Route("Product")]
     public async Task<IActionResult> Index(int id)
     {
         if (context == null) throw new NullReferenceException("Db null");
@@ -30,7 +31,7 @@ public class ProductController : Controller
         .Take(9)
         .ToListAsync();
 
-        return View(vm);
+        return View("ProductPage", vm);
     }
 
     private ProductViewModel PopulateViewModelWithStaticData(Book book)

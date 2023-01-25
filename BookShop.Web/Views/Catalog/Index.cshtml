@@ -46,6 +46,10 @@
         </div>
 
         <div class="col-lg-9">
+            @if (Model.search != null)
+            {
+                <h2>Результаты запроса: "@Model.search"</h2>
+            }
             <div class="row">
                 <div class="col-md-6">
                     <ul class="list-inline shop-top-menu pb-3 pt-1">
@@ -82,7 +86,12 @@
                 {
                     <partial name="_ProductCardPartial" model=@item />
                 }
-
+                @if (Model.Books.Count == 0)
+                {
+                    <p class="mx-3 h2 mb-1">К сожалению ничего не найдено :(
+                    <p class="mx-3 ">Попробуйте изменить текст запроса</p>
+                    </p>
+                }
             </div>
 
             @* Prod cards *@

@@ -43,6 +43,11 @@ public class Book
     [Display(Name = "Язык")]
     public Language Language { get; set; }
 
+    [DataType(DataType.Text)]
+    [StringLength(500)]
+    [Display(Name = "Тэг")]
+    public Tag Tag { get; set; } = Tag.None;
+
     //$$
     [Display(Name = "Полная стоимость товара, руб.")]
     [Range(0, int.MaxValue)]
@@ -50,6 +55,9 @@ public class Book
     [Display(Name = "В наличии")]
     public int Quantity { get; set; } = 0;
 
+    [Display(Name = "Продано, шт.")]
+    [Range(0, int.MaxValue)]
+    public int Sold { get; set; }
 
 
     [Range(0, 1)]

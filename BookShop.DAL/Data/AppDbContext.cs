@@ -10,7 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<Author> Authors { get; set; } = null!;
 
 
-    public AppDbContext(DbContextOptions options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
 
     }

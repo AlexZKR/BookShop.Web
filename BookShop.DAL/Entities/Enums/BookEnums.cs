@@ -33,3 +33,10 @@ public enum Language
     [Display(Name = "Английский")]
     English
 };
+
+public enum Tag
+{
+    None,
+    Classic,
+    Bestseller
+};

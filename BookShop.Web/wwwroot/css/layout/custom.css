@@ -1,3 +1,9 @@
 /*
 Custom Css
 */
+/* Header dropdown submenu on hover */
+
+.dropdown:hover .dropdown-menu {
+    display: block !important;
+    position: relative;
+}
