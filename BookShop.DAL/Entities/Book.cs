@@ -48,6 +48,8 @@ public class Book
     [Display(Name = "Тэг")]
     public Tag Tag { get; set; } = Tag.None;
 
+
+
     //$$
     [Display(Name = "Полная стоимость товара, руб.")]
     [Range(0, int.MaxValue)]
@@ -81,6 +83,15 @@ public class Book
     public int AuthorId { get; set; }
     [Display(Name = "Автор")]
     public Author Author { get; set; } = null!;
+
+    //favs
+    [NotMapped]
+    //Used only in vms to indicate red heart on product card
+    public bool IsFavourite { get; set; } = false;
+
+    [ForeignKey("Id")]
+    // public int ApplicationUserId { get; set; }
+    public List<ApplicationUser> FavUsers { get; set; } = new List<ApplicationUser>();
 
     //ratings
 

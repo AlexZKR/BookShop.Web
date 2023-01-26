@@ -1,12 +1,27 @@
 @model Book
 
+@{
+    var userName = Context.User.Identity.Name;
+}
+
 <div class="col-md-4">
     <div class="card mb-4 product-wap rounded-0">
         <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="~/img/books/@Model.ImagePath">
             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                 <ul class="list-unstyled">
-                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a>
+                    <li>
+                        @if (Model.IsFavourite == false)
+                        {
+                            <a class="btn btn-success text-white" asp-asp-controller="Catalog" asp-action="MakeFav"
+                            asp-route-prodId="@Model.ProductId" asp-route-userName="@userName"><i
+                                    class="fa-regular fa-heart"></i></a>
+                        }
+                        @if (Model.IsFavourite == true)
+                        {
+                            <a class="btn btn-success text-white" href="shop-single.html"><i
+                                    class="fa-solid fa-heart"></i></a>
+                        }
                     </li>
                     <li><a class="btn btn-success text-white mt-2" asp-controller="Product" asp-action="Index"
                             asp-route-id="@Model.ProductId"><i class="far fa-eye"></i></a></li>
