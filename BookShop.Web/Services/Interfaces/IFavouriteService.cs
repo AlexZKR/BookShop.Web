@@ -2,7 +2,7 @@ using BookShop.DAL.Data;
 using BookShop.DAL.Entities;
 using BookShop.DAL.Entities.Products;
 
-namespace BookShop.Web.Services.Intefaces;
+namespace BookShop.Web.Services.Interfaces;
 
 public interface IFavouriteService<T> where T : BaseProduct
 {

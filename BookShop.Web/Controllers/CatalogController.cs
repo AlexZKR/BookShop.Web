@@ -2,7 +2,7 @@ using BookShop.DAL.Data;
 using BookShop.DAL.Entities;
 using BookShop.DAL.Entities.Products;
 using BookShop.Web.Models;
-using BookShop.Web.Services.Intefaces;
+using BookShop.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

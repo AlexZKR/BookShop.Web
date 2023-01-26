@@ -1,0 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
+
+namespace BookShop.DAL.Entities;
+
+public abstract class BaseEntity
+{
+    [Key]
+    public virtual int Id { get; protected set; }
+
+}
