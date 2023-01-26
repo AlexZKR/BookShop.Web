@@ -23,7 +23,7 @@ public class ProductController : Controller
         .Include(b => b.Author)
         .FirstOrDefaultAsync(b => b.Id == id)!;
 
-        var vm = PopulateViewModelWithStaticData(book!);
+        var vm = await PopulateViewModelWithStaticData(book!);
 
         vm.Related = await context.Books
         .Include(b => b.Author)
@@ -34,11 +34,13 @@ public class ProductController : Controller
         return View("ProductPage", vm);
     }
 
-    private ProductViewModel PopulateViewModelWithStaticData(Book book)
+    private async Task<ProductViewModel> PopulateViewModelWithStaticData(Book book)
     {
         var genre = EnumHelper<Genre>.GetDisplayValue(Genre.Fiction);
         var language = EnumHelper<Language>.GetDisplayValue(Language.Russian);
         var cover = EnumHelper<Cover>.GetDisplayValue(Cover.HardCover);
+
+        book.Author = (await context.Authors.FirstOrDefaultAsync(a => a.Books.Contains(book)))!;
 
         var vm = new ProductViewModel
         {

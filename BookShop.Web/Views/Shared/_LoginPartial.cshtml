@@ -17,27 +17,35 @@
         </li>
         <li class="nav-item dropdown">
             <a asp-area="Identity" aria-current="page" aria-haspopup="true" asp-page="/Account/Manage/Index" title="Меню"
-                class="  dropdown-toggle position-relative text-decoration-none">
+                class="dropdown-toggle position-relative text-decoration-none">
                 <i class="fa fa-fw fa-user text-dark mr-3"></i>
             </a>
             <ul class="dropdown-menu">
                 <li class="dropdown-item">
+                    <form method="get" id="favs" class="form-inline" asp-area="Identity"
+                    asp-page="/Account/Manage/Favourites">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">
+                            <i class="fa-solid fa-heart"></i> Избранные товары</button>
+                    </form>
+                </li>
+                <li class="dropdown-item">
                     <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                     asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                         <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0"> <i
-                                class="fa-solid fa-right-from-bracket mx-2"></i> Выйти</button>
+                                class="fa-solid fa-right-from-bracket"></i> Выйти</button>
                     </form>
                 </li>
+
             </ul>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Вход</a>
         </li>
     }
 </ul>

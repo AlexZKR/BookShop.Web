@@ -29,9 +29,14 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct
         return entitiesToCheck;
     }
 
-    public Task<bool> RemoveAllFavourites(ApplicationUser user)
+    public async Task<bool> RemoveFromFavourites(ApplicationUser user, string Id)
     {
-        throw new NotImplementedException();
+        string postIdComplate = ',' + Id;
+        bool isExisted = false;
+        user.Favourites = user.Favourites.Replace(postIdComplate, "");
+        isExisted = true;
+        await userManager.UpdateAsync(user);
+        return isExisted;
     }
 
     public async Task<bool> UpdateFavourite(ApplicationUser user, string Id)

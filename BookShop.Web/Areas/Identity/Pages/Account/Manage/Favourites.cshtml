@@ -6,3 +6,9 @@
 }
 
 <h3>@ViewData["Title"]</h3>
+<div class="row">
+    @foreach (var item in Model.Favourites)
+    {
+        <partial name="_FavItemCardPartial" model="@item" />
+    }
+</div>

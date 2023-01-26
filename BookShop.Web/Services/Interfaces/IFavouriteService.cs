@@ -18,7 +18,7 @@ public interface IFavouriteService<T> where T : BaseProduct
     /// </summary>
     /// <param name="user"></param>
     /// <returns>Success or not</returns>
-    Task<bool> RemoveAllFavourites(ApplicationUser user);
+    Task<bool> RemoveFromFavourites(ApplicationUser user, string id);
     /// <summary>
     /// Checks list of books if they are in favs of the user provided
     /// </summary>
@@ -26,4 +26,12 @@ public interface IFavouriteService<T> where T : BaseProduct
     /// <param name="entitiesToCheck">List of books to check for favs</param>
     /// <returns>List of books with checked fav properties</returns>
     public List<T> CheckFavourites(ApplicationUser user, List<T> entitiesToCheck);
+
+    /// <summary>
+    /// Get list of favourite items for specific user
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="context"></param>
+    /// <returns>List of fav items</returns>
+    public Task<List<T>> GetFavouritesForUser(ApplicationUser user, AppDbContext context);
 }
