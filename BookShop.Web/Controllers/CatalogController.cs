@@ -1,6 +1,8 @@
 using BookShop.DAL.Data;
 using BookShop.DAL.Entities;
 using BookShop.Web.Models;
+using BookShop.Web.Services.Intefaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,21 +14,24 @@ public class CatalogController : Controller
     private readonly AppDbContext context;
     private readonly appIdentityDbContext identityDbContext;
     private readonly UserManager<ApplicationUser> userManager;
+    private readonly IFavouriteService favouriteService;
 
     public CatalogController(AppDbContext context,
      appIdentityDbContext identityDbContext,
-     UserManager<ApplicationUser> userManager)
+     UserManager<ApplicationUser> userManager,
+     IFavouriteService favouriteService)
     {
         this.context = context;
         this.identityDbContext = identityDbContext;
         this.userManager = userManager;
+        this.favouriteService = favouriteService;
     }
     public async Task<IActionResult> Index([FromQuery] string? search)
     {
 
         if (context == null) throw new NullReferenceException("Db is null");
 
-        var vm = PopulateViewModelWithStaticData();
+        var vm = await PopulateViewModelWithStaticData();
 
         if (!String.IsNullOrEmpty(search))
         {
@@ -34,35 +39,33 @@ public class CatalogController : Controller
         }
         else
         {
+            //fill by pages
             vm.Books = await context.Books.ToListAsync();
         }
+        var user = await userManager.GetUserAsync(User);
+
+        if (user == null) return Redirect("/Identity/Account/Errors/AccessDenied");
+
+        vm.Books = favouriteService.CheckFavourites(user, vm.Books);
+
         vm.search = search;
-        vm.Authors = await context.Authors.ToListAsync();
 
         return View(vm);
     }
 
-    public async Task<IActionResult> MakeFav(string userName, int prodId)
+
+    [Authorize]
+    [Route("UpdateFav/{prodId:int}")]
+    public async Task<ActionResult> UpdateFav(int prodId)
     {
-        //var user = GetCurrentUser();
-
         var user = await userManager.GetUserAsync(User);
-        var bookFav = await context.Books.FirstOrDefaultAsync(b => b.ProductId == prodId);
 
-        bookFav.FavUsers = await identityDbContext.Users.Where(u => u.Favourite.Contains(bookFav)).ToListAsync();
+        if (user == null) return Redirect("/Identity/Account/Errors/AccessDenied");
 
-        user.Favourite = new List<Book>();
+        var exists = context.Books.FirstOrDefault(b => b.ProductId == prodId)!.IsFavourite = await favouriteService
+        .UpdateFavourite(user, prodId.ToString());
 
-        user.Favourite = await context.Books.Where(b => b.FavUsers.Contains(user)).ToListAsync();
-
-        user!.Favourite.Add(bookFav!);
-        bookFav.FavUsers.Add(user);
-        await identityDbContext.SaveChangesAsync();
-        await context.SaveChangesAsync();
-
-        bookFav!.IsFavourite = true;
-
-        return View();
+        return RedirectToAction("Index");
     }
 
     private async Task<List<Book>> FillBySearch(string search)
@@ -82,7 +85,7 @@ public class CatalogController : Controller
     /// Creates and populates vm with static display values from enums
     /// </summary>
     /// <returns></returns>
-    private CatalogViewModel PopulateViewModelWithStaticData()
+    private async Task<CatalogViewModel> PopulateViewModelWithStaticData()
     {
         var genres = EnumHelper<Genre>.GetDisplayValues(Genre.Fiction).ToList();
         var languages = EnumHelper<Language>.GetDisplayValues(Language.Russian).ToList();
@@ -94,12 +97,8 @@ public class CatalogController : Controller
             Languages = languages,
             Covers = covers
         };
+        vm.Authors = await context.Authors.ToListAsync();
         return vm;
     }
 
-
-    private ApplicationUser? GetCurrentUser()
-    {
-        return userManager.GetUserAsync(HttpContext.User).Result!;
-    }
 }

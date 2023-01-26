@@ -2,6 +2,8 @@ using BookShop.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BookShop.DAL.Entities;
+using BookShop.Web.Services.Intefaces;
+using BookShop.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ builder.Services.AddDbContext<appIdentityDbContext>(
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<appIdentityDbContext>();
 
+
+builder.Services.AddTransient<IFavouriteService, FavouriteService>();
 
 
 var app = builder.Build();

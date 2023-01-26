@@ -89,9 +89,9 @@ public class Book
     //Used only in vms to indicate red heart on product card
     public bool IsFavourite { get; set; } = false;
 
-    [ForeignKey("Id")]
-    // public int ApplicationUserId { get; set; }
-    public List<ApplicationUser> FavUsers { get; set; } = new List<ApplicationUser>();
+    // [ForeignKey("Id")]
+    // // public int ApplicationUserId { get; set; }
+    // public List<ApplicationUser> FavUsers { get; set; } = new List<ApplicationUser>();
 
     //ratings
 

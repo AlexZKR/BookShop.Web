@@ -10,8 +10,9 @@ namespace BookShop.DAL.Entities;
 // Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser
 {
-    [ForeignKey("ProductId")]
-    // public int ProductId { get; set; }
-    public List<Book> Favourite { get; set; } = new List<Book>();
+    // [ForeignKey("ProductId")]
+    // // public int ProductId { get; set; }
+    // public List<Book> Favourite { get; set; } = new List<Book>();
+    public string Favourites { get; set; } = "0";
 }
 
