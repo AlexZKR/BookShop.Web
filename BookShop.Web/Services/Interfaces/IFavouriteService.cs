@@ -1,5 +1,6 @@
 using BookShop.DAL.Data;
 using BookShop.DAL.Entities;
+using BookShop.DAL.Entities.Products;
 
 namespace BookShop.Web.Services.Intefaces;
 

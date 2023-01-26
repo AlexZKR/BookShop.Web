@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using bestBuild.DAL;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShop.DAL.Entities;
+namespace BookShop.DAL.Entities.Products;
 
 public class Book : BaseProduct
 {

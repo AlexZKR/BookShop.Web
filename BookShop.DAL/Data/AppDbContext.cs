@@ -1,4 +1,5 @@
 using BookShop.DAL.Entities;
+using BookShop.DAL.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.DAL.Data;
