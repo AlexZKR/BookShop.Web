@@ -1,5 +1,10 @@
 @model Book
 
+@{
+    string iconType = Model.IsFavourite ? "fa-solid fa-heart" : "fa-regular fa-heart";
+}
+
+
 <div class="col-md-4">
     <div class="card mb-4 product-wap rounded-0">
         <div class="card rounded-0">
@@ -9,21 +14,12 @@
                     <li>
                         <form asp-controller="Catalog" asp-action="UpdateFav" method="post"
                             enctype="multipart/form-data">
-
-                            @if (Model.IsFavourite == false)
-                            {
-                                <a class="btn btn-success text-white" asp-asp-controller="Catalog" asp-action="UpdateFav"
-                                asp-route-prodId="@Model.ProductId"><i class="fa-regular fa-heart"></i></a>
-                            }
-                            @if (Model.IsFavourite == true)
-                            {
-                                <a class="btn btn-success text-white" asp-asp-controller="Catalog" asp-action="UpdateFav"
-                                asp-route-prodId="@Model.ProductId"><i class="fa-solid fa-heart"></i></a>
-                            }
+                            <a class="btn btn-success text-white" asp-asp-controller="Catalog" asp-action="UpdateFav"
+                                asp-route-prodId="@Model.Id"><i class="@iconType"></i></a>
                         </form>
                     </li>
                     <li><a class="btn btn-success text-white mt-2" asp-controller="Product" asp-action="Index"
-                            asp-route-id="@Model.ProductId"><i class="far fa-eye"></i></a></li>
+                            asp-route-id="@Model.Id"><i class="far fa-eye"></i></a></li>
                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
                                 class="fas fa-cart-plus"></i></a></li>
                 </ul>

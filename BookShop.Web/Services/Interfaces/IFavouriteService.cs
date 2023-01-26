@@ -3,7 +3,7 @@ using BookShop.DAL.Entities;
 
 namespace BookShop.Web.Services.Intefaces;
 
-public interface IFavouriteService
+public interface IFavouriteService<T> where T : BaseProduct
 {
     /// <summary>
     /// If item in favs - removes it. If not - adds it.
@@ -23,7 +23,7 @@ public interface IFavouriteService
     /// Checks list of books if they are in favs of the user provided
     /// </summary>
     /// <param name="user"></param>
-    /// <param name="booksToCheck">List of books to check for favs</param>
+    /// <param name="entitiesToCheck">List of books to check for favs</param>
     /// <returns>List of books with checked fav properties</returns>
-    public List<Book> CheckFavourites(ApplicationUser user, List<Book> booksToCheck);
+    public List<T> CheckFavourites(ApplicationUser user, List<T> entitiesToCheck);
 }

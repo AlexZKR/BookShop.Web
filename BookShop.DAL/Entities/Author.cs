@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace BookShop.DAL.Entities
 {
-    public class Author
+    public class Author : BaseProduct
     {
-        [Key]
-        public int AuthorId { get; set; }
         [Required]
         [DataType(DataType.Text)]
         [StringLength(30)]

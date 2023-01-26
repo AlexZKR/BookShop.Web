@@ -14,12 +14,12 @@ public class CatalogController : Controller
     private readonly AppDbContext context;
     private readonly appIdentityDbContext identityDbContext;
     private readonly UserManager<ApplicationUser> userManager;
-    private readonly IFavouriteService favouriteService;
+    private readonly IFavouriteService<Book> favouriteService;
 
     public CatalogController(AppDbContext context,
      appIdentityDbContext identityDbContext,
      UserManager<ApplicationUser> userManager,
-     IFavouriteService favouriteService)
+     IFavouriteService<Book> favouriteService)
     {
         this.context = context;
         this.identityDbContext = identityDbContext;
@@ -44,9 +44,8 @@ public class CatalogController : Controller
         }
         var user = await userManager.GetUserAsync(User);
 
-        if (user == null) return Redirect("/Identity/Account/Errors/AccessDenied");
-
-        vm.Books = favouriteService.CheckFavourites(user, vm.Books);
+        if (user != null)
+            vm.Books = favouriteService.CheckFavourites(user, vm.Books);
 
         vm.search = search;
 
@@ -62,7 +61,7 @@ public class CatalogController : Controller
 
         if (user == null) return Redirect("/Identity/Account/Errors/AccessDenied");
 
-        var exists = context.Books.FirstOrDefault(b => b.ProductId == prodId)!.IsFavourite = await favouriteService
+        var exists = context.Books.FirstOrDefault(b => b.Id == prodId)!.IsFavourite = await favouriteService
         .UpdateFavourite(user, prodId.ToString());
 
         return RedirectToAction("Index");

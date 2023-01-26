@@ -21,7 +21,7 @@ public class ProductController : Controller
 
         var book = await context.Books
         .Include(b => b.Author)
-        .FirstOrDefaultAsync(b => b.ProductId == id)!;
+        .FirstOrDefaultAsync(b => b.Id == id)!;
 
         var vm = PopulateViewModelWithStaticData(book!);
 

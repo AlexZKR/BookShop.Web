@@ -2,10 +2,11 @@ using BookShop.DAL.Data;
 using BookShop.DAL.Entities;
 using BookShop.Web.Services.Intefaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.Web.Services;
 
-public class FavouriteService : IFavouriteService
+public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct
 {
     private readonly UserManager<ApplicationUser> userManager;
 
@@ -14,18 +15,18 @@ public class FavouriteService : IFavouriteService
         this.userManager = userManager;
     }
 
-    public List<Book> CheckFavourites(ApplicationUser user, List<Book> booksToCheck)
+    public List<T> CheckFavourites(ApplicationUser user, List<T> entitiesToCheck)
     {
         string[] items = user?.Favourites?.Split(',')!;
         if (items is null)
             return null!;
 
-        foreach (var item in booksToCheck)
+        foreach (var item in entitiesToCheck)
         {
-            if (items.Contains(item.ProductId.ToString()))
+            if (items.Contains(item.Id.ToString()))
                 item.IsFavourite = true;
         }
-        return booksToCheck;
+        return entitiesToCheck;
     }
 
     public Task<bool> RemoveAllFavourites(ApplicationUser user)
@@ -51,5 +52,19 @@ public class FavouriteService : IFavouriteService
 
         await userManager.UpdateAsync(user);
         return isExisted;
+    }
+
+
+    public async Task<List<T>> GetFavouritesForUser(ApplicationUser user, AppDbContext context)
+    {
+        if (user is null) return null!;
+
+        string[] userFavs = user.Favourites.Split(',');
+
+        if (userFavs is null) return null!;
+
+        var favItems = await context.Set<T>().Where(x => userFavs.Contains(x.Id.ToString())).ToListAsync();
+
+        return favItems;
     }
 }

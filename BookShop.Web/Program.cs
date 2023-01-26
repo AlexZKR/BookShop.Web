@@ -23,7 +23,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 .AddEntityFrameworkStores<appIdentityDbContext>();
 
 
-builder.Services.AddTransient<IFavouriteService, FavouriteService>();
+builder.Services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
 
 
 var app = builder.Build();
