@@ -34,5 +34,5 @@ public interface IFavouriteService<T> where T : BaseProduct, IAggregateRoot
     /// <param name="user"></param>
     /// <param name="context"></param>
     /// <returns>List of fav items</returns>
-    public Task<List<T>> GetFavouritesForUser(ApplicationUser user, IRepository<T> repo);
+    public Task<List<T>> GetFavouritesForUser(ApplicationUser user);
 }

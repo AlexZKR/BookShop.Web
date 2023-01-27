@@ -2,6 +2,7 @@ using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Interfaces;
 using BookShop.DAL.Data;
 using BookShop.Web.Interfaces;
+using BookShop.Web.Specifications;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.Web.Services;
@@ -9,10 +10,12 @@ namespace BookShop.Web.Services;
 public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, IAggregateRoot
 {
     private readonly UserManager<ApplicationUser> userManager;
+    private readonly IRepository<T> productRepository;
 
-    public FavouriteService(UserManager<ApplicationUser> userManager)
+    public FavouriteService(UserManager<ApplicationUser> userManager, IRepository<T> productRepository)
     {
         this.userManager = userManager;
+        this.productRepository = productRepository;
     }
 
     public List<T> CheckFavourites(ApplicationUser user, List<T> entitiesToCheck)
@@ -60,7 +63,7 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
     }
 
 
-    public async Task<List<T>> GetFavouritesForUser(ApplicationUser user, IRepository<T> repository)
+    public async Task<List<T>> GetFavouritesForUser(ApplicationUser user)
     {
         if (user is null) return null!;
 
@@ -68,8 +71,8 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
 
         if (userFavs is null) return null!;
 
-        //var favItems = await repository.Set<T>().Where(x => userFavs.Contains(x.Id.ToString())).ToListAsync();
-        var favItems = new List<T>();
+        var spec = new FavouritesForUserSpecification<T>(user, userFavs);
+        var favItems = await productRepository.ListAsync(spec);
 
         return favItems;
     }

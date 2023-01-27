@@ -39,7 +39,7 @@ public class FavouritesModel : PageModel
 
     private async Task LoadAsync(ApplicationUser user, IRepository<Book> repository)
     {
-        Favourites = await favouriteService.GetFavouritesForUser(user, repository);
+        Favourites = await favouriteService.GetFavouritesForUser(user);
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(int id)
