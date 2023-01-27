@@ -7,9 +7,9 @@ public class BasketItem : BaseEntity
     public int ProductId { get; private set; }
     public int BasketId { get; private set; }
 
-    public BasketItem(int itemId, int quantity, double unitPrice)
+    public BasketItem(int productId, int quantity, double unitPrice)
     {
-        ProductId = itemId;
+        ProductId = productId;
         UnitPrice = unitPrice;
         SetQuantity(quantity);
     }

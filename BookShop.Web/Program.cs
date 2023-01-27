@@ -2,8 +2,9 @@ using BookShop.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BookShop.DAL.Entities;
-using BookShop.Web.Services.Intefaces;
 using BookShop.Web.Services;
+using BookShop.Web.Services.Interfaces;
+using Ardalis.Specification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 
 builder.Services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
+builder.Services.AddTransient<IBasketViewModelService, BasketViewModelService>();
+builder.Services.AddTransient(typeof(IRepository<>), typeof(IRepositoryBase<>));
 
 
 var app = builder.Build();
