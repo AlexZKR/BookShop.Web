@@ -1,10 +1,17 @@
 using BookShop.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using BookShop.DAL.Entities;
+using BookShop.BLL.Entities;
+using BookShop.BLL.Interfaces;
 using BookShop.Web.Services;
-using BookShop.Web.Services.Interfaces;
+using BookShop.Web.Interfaces;
 using Ardalis.Specification;
+using BookShop.DAL.Logging;
+using BookShop.BLL;
+using BookShop.BLL.Services;
+using BookShop.DAL.Data.Queries;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using BookShop.DAL.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +27,24 @@ builder.Services.AddDbContext<appIdentityDbContext>(
     options.UseSqlite(builder.Configuration.GetConnectionString("sqliteIdentityDbContext")));
 
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddEntityFrameworkStores<appIdentityDbContext>();
+// builder.Services.AddDefaultIdentity<IAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+// .AddEntityFrameworkStores<appIdentityDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().
+AddEntityFrameworkStores<appIdentityDbContext>()
+.AddDefaultTokenProviders();
 
+builder.Services.AddScoped(typeof(IReadRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+
+builder.Services.AddSingleton<IUriComposer>(new UriComposer(builder.Configuration.Get<CatalogSettings>()!));
+
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
 builder.Services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
 builder.Services.AddTransient<IBasketViewModelService, BasketViewModelService>();
-builder.Services.AddTransient(typeof(IRepository<>), typeof(IRepositoryBase<>));
-
+builder.Services.AddScoped<IBasketQueryService, BasketQueryService>();
+builder.Services.AddTransient<BookShop.BLL.Interfaces.IEmailSender, EmailSender>();
 
 var app = builder.Build();
 

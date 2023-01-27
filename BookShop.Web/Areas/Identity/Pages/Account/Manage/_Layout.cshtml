@@ -1,13 +1,13 @@
 ﻿@{
-    @* if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
-{
-Layout = (string)parentLayout;
-}
-else
-{ *@
-    @* Layout = "/Areas/Identity/Pages/_Layout.cshtml"; *@
-    Layout = "Layout";
-
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout!;
+    }
+    else
+    {
+        //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+        Layout = "/Views/Shared/Layout.cshtml";
+    }
 }
 
 <div class="container my-5 py-5">

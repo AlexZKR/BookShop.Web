@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookShop.DAL\BookShop.DAL.csproj" />
+    <ProjectReference Include="..\BookShop.BLL\BookShop.BLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

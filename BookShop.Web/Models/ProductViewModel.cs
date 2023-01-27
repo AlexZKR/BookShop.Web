@@ -1,5 +1,5 @@
-using BookShop.DAL.Entities;
-using BookShop.DAL.Entities.Products;
+using BookShop.BLL.Entities;
+using BookShop.BLL.Entities.Products;
 
 namespace BookShop.Web.Models;
 

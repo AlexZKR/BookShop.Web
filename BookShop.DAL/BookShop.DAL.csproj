@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookShop.BLL\BookShop.BLL.csproj" />
+  </ItemGroup>
+
 </Project>

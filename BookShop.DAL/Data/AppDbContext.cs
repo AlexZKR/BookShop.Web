@@ -1,6 +1,5 @@
-using BookShop.DAL.Entities;
-using BookShop.DAL.Entities.Basket;
-using BookShop.DAL.Entities.Products;
+using BookShop.BLL.Entities.Basket;
+using BookShop.BLL.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.DAL.Data;
@@ -16,11 +15,9 @@ public class AppDbContext : DbContext
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-
     }
 }

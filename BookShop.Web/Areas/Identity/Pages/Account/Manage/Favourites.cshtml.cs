@@ -1,7 +1,7 @@
 using BookShop.DAL.Data;
-using BookShop.DAL.Entities;
-using BookShop.DAL.Entities.Products;
-using BookShop.Web.Services.Interfaces;
+using BookShop.BLL.Entities.Products;
+using BookShop.BLL.Interfaces;
+using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,17 +12,17 @@ public class FavouritesModel : PageModel
 {
     private readonly UserManager<ApplicationUser> userManager;
     private readonly IFavouriteService<Book> favouriteService;
-    private readonly AppDbContext context;
+    private readonly IRepository<Book> repository;
 
     public List<Book> Favourites { get; set; } = new List<Book>();
 
     public FavouritesModel(UserManager<ApplicationUser> userManager,
      IFavouriteService<Book> favouriteService,
-     AppDbContext context)
+     IRepository<Book> repository)
     {
         this.userManager = userManager;
         this.favouriteService = favouriteService;
-        this.context = context;
+        this.repository = repository;
     }
 
     public async Task<IActionResult> OnGetAsync()
@@ -33,13 +33,13 @@ public class FavouritesModel : PageModel
             return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
         }
 
-        await LoadAsync(user, context);
+        await LoadAsync(user, repository);
         return Page();
     }
 
-    private async Task LoadAsync(ApplicationUser user, AppDbContext context)
+    private async Task LoadAsync(ApplicationUser user, IRepository<Book> repository)
     {
-        Favourites = await favouriteService.GetFavouritesForUser(user, context);
+        Favourites = await favouriteService.GetFavouritesForUser(user, repository);
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(int id)
@@ -52,7 +52,7 @@ public class FavouritesModel : PageModel
             return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
         }
 
-        await LoadAsync(user!, context);
+        await LoadAsync(user!, repository);
 
         await favouriteService.RemoveFromFavourites(user, id.ToString());
         var item = Favourites.FirstOrDefault(x => x.Id == id)!;

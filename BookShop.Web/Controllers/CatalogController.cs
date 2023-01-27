@@ -1,8 +1,9 @@
 using BookShop.DAL.Data;
-using BookShop.DAL.Entities;
-using BookShop.DAL.Entities.Products;
+using BookShop.BLL.Entities;
+using BookShop.BLL.Entities.Enums;
+using BookShop.BLL.Entities.Products;
 using BookShop.Web.Models;
-using BookShop.Web.Services.Interfaces;
+using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
