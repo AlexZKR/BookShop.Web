@@ -1,5 +1,4 @@
 using BookShop.DAL.Data;
-using BookShop.BLL.Entities;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
 using BookShop.Web.Models;
@@ -13,43 +12,37 @@ namespace BookShop.Web.Controllers;
 
 public class CatalogController : Controller
 {
-    private readonly AppDbContext context;
-    private readonly appIdentityDbContext identityDbContext;
     private readonly UserManager<ApplicationUser> userManager;
     private readonly IFavouriteService<Book> favouriteService;
 
-    public CatalogController(AppDbContext context,
-     appIdentityDbContext identityDbContext,
-     UserManager<ApplicationUser> userManager,
+    public CatalogController(UserManager<ApplicationUser> userManager,
      IFavouriteService<Book> favouriteService)
     {
-        this.context = context;
-        this.identityDbContext = identityDbContext;
         this.userManager = userManager;
         this.favouriteService = favouriteService;
     }
     public async Task<IActionResult> Index([FromQuery] string? search)
     {
 
-        if (context == null) throw new NullReferenceException("Db is null");
+        //if (context == null) throw new NullReferenceException("Db is null");
 
-        var vm = await PopulateViewModelWithStaticData();
+        //var vm = await PopulateViewModelWithStaticData();
 
-        if (!String.IsNullOrEmpty(search))
-        {
-            vm.Books = await FillBySearch(search);
-        }
-        else
-        {
-            //fill by pages
-            vm.Books = await context.Books.ToListAsync();
-        }
-        var user = await userManager.GetUserAsync(User);
+        // if (!String.IsNullOrEmpty(search))
+        // {
+        //     vm.Books = await FillBySearch(search);
+        // }
+        // else
+        // {
+        //     //fill by pages
+        //     vm.Books = await context.Books.ToListAsync();
+        // }
+        // var user = await userManager.GetUserAsync(User);
 
-        if (user != null)
-            vm.Books = favouriteService.CheckFavourites(user, vm.Books);
+        // if (user != null)
+        //     vm.Books = favouriteService.CheckFavourites(user, vm.Books);
 
-        vm.search = search;
+        // vm.search = search;
 
         return View(vm);
     }

@@ -1,7 +1,7 @@
 using Ardalis.Specification;
 using BookShop.BLL.Entities.Products;
 
-namespace BookShop.BLL.Specifications;
+namespace BookShop.BLL.Specifications.CatalogSpecifications;
 
 public class CatalogItemsSpecification : Specification<Book>
 {

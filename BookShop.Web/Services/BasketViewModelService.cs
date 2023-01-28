@@ -4,7 +4,6 @@ using BookShop.BLL.Interfaces;
 using BookShop.Web.Models;
 using BookShop.Web.Interfaces;
 using BookShop.BLL.Specifications;
-using BookShop.DAL.Data.Queries;
 
 namespace BookShop.Web.Services;
 

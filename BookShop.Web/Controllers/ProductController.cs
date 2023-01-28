@@ -35,7 +35,7 @@ public class ProductController : Controller
         return View("ProductPage", vm);
     }
 
-    private async Task<ProductViewModel> PopulateViewModelWithStaticData(Book book)
+    private async Task<CatalogItemViewModel> PopulateViewModelWithStaticData(Book book)
     {
         var genre = EnumHelper<Genre>.GetDisplayValue(Genre.Fiction);
         var language = EnumHelper<Language>.GetDisplayValue(Language.Russian);
@@ -43,7 +43,7 @@ public class ProductController : Controller
 
         book.Author = (await context.Authors.FirstOrDefaultAsync(a => a.Books.Contains(book)))!;
 
-        var vm = new ProductViewModel
+        var vm = new CatalogItemViewModel
         {
             Book = book,
             Genre = genre,

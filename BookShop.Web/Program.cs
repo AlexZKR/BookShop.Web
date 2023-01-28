@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 DbConfiguration.ConfigureServices(builder.Configuration, builder.Services);
 
-
 //configure db provider
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().
@@ -18,7 +17,6 @@ builder.Services.AddWebServices(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
 
 var app = builder.Build();
 
