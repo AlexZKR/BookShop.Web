@@ -26,11 +26,11 @@ public class ProductController : Controller
 
         var vm = await PopulateViewModelWithStaticData(book!);
 
-        vm.Related = await context.Books
-        .Include(b => b.Author)
-        .Where(b => b.Genre == book!.Genre)
-        .Take(9)
-        .ToListAsync();
+        // vm.Related = await context.Books
+        // .Include(b => b.Author)
+        // .Where(b => b.Genre == book!.Genre)
+        // .Take(9)
+        // .ToListAsync();
 
         return View("ProductPage", vm);
     }
@@ -43,13 +43,13 @@ public class ProductController : Controller
 
         book.Author = (await context.Authors.FirstOrDefaultAsync(a => a.Books.Contains(book)))!;
 
-        var vm = new CatalogItemViewModel
-        {
-            Book = book,
-            Genre = genre,
-            Language = language,
-            Cover = cover
-        };
+        var vm = new CatalogItemViewModel();
+        // {
+        //     Book = book,
+        //     Genre = genre,
+        //     Language = language,
+        //     Cover = cover
+        // };
         return vm;
     }
 }

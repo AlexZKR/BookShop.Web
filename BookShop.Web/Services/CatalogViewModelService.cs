@@ -4,7 +4,6 @@ using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
 using BookShop.Web.Interfaces;
 using BookShop.Web.Models;
-using BookShop.Web.Specifications;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookShop.Web.Services;
@@ -63,7 +62,9 @@ public class CatalogViewModelService : ICatalogViewModelService
                 AuthorName = b.Author.Name,
                 PictureUri = uriComposer.ComposePicUri(b.ImagePath),
                 Price = b.Price,
-                DiscountedPrice = b.DiscountedPrice
+                DiscountedPrice = b.DiscountedPrice,
+                IsOnDiscount = b.Discount > 0,
+                IsAvailable = b.Quantity > 0,
             }).ToList(),
             SearchQuery = searchQuery,
             Genres = GetStaticDataFromEnum<Genre>(Genre.ChildrenLiterature).ToList(),

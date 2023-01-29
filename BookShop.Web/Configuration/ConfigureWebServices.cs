@@ -9,6 +9,7 @@ public static class ConfigureWebServices
     {
         services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
         services.AddTransient<IBasketViewModelService, BasketViewModelService>();
+        services.AddTransient<ICatalogViewModelService, CatalogViewModelService>();
 
         return services;
     }

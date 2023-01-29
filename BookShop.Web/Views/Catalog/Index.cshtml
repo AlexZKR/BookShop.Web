@@ -12,7 +12,7 @@
                         <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul class="collapse show list-unstyled pl-3">
-                        @foreach (var item in Model.Genres)
+                        @foreach (var item in Model.Genres!)
                         {
                             <li><a class="text-decoration-none" href="#">@item</a></li>
                         }
@@ -24,7 +24,7 @@
                         <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                        @foreach (var item in Model.Languages)
+                        @foreach (var item in Model.Languages!)
                         {
                             <li><a class="text-decoration-none" href="#">@item</a></li>
                         }
@@ -36,7 +36,7 @@
                         <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
                     <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        @foreach (var item in Model.Covers)
+                        @foreach (var item in Model.Covers!)
                         {
                             <li><a class="text-decoration-none" href="#">@item</a></li>
                         }
@@ -46,9 +46,9 @@
         </div>
 
         <div class="col-lg-9">
-            @if (Model.search != null)
+            @if (Model.SearchQuery != null)
             {
-                <h2>Результаты запроса: "@Model.search"</h2>
+                <h2>Результаты запроса: "@Model.SearchQuery"</h2>
             }
             <div class="row">
                 <div class="col-md-6">
@@ -82,11 +82,11 @@
             @* Prod cards *@
             <div class="row">
 
-                @foreach (var item in Model.Books)
+                @foreach (var item in Model.CatalogItems!)
                 {
                     <partial name="_ProductCardPartial" model=@item />
                 }
-                @if (Model.Books.Count == 0)
+                @if (Model.CatalogItems.Count == 0)
                 {
                     <p class="mx-3 h2 mb-1">К сожалению ничего не найдено :(
                     <p class="mx-3 ">Попробуйте изменить текст запроса</p>

@@ -4,6 +4,7 @@ using BookShop.BLL.Interfaces;
 using BookShop.Web.Models;
 using BookShop.Web.Interfaces;
 using BookShop.BLL.Specifications;
+using BookShop.BLL.Specifications.CatalogSpecifications;
 
 namespace BookShop.Web.Services;
 

@@ -5,6 +5,8 @@ namespace BookShop.BLL.Entities.Enums;
 
 public enum Genre
 {
+    [Display(Name = "Все")]
+    All,
     [Display(Name = "Художественная")]
     Fiction,
     [Display(Name = "Нехудожественная")]
@@ -18,6 +20,8 @@ public enum Genre
 
 public enum Cover
 {
+    [Display(Name = "Все")]
+    All,
     [Display(Name = "Твердая")]
     HardCover,
     [Display(Name = "Мягкая")]
@@ -28,6 +32,8 @@ public enum Cover
 
 public enum Language
 {
+    [Display(Name = "Все")]
+    All,
     [Display(Name = "Русский")]
     Russian,
     [Display(Name = "Белорусский")]

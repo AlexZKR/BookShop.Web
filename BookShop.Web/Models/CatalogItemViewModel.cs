@@ -11,4 +11,8 @@ public class CatalogItemViewModel
     public double Price { get; set; }
     public double DiscountedPrice { get; set; }
 
+    public bool IsOnDiscount { get; set; }
+    public bool IsAvailable { get; set; }
+    public bool IsFavourite { get; set; }
+
 }
