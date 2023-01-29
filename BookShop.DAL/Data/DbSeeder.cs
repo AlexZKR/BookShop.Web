@@ -1,6 +1,5 @@
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
-using BookShop.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +18,13 @@ public class DbSeeder
             {
                 await context.Authors.AddRangeAsync(
                     GetPreconfiguredAuthors());
+
+                await context.SaveChangesAsync();
+            }
+            if (!await context.Books.AnyAsync())
+            {
+                await context.Books.AddRangeAsync(
+                    GetPreconfiguredBooks());
 
                 await context.SaveChangesAsync();
             }
@@ -75,9 +81,30 @@ public class DbSeeder
             {
                 Name = "Олдос Хаксли",
                 Description = "test desc",
-                Books = new List<Book>
-                {
-                    new Book
+            },
+            new Author
+            {
+                Name = "Рэй Брэдберри",
+                Description = "test desc",
+            },
+            new Author
+            {
+                Name = "Юваль Ной Харари",
+                Description = "израильский военный историк-медиевист, профессор исторического факультета Еврейского университета в Иерусалиме, автор международного бестселлера «Sapiens: Краткая история человечества».",
+            },
+            new Author
+            {
+                Name = "Ольга Примаченко",
+                Description = "белорусская журналистка, психолог, блогер, автор вдохновляющих книг о самопознании и гармоничных отношениях с собой и окружающими.",
+            }
+        };
+    }
+
+    private static IEnumerable<Book> GetPreconfiguredBooks()
+    {
+        return new List<Book>()
+        {
+            new Book
                     {
                         Name = "О дивный новый мир",
                         Description = "test desc",
@@ -95,7 +122,9 @@ public class DbSeeder
 
                         Sold = 453,
 
-                        ImagePath = "b_01.jpg"
+                        ImagePath = "b_01.jpg",
+
+                        AuthorId = 1,
                     },
                     new Book
                     {
@@ -115,16 +144,10 @@ public class DbSeeder
 
                         Sold = 34,
 
-                        ImagePath = "b_02.jpg"
-                    }
-                }
-            },
-            new Author
-            {
-                Name = "Рэй Брэдберри",
-                Description = "test desc",
-                Books = new List<Book>
-                {
+                        ImagePath = "b_02.jpg",
+
+                        AuthorId = 1
+                    },
                     new Book
                     {
                         Name = "451 градус по Фаренгейту",
@@ -144,7 +167,8 @@ public class DbSeeder
 
                         Sold = 200,
 
-                        ImagePath = "b_03.jpg"
+                        ImagePath = "b_03.jpg",
+                        AuthorId = 2
                     },
                     new Book
                     {
@@ -165,10 +189,53 @@ public class DbSeeder
 
                         Sold = 145,
 
-                        ImagePath = "b_04.jpg"
+                        ImagePath = "b_04.jpg",
+                        AuthorId = 2
+                    },
+                    new Book
+                    {
+                        Name = "Sapiens: Краткая история человечества",
+                        Description = "книга профессора Юваля Ноя Харари, впервые опубликованная на иврите в Израиле в 2011 году, а на английском языке в 2014 году.",
+                        PagesCount = 460,
+
+
+                        Genre = Genre.ScienceFiction,
+                        Language = Language.English,
+                        Cover = Cover.SuperCover,
+
+                        Tag = Tag.Bestseller,
+
+                        Price = 30,
+                        Discount = 0.14,
+                        Quantity = 45,
+
+                        Sold = 950,
+
+                        ImagePath = "b_05.jpg",
+                        AuthorId = 3
+                    },
+                    new Book
+                    {
+                        Name = "К себе нежно. Книга о том, как ценить и беречь себя",
+                        Description = "\"К себе нежно\" – это новый, очень честный взгляд на любовь к себе. Это книга-медитация, которая призывает к внутреннему разговору и помогает услышать собственный голос среди множества других.",
+                        PagesCount = 460,
+
+
+                        Genre = Genre.Psychology,
+                        Language = Language.Belarusian,
+                        Cover = Cover.SoftCover,
+
+                        Tag = Tag.None,
+
+                        Price = 25,
+                        Discount = 0.05,
+                        Quantity = 70,
+
+                        Sold = 120,
+
+                        ImagePath = "b_06.jpg",
+                        AuthorId = 4
                     }
-                }
-            }
         };
     }
 }

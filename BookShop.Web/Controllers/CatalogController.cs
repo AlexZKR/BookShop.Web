@@ -21,7 +21,7 @@ public class CatalogController : Controller
     public async Task<IActionResult> Index([FromQuery] string? searchQuery, int? pageId, int? author, int? genre, int? lang, int? cover)
     {
         var catalogModel = await catalogViewModelService
-        .GetCatalogItems(pageId ?? 0, SD.ITEMS_PER_PAGE, searchQuery: searchQuery, AuthorId: author, genre: (Genre)genre!.GetValueOrDefault(), lang: (Language)lang!.GetValueOrDefault(), cover: (Cover)cover!.GetValueOrDefault());
+        .GetCatalogItems(pageId ?? 0, SD.ITEMS_PER_PAGE, searchQuery: searchQuery, AuthorId: author, genre: genre, lang: lang!, cover: cover);
 
 
         return View(catalogModel);

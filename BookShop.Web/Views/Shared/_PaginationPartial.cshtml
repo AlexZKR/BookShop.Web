@@ -1,0 +1,55 @@
+@model PaginationViewModel
+
+@{
+    var prevRouteData = Context.Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
+    if (prevRouteData.ContainsKey("pageId"))
+        prevRouteData.Remove("pageId");
+    prevRouteData.Add("pageId", (Model.ActualPage - 1).ToString());
+    var nextRouteData = Context.Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
+    if (nextRouteData.ContainsKey("pageId"))
+        nextRouteData.Remove("pageId");
+    nextRouteData.Add("pageId", (Model.ActualPage + 1).ToString());
+}
+<div class="esh-pager">
+    <div class="container-fluid">
+        <article class="esh-pager-wrapper row">
+            <nav>
+                <div class="col-md-2 col-xs-12">
+                    <a class="esh-pager-item-left esh-pager-item--navigable esh-pager-item @Model.Previous"
+                        id="Previous" asp-all-route-data="prevRouteData" aria-label="Previous">
+                        Previous
+                    </a>
+                </div>
+
+                <div class="col-md-8 col-xs-12">
+                    <span class="esh-pager-item">
+                        @Model.ItemsPerPage из @Model.TotalItems товаров - Page @(Model.ActualPage + 1) -
+                        @Model.TotalPages
+                    </span>
+                </div>
+
+                <div class="col-md-2 col-xs-12">
+                    <a class="esh-pager-item-right esh-pager-item--navigable esh-pager-item @Model.Next" id="Next"
+                        asp-all-route-data="nextRouteData" aria-label="Next">
+                        Next
+                    </a>
+                </div>
+            </nav>
+        </article>
+    </div>
+</div>
+
+
+@* <div div="row">
+<ul class="pagination pagination-lg justify-content-end">
+<li class="page-item disabled">
+<a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
+</li>
+<li class="page-item">
+<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
+</li>
+<li class="page-item">
+<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
+</li>
+</ul>
+</div> *@

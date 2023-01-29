@@ -9,8 +9,8 @@ public enum Genre
     All,
     [Display(Name = "Художественная")]
     Fiction,
-    [Display(Name = "Нехудожественная")]
-    NonFiction,
+    [Display(Name = "Психология")]
+    Psychology,
     [Display(Name = "Научно-популярная")]
     ScienceFiction,
     [Display(Name = "Детская")]

@@ -14,7 +14,7 @@ public class Book : BaseProduct
     public string Name { get; set; } = "";
 
     [DataType(DataType.MultilineText)]
-    [StringLength(500)]
+    [StringLength(1500)]
     [Display(Name = "Описание товара")]
     public string Description { get; set; } = "";
 

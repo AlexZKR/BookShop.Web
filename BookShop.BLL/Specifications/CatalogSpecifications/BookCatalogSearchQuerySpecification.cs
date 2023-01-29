@@ -6,8 +6,12 @@ public class BookCatalogSearchQuerySpecification : Specification<Book>
 {
     public BookCatalogSearchQuerySpecification(string searchQuery)
     {
-        Query.Where(b =>
-        b.Name.ToLower().Contains(searchQuery.ToLower()) ||
-        b.Author.Name!.ToLower()!.Contains(searchQuery.ToLower()));
+        Query.Include(b => b.Author).Where(b =>
+        (b.Name.ToLower().Contains(searchQuery.ToLower())) || (b.Author.Name!.ToLower()!.Contains(searchQuery.ToLower()))).OrderBy(n => n.Name);
+        // || (b.Author.Name!.ToLower()!.Contains(searchQuery.ToLower())));
+        // Query.Where(b =>
+        // b.Name.ToLower().Contains(searchQuery.ToLower()));
+        // Query.Where(b =>
+        // b.Id.ToString() == searchQuery);
     }
 }

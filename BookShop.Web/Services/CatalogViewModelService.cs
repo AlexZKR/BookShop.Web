@@ -25,7 +25,7 @@ public class CatalogViewModelService : ICatalogViewModelService
         this.authorRepository = authorRepository;
         this.uriComposer = uriComposer;
     }
-    public async Task<CatalogViewModel> GetCatalogItems(int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, Cover? cover, Genre? genre, Language? lang)
+    public async Task<CatalogViewModel> GetCatalogItems(int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
     {
         logger.LogInformation("GetCatalogItems called");
 
@@ -63,8 +63,8 @@ public class CatalogViewModelService : ICatalogViewModelService
                 PictureUri = uriComposer.ComposePicUri(b.ImagePath),
                 Price = b.Price,
                 DiscountedPrice = b.DiscountedPrice,
-                IsOnDiscount = b.Discount > 0,
-                IsAvailable = b.Quantity > 0,
+                IsOnDiscount = b.Discount != 0,
+                IsAvailable = b.Quantity != 0,
             }).ToList(),
             SearchQuery = searchQuery,
             Genres = GetStaticDataFromEnum<Genre>(Genre.ChildrenLiterature).ToList(),
@@ -102,7 +102,6 @@ public class CatalogViewModelService : ICatalogViewModelService
     {
         logger.LogInformation($"GetStaticDataFromEnum called for {value.GetType().ToString()}");
 
-        //var displays = EnumHelper<T>.GetDisplayValues(value);
         var allValues = Enum.GetValues(value.GetType());
         List<SelectListItem> selects = new List<SelectListItem>();
 
@@ -110,7 +109,7 @@ public class CatalogViewModelService : ICatalogViewModelService
         {
             selects.Add
             (new SelectListItem(EnumHelper<T>.GetDisplayValue(EnumHelper<T>.Parse(e.ToString()!)),
-             e.ToString()));
+            EnumHelper<T>.Parse(e.ToString()!).ToString()));
         }
 
         return selects;
