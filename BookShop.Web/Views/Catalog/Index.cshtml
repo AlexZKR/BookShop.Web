@@ -2,53 +2,13 @@
 
 <div class="container py-5">
     <div class="row">
-
         <div class="col-lg-3">
-            <h1 class="h2 pb-4">Фильтр</h1>
-            <ul class="list-unstyled templatemo-accordion">
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        Жанр
-                        <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul class="collapse show list-unstyled pl-3">
-                        @foreach (var item in Model.Genres!)
-                        {
-                            <li><a class="text-decoration-none" href="#">@item</a></li>
-                        }
-                    </ul>
-                </li>
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        Язык
-                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                        @foreach (var item in Model.Languages!)
-                        {
-                            <li><a class="text-decoration-none" href="#">@item</a></li>
-                        }
-                    </ul>
-                </li>
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        Обложка
-                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        @foreach (var item in Model.Covers!)
-                        {
-                            <li><a class="text-decoration-none" href="#">@item</a></li>
-                        }
-                    </ul>
-                </li>
-            </ul>
+            <partial name="_CatalogFilterPartial" model="@Model.FilterInfo" />
         </div>
-
         <div class="col-lg-9">
-            @if (Model.SearchQuery != null)
+            @if (Model.FilterInfo!.SearchQuery != null)
             {
-                <h2>Результаты запроса: "@Model.SearchQuery"</h2>
+                <h2>Результаты запроса: "@Model.FilterInfo.SearchQuery"</h2>
             }
             <div class="row">
                 <div class="col-md-6">

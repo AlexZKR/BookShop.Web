@@ -1,9 +1,7 @@
 using BookShop.BLL.Entities.Products;
 using BookShop.Web.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BookShop.BLL;
-using BookShop.BLL.Entities.Enums;
 
 namespace BookShop.Web.Controllers;
 
@@ -18,7 +16,7 @@ public class CatalogController : Controller
         this.favouriteService = favouriteService;
         this.catalogViewModelService = catalogViewModelService;
     }
-    public async Task<IActionResult> Index([FromQuery] string? searchQuery, int? pageId, int? author, int? genre, int? lang, int? cover)
+    public async Task<IActionResult> Index([FromQuery] string? searchQuery, int? pageId, int? author, int? cover, int? genre, int? lang)
     {
         var catalogModel = await catalogViewModelService
         .GetCatalogItems(pageId ?? 0, SD.ITEMS_PER_PAGE, searchQuery: searchQuery, AuthorId: author, genre: genre, lang: lang!, cover: cover);

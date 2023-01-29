@@ -1,0 +1,70 @@
+@model CatalogFilterViewModel
+
+@* <div class="col-lg-3"> *@
+<h1 class="h2 pb-4">Фильтр</h1>
+
+<form asp-controller="Catalog" asp-action="Index" method="get">
+    <div class="row">
+        @Html.DisplayNameFor(Model => Model.Genres)
+        <select asp-for="@Model.genre" asp-items="@Model.Genres">
+        </select>
+    </div>
+    <div class="row">
+        @Html.DisplayNameFor(Model => Model.Languages)
+        <select asp-for="@Model.lang" asp-items="@Model.Languages">
+        </select>
+    </div>
+    <div class="row">
+        @Html.DisplayNameFor(Model => Model.Covers)
+        <select asp-for="@Model.cover" asp-items="@Model.Covers">
+        </select>
+    </div>
+    <hr class="mt-4 mb-2">
+    <div class="row mb-4">
+        @Html.DisplayNameFor(Model => Model.Authors)
+        <select asp-for="@Model.author" asp-items="@Model.Authors">
+        </select>
+    </div>
+    <div class="row" class="my-4">
+        <input type="submit" value="Search" class="btn btn-success" />
+    </div>
+</form>
+@* <ul class="list-unstyled templatemo-accordion">
+<li class="pb-3">
+<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+Жанр
+<i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+</a>
+<ul class="collapse show list-unstyled pl-3">
+@foreach (var item in Model.Genres!)
+{
+<li><a class="text-decoration-none" href="#">@item</a></li>
+}
+</ul>
+</li>
+<li class="pb-3">
+<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+Язык
+<i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+</a>
+<ul id="collapseTwo" class="collapse list-unstyled pl-3">
+@foreach (var item in Model.Languages!)
+{
+<li><a class="text-decoration-none" href="#">@item</a></li>
+}
+</ul>
+</li>
+<li class="pb-3">
+<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+Обложка
+<i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+</a>
+<ul id="collapseThree" class="collapse list-unstyled pl-3">
+@foreach (var item in Model.Covers!)
+{
+<li><a class="text-decoration-none" href="#">@item</a></li>
+}
+</ul>
+</li>
+</ul> *@
+@* </div> *@

@@ -1,5 +1,7 @@
+using System.Runtime.CompilerServices;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
+using BookShop.BLL.Infrastructure;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
 using BookShop.Web.Interfaces;
@@ -66,11 +68,14 @@ public class CatalogViewModelService : ICatalogViewModelService
                 IsOnDiscount = b.Discount != 0,
                 IsAvailable = b.Quantity != 0,
             }).ToList(),
-            SearchQuery = searchQuery,
-            Genres = GetStaticDataFromEnum<Genre>(Genre.ChildrenLiterature).ToList(),
-            Languages = GetStaticDataFromEnum<Language>(Language.Russian).ToList(),
-            Covers = GetStaticDataFromEnum<Cover>(Cover.HardCover).ToList(),
-            Authors = (await GetAuthors()).ToList(),
+            FilterInfo = new CatalogFilterViewModel()
+            {
+                SearchQuery = searchQuery,
+                Genres = GetStaticDataFromEnum<Genre>(Genre.ChildrenLiterature).ToList(),
+                Languages = GetStaticDataFromEnum<Language>(Language.Russian).ToList(),
+                Covers = GetStaticDataFromEnum<Cover>(Cover.HardCover).ToList(),
+                Authors = (await GetAuthors()).ToList(),
+            },
             PaginationInfo = new PaginationViewModel()
             {
                 ActualPage = pageIndex,
@@ -93,7 +98,7 @@ public class CatalogViewModelService : ICatalogViewModelService
             .OrderBy(n => n.Text)
             .ToList();
 
-        var allItem = new SelectListItem() { Value = null, Text = "Все", Selected = true };
+        var allItem = new SelectListItem() { Value = "0", Text = "Все", Selected = true };
         items.Insert(0, allItem);
         return items;
     }
@@ -104,14 +109,21 @@ public class CatalogViewModelService : ICatalogViewModelService
 
         var allValues = Enum.GetValues(value.GetType());
         List<SelectListItem> selects = new List<SelectListItem>();
-
-        foreach (var e in allValues)
+        Type genericType = typeof(T);
+        if (genericType.IsEnum)
         {
-            selects.Add
-            (new SelectListItem(EnumHelper<T>.GetDisplayValue(EnumHelper<T>.Parse(e.ToString()!)),
-            EnumHelper<T>.Parse(e.ToString()!).ToString()));
+            foreach (T e in allValues)
+            {
+                selects.Add
+                (new SelectListItem(EnumHelper<T>.GetDisplayValue(EnumHelper<T>.Parse(e.ToString()!)),
+                Unsafe_As<T>(e).ToString()));
+            }
         }
-
         return selects;
+    }
+
+    public static int Unsafe_As<TEnum>(TEnum enumValue) where TEnum : struct, Enum
+    {
+        return Unsafe.As<TEnum, int>(ref enumValue);
     }
 }

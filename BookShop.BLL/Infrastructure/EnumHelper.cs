@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reflection;
 
-public static class EnumHelper<T>
-    where T : struct, Enum
+namespace BookShop.BLL.Infrastructure;
+public static class EnumHelper<T> where T : struct, Enum
 {
     public static IEnumerable<T> GetValues(Enum value)
     {
@@ -18,9 +15,12 @@ public static class EnumHelper<T>
         return enumValues;
     }
 
-    public static T Parse(string value)
+    public static T? Parse(string value)
     {
-        return (T)Enum.Parse(typeof(T), value, true);
+        if (value != null)
+            return (T)Enum.Parse(typeof(T), value, true);
+        else
+            return null;
     }
 
     public static IEnumerable<string> GetNames(Enum value)
@@ -28,7 +28,7 @@ public static class EnumHelper<T>
         return value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
     }
 
-    public static IEnumerable<string> GetDisplayValues(Enum value)
+    public static IEnumerable<string?> GetDisplayValues(Enum value)
     {
         return GetNames(value).Select(obj => GetDisplayValue(Parse(obj))).ToList();
     }
@@ -46,17 +46,26 @@ public static class EnumHelper<T>
         return resourceKey; // Fallback with the key name
     }
 
-    public static string GetDisplayValue(T value)
+    public static string? GetDisplayValue(T? value)
     {
-        var fieldInfo = value.GetType().GetField(value.ToString());
+        if (value != null)
+        {
 
-        var descriptionAttributes = fieldInfo!.GetCustomAttributes(
-            typeof(DisplayAttribute), false) as DisplayAttribute[];
 
-        if (descriptionAttributes![0].ResourceType != null)
-            return lookupResource(descriptionAttributes[0].ResourceType!, descriptionAttributes[0].Name!);
+            var fieldInfo = value.GetType().GetField(value.ToString()!);
 
-        if (descriptionAttributes == null) return string.Empty;
-        return (descriptionAttributes.Length > 0) ? descriptionAttributes[0].Name! : value!.ToString()!;
+            var descriptionAttributes = fieldInfo!.GetCustomAttributes(
+                typeof(DisplayAttribute), false) as DisplayAttribute[];
+
+            if (descriptionAttributes![0].ResourceType != null)
+                return lookupResource(descriptionAttributes[0].ResourceType!, descriptionAttributes[0].Name!);
+
+            if (descriptionAttributes == null) return string.Empty;
+            return (descriptionAttributes.Length > 0) ? descriptionAttributes[0].Name! : value!.ToString()!;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
