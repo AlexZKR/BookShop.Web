@@ -16,6 +16,9 @@ public static class ConfigureBLLServices
         services.AddScoped(typeof(IReadRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+        services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
+
+
         services.AddSingleton<IUriComposer>(new UriComposer(configuration.Get<CatalogSettings>()!));
         services.AddScoped<IBasketQueryService, BasketQueryService>();
         services.AddTransient<IEmailSender, EmailSender>();

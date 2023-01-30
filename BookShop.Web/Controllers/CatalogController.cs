@@ -2,6 +2,8 @@ using BookShop.BLL.Entities.Products;
 using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BookShop.BLL;
+using BookShop.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookShop.Web.Controllers;
 
@@ -18,13 +20,76 @@ public class CatalogController : Controller
     }
     public async Task<IActionResult> Index([FromQuery] string? searchQuery, int? pageId, int? author, int? cover, int? genre, int? lang)
     {
+        //todo: even not auth users can get userfavs object. thats not right
+        string username = GetOrSetBasketCookieAndUserName();
         var catalogModel = await catalogViewModelService
-        .GetCatalogItems(pageId ?? 0, SD.ITEMS_PER_PAGE, searchQuery: searchQuery, AuthorId: author, genre: genre, lang: lang!, cover: cover);
-
+        .GetCatalogItems(username, pageId ?? 0, SD.ITEMS_PER_PAGE, searchQuery: searchQuery, AuthorId: author, genre: genre, lang: lang!, cover: cover);
 
         return View(catalogModel);
     }
 
+    [Authorize]
+    [Route("UpdateFav/{prodId:int}/{returnUrl}")]
+    public async Task<IActionResult> UpdateFav(int prodId, string returnUrl)
+    {
+        string username = GetOrSetBasketCookieAndUserName();
+        await favouriteService.UpdateFavourite(username, prodId.ToString());
+        return RedirectToAction(nameof(Index));
+    }
+
+
+
+    //private helpers
+    private string GetOrSetBasketCookieAndUserName()
+    {
+        var user = Request.HttpContext.User;
+        if (user.Identity == null) throw new NullReferenceException();
+        string? userName = null;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            if (user.Identity.Name != null)
+                return user.Identity.Name!;
+        }
+
+        if (Request.Cookies.ContainsKey(SD.BASKET_COOKIENAME))
+        {
+            userName = Request.Cookies[SD.BASKET_COOKIENAME];
+
+            if (user.Identity.IsAuthenticated)
+            {
+                if (!Guid.TryParse(userName, out var _))
+                {
+                    userName = null;
+                }
+            }
+        }
+        if (userName != null) return userName;
+
+        userName = Guid.NewGuid().ToString();
+        var cookieOptions = new CookieOptions { IsEssential = true };
+        cookieOptions.Expires = DateTime.Today.AddYears(10);
+        Response.Cookies.Append(SD.BASKET_COOKIENAME, userName, cookieOptions);
+
+        return userName;
+    }
+
+    private string GetUsernameIfAuth()
+    {
+        var user = Request.HttpContext.User;
+        if (user.Identity == null) throw new NullReferenceException();
+        string userName = null;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            if (user.Identity.Name != null)
+                return user.Identity.Name!;
+        }
+        return userName;
+    }
+
+
+    //n layered controller
 
     // [Authorize]
     // [Route("UpdateFav/{prodId:int}")]
