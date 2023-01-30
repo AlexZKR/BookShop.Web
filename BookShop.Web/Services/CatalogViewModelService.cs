@@ -15,18 +15,23 @@ public class CatalogViewModelService : ICatalogViewModelService
     private readonly IRepository<Book> bookRepository;
     private readonly IRepository<Author> authorRepository;
     private readonly IUriComposer uriComposer;
+    private readonly IFavouriteService<Book> favouriteService;
 
     public CatalogViewModelService(ILoggerFactory loggerFactory,
     IRepository<Book> bookRepository,
     IRepository<Author> authorRepository,
-    IUriComposer uriComposer)
+    IUriComposer uriComposer,
+    IFavouriteService<Book> favouriteService)
     {
         logger = loggerFactory.CreateLogger<CatalogViewModelService>();
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.uriComposer = uriComposer;
+        this.favouriteService = favouriteService;
     }
-    public async Task<CatalogViewModel> GetCatalogItems(int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
+
+    //todo: split method cause it violates single responsibility principle, add sorting and tag filter on top of the catalog
+    public async Task<CatalogViewModel> GetCatalogItems(string username, int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
     {
         logger.LogInformation("GetCatalogItems called");
 
@@ -66,7 +71,7 @@ public class CatalogViewModelService : ICatalogViewModelService
                 DiscountedPrice = b.DiscountedPrice,
                 IsOnDiscount = b.Discount != 0,
                 IsAvailable = b.Quantity != 0,
-                IsFavourite = CheckIfFavourite(b),
+                IsFavourite = favouriteService.CheckIfFavourite(username, b),
             }).ToList(),
             FilterInfo = new CatalogFilterViewModel()
             {
@@ -90,10 +95,7 @@ public class CatalogViewModelService : ICatalogViewModelService
         return vm;
     }
 
-    private bool CheckIfFavourite(Book b)
-    {
-        throw new NotImplementedException();
-    }
+
 
     public async Task<IEnumerable<SelectListItem>> GetAuthors()
     {

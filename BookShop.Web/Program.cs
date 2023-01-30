@@ -12,11 +12,19 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().
 AddEntityFrameworkStores<appIdentityDbContext>()
 .AddDefaultTokenProviders();
 
+//configuring services
+
 builder.Services.AddBLLServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
+            });
 
 var app = builder.Build();
 
@@ -42,6 +50,8 @@ using (var scope = app.Services.CreateScope())
         throw;
     }
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

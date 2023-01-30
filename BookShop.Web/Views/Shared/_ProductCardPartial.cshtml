@@ -2,6 +2,8 @@
 
 @{
     string iconType = Model.IsFavourite ? "fa-solid fa-heart" : "fa-regular fa-heart";
+    var request = ViewContext.HttpContext.Request;
+    string returnUrl = request.Path + request.QueryString.ToUriComponent();
 }
 
 
@@ -15,7 +17,8 @@
                         <form asp-controller="Catalog" asp-action="UpdateFav" method="post"
                             enctype="multipart/form-data">
                             <a class="btn btn-success text-white" asp-asp-controller="Catalog" asp-action="UpdateFav"
-                                asp-route-prodId="@Model.Id"><i class="@iconType"></i></a>
+                                asp-route-prodId="@Model.Id" asp-route-returnUrl="@returnUrl"><i
+                                    class="@iconType"></i></a>
                         </form>
                     </li>
                     <li><a class="btn btn-success text-white mt-2" asp-controller="Product" asp-action="Index"

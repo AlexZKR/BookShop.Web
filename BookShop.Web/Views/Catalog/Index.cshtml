@@ -42,16 +42,8 @@
             @* Prod cards *@
             <div class="row">
 
-                @foreach (var item in Model.CatalogItems!)
-                {
-                    <partial name="_ProductCardPartial" model=@item />
-                }
-                @if (Model.CatalogItems.Count == 0)
-                {
-                    <p class="mx-3 h2 mb-1">К сожалению ничего не найдено :(
-                    <p class="mx-3 ">Попробуйте изменить текст запроса</p>
-                    </p>
-                }
+                <partial name="_CatalogListPartial" model="@Model" />
+
             </div>
 
             @* Prod cards *@
