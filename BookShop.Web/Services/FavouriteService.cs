@@ -12,6 +12,8 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
     private readonly UserManager<ApplicationUser> userManager;
     private readonly IRepository<T> productRepository;
 
+
+
     public FavouriteService(UserManager<ApplicationUser> userManager, IRepository<T> productRepository)
     {
         this.userManager = userManager;
@@ -30,6 +32,15 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
                 item.IsFavourite = true;
         }
         return entitiesToCheck;
+    }
+
+    public bool CheckIfFavourite(T entity, ApplicationUser user)
+    {
+        string[] items = user?.Favourites?.Split(',')!;
+        if (items.Contains(entity.Id.ToString()))
+            return true;
+        else
+            return false;
     }
 
     public async Task<bool> RemoveFromFavourites(ApplicationUser user, string Id)

@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Infrastructure;
@@ -67,6 +66,7 @@ public class CatalogViewModelService : ICatalogViewModelService
                 DiscountedPrice = b.DiscountedPrice,
                 IsOnDiscount = b.Discount != 0,
                 IsAvailable = b.Quantity != 0,
+                IsFavourite = CheckIfFavourite(b),
             }).ToList(),
             FilterInfo = new CatalogFilterViewModel()
             {
@@ -89,6 +89,12 @@ public class CatalogViewModelService : ICatalogViewModelService
         vm.PaginationInfo.Previous = (vm.PaginationInfo.ActualPage == 0) ? "is-disabled" : "";
         return vm;
     }
+
+    private bool CheckIfFavourite(Book b)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IEnumerable<SelectListItem>> GetAuthors()
     {
         logger.LogInformation("GetAuthors called");
@@ -116,14 +122,11 @@ public class CatalogViewModelService : ICatalogViewModelService
             {
                 selects.Add
                 (new SelectListItem(EnumHelper<T>.GetDisplayValue(EnumHelper<T>.Parse(e.ToString()!)),
-                Unsafe_As<T>(e).ToString()));
+                EnumHelper<T>.ConvertToInt(e).ToString()));
             }
         }
         return selects;
     }
 
-    public static int Unsafe_As<TEnum>(TEnum enumValue) where TEnum : struct, Enum
-    {
-        return Unsafe.As<TEnum, int>(ref enumValue);
-    }
+
 }

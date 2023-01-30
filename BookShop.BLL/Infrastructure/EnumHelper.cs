@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace BookShop.BLL.Infrastructure;
 public static class EnumHelper<T> where T : struct, Enum
@@ -68,4 +69,7 @@ public static class EnumHelper<T> where T : struct, Enum
             return null;
         }
     }
+
+    public static int ConvertToInt(T enumValue) => Unsafe.As<T, int>(ref enumValue);
+
 }
