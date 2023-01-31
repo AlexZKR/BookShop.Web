@@ -30,7 +30,7 @@ public class CatalogViewModelService : ICatalogViewModelService
         this.favouriteService = favouriteService;
     }
 
-    //todo: split method cause it violates single responsibility principle
+    //todo: split method cause it violates single responsibility principle, add sorting and tag filter on top of the catalog
     public async Task<CatalogViewModel> GetCatalogItems(string username, int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
     {
         logger.LogInformation("GetCatalogItems called");
