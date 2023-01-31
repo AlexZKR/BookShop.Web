@@ -1,5 +1,5 @@
 
-namespace BookShop.Web.Models;
+namespace BookShop.Web.Models.Catalog;
 
 public class CatalogItemViewModel
 {

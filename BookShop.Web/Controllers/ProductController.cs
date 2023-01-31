@@ -1,10 +1,10 @@
 using BookShop.DAL.Data;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Entities.Enums;
-using BookShop.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookShop.BLL.Infrastructure;
+using BookShop.Web.Models.Catalog;
 
 namespace BookShop.Web.Controllers;
 

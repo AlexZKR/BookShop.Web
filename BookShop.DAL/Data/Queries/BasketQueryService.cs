@@ -1,5 +1,4 @@
 ﻿using BookShop.BLL.Interfaces;
-using BookShop.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.DAL.Data.Queries;

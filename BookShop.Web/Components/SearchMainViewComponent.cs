@@ -1,17 +1,13 @@
-
-using BookShop.DAL.Data;
-using BookShop.Web.Models;
+using BookShop.Web.Models.Catalog;
 using Microsoft.AspNetCore.Mvc;
 
-namespace bestBuild.Components;
+namespace BookShop.Web.Components;
 
 public class SearchMainViewComponent : ViewComponent
 {
-    private readonly AppDbContext context;
 
-    public SearchMainViewComponent(AppDbContext context)
+    public SearchMainViewComponent()
     {
-        this.context = context;
     }
 
     public IViewComponentResult Invoke()

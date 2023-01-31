@@ -21,7 +21,7 @@ public class CatalogController : Controller
     public async Task<IActionResult> Index([FromQuery] string? searchQuery, int? pageId, int? author, int? cover, int? genre, int? lang)
     {
         //todo: even not auth users can get userfavs object. thats not right
-        string username = GetOrSetBasketCookieAndUserName();
+        string username = GetUserName();
         var catalogModel = await catalogViewModelService
         .GetCatalogItems(username, pageId ?? 0, SD.ITEMS_PER_PAGE, searchQuery: searchQuery, AuthorId: author, genre: genre, lang: lang!, cover: cover);
 
@@ -32,7 +32,7 @@ public class CatalogController : Controller
     [Route("UpdateFav/{prodId:int}/{returnUrl}")]
     public async Task<IActionResult> UpdateFav(int prodId, string returnUrl)
     {
-        string username = GetOrSetBasketCookieAndUserName();
+        string username = GetUserName();
         await favouriteService.UpdateFavourite(username, prodId.ToString());
         return RedirectToAction(nameof(Index));
     }
@@ -40,7 +40,7 @@ public class CatalogController : Controller
 
 
     //private helpers
-    private string GetOrSetBasketCookieAndUserName()
+    private string GetUserName()
     {
         var user = Request.HttpContext.User;
         if (user.Identity == null) throw new NullReferenceException();
@@ -52,39 +52,6 @@ public class CatalogController : Controller
                 return user.Identity.Name!;
         }
 
-        if (Request.Cookies.ContainsKey(SD.BASKET_COOKIENAME))
-        {
-            userName = Request.Cookies[SD.BASKET_COOKIENAME];
-
-            if (user.Identity.IsAuthenticated)
-            {
-                if (!Guid.TryParse(userName, out var _))
-                {
-                    userName = null;
-                }
-            }
-        }
-        if (userName != null) return userName;
-
-        userName = Guid.NewGuid().ToString();
-        var cookieOptions = new CookieOptions { IsEssential = true };
-        cookieOptions.Expires = DateTime.Today.AddYears(10);
-        Response.Cookies.Append(SD.BASKET_COOKIENAME, userName, cookieOptions);
-
-        return userName;
-    }
-
-    private string GetUsernameIfAuth()
-    {
-        var user = Request.HttpContext.User;
-        if (user.Identity == null) throw new NullReferenceException();
-        string userName = null;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            if (user.Identity.Name != null)
-                return user.Identity.Name!;
-        }
         return userName;
     }
 

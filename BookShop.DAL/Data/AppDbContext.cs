@@ -7,9 +7,13 @@ namespace BookShop.DAL.Data;
 #pragma warning disable CS8618 // Disabling null value warnings
 public class AppDbContext : DbContext
 {
+    //basket tables
     public DbSet<Basket> Baskets { get; set; }
     public DbSet<BasketItem> BasketItems { get; set; }
 
+    //order tables
+
+    //product tables
     public DbSet<UserFavourites> Favourites { get; set; }
     public DbSet<Book> Books { get; set; }
     public DbSet<Author> Authors { get; set; }

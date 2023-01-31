@@ -1,5 +1,4 @@
-﻿using BookShop.BLL.Entities.Enums;
-using BookShop.Web.Models;
+﻿using BookShop.Web.Models.Catalog;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 

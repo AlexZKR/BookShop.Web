@@ -1,5 +1,5 @@
 using BookShop.BLL.Entities.Basket;
-using BookShop.Web.Models;
+using BookShop.Web.Models.Basket;
 
 namespace BookShop.Web.Interfaces;
 

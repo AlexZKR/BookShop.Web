@@ -4,7 +4,7 @@ using BookShop.BLL.Infrastructure;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
 using BookShop.Web.Interfaces;
-using BookShop.Web.Models;
+using BookShop.Web.Models.Catalog;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookShop.Web.Services;

@@ -1,4 +1,4 @@
-namespace BookShop.Web.Models;
+namespace BookShop.Web.Models.Catalog;
 public class PaginationViewModel
 {
     public int TotalItems { get; set; }

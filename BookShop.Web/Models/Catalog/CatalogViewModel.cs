@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BookShop.Web.Models;
+namespace BookShop.Web.Models.Catalog;
 
 public class CatalogViewModel
 {

@@ -1,28 +1,60 @@
 using Ardalis.GuardClauses;
-using BookShop.BLL.Interfaces;
 using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BookShop.BLL;
-
+using BookShop.BLL.Interfaces;
+using BookShop.BLL.Entities.Products;
+using BookShop.Web.Models.Basket;
 
 namespace BookShop.Web.Controllers;
 
 public class BasketController : Controller
 {
     private readonly IBasketViewModelService basketViewModelService;
+    private readonly IRepository<Book> productRepository;
+    private readonly IBasketService basketService;
 
-    public BasketController(IBasketViewModelService basketViewModelService)
+    public BasketController(IBasketViewModelService basketViewModelService,
+    IRepository<Book> productRepository,
+    IBasketService basketService)
     {
         this.basketViewModelService = basketViewModelService;
+        this.productRepository = productRepository;
+        this.basketService = basketService;
     }
     public async Task<IActionResult> Index()
     {
         var vm = await basketViewModelService.GetOrCreateBasketForUser(GetOrSetBasketCookieAndUserName());
         return View(vm);
     }
+    [Route("AddToCart/{id:int}")]
+    public async Task<IActionResult> AddToCart(int id)
+    {
+        var item = await productRepository.GetByIdAsync(id);
+        if (item == null)
+        {
+            return RedirectToPage("/Index");
+        }
 
+        var username = GetOrSetBasketCookieAndUserName();
+        var basket = await basketService.AddItemToBasket(username,
+            id, item.Price);
 
+        // var vm = await basketViewModelService.Map(basket);
+        return RedirectToAction(nameof(Index));
+    }
 
+    [Route("Remove/{id:int}")]
+    public IActionResult Remove(int id)
+    {
+        var username = GetOrSetBasketCookieAndUserName();
+        basketService.RemoveItemFromBasket(username, id);
+        return RedirectToAction(nameof(Index));
+    }
+
+    //private helpers
+
+    //Even unauth users can create their cart. If they want to proceed with it, they will have to register
     private string GetOrSetBasketCookieAndUserName()
     {
         Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));

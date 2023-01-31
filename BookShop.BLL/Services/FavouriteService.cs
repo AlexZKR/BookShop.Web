@@ -32,6 +32,8 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
 
     public bool CheckIfFavourite(string username, T entity)
     {
+        //if username == null than user is not authenticated
+        if (username == null) return false;
         var favs = GetFavouritesObject(username).Result;
         return favs.Favourites.Split(',').Contains(entity.Id.ToString());
     }

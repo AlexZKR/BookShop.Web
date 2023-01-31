@@ -1,10 +1,10 @@
 using BookShop.BLL.Entities.Basket;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Interfaces;
-using BookShop.Web.Models;
 using BookShop.Web.Interfaces;
 using BookShop.BLL.Specifications;
 using BookShop.BLL.Specifications.CatalogSpecifications;
+using BookShop.Web.Models.Basket;
 
 namespace BookShop.Web.Services;
 
@@ -36,6 +36,7 @@ public class BasketViewModelService : IBasketViewModelService
             return await CreateBasketForUser(userName);
         }
         var viewModel = await Map(basket);
+        viewModel.TotalItems = await CountTotalBasketItems(userName);
         return viewModel;
     }
 
