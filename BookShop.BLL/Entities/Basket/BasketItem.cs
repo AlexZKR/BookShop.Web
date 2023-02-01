@@ -21,6 +21,12 @@ public class BasketItem : BaseEntity, IAggregateRoot
         if (quantity < int.MaxValue)
             Quantity += quantity;
     }
+    public void DecreaseQuantity(int quantity)
+    {
+        if (quantity > 0)
+            Quantity -= quantity;
+
+    }
 
     public void SetQuantity(int quantity)
     {

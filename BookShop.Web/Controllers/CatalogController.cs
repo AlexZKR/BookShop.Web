@@ -39,6 +39,8 @@ public class CatalogController : Controller
 
 
 
+
+
     //private helpers
     private string GetUserName()
     {

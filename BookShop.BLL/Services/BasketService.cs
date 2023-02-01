@@ -35,6 +35,33 @@ public class BasketService : IBasketService
         return basket;
     }
 
+    public async void UpDownQuantity(string username, int itemId, string mode)
+    {
+        var basketSpec = new BasketWithItemsSpecification(username);
+        var basket = await basketRepository.FirstOrDefaultAsync(basketSpec);
+
+        if (basket != null)
+        {
+            var item = basket.Items.FirstOrDefault(i => i.Id == itemId);
+            if (item != null)
+            {
+                switch (mode)
+                {
+                    case "add":
+                        item.AddQuantity(1);
+                        break;
+                    case "sub":
+                        item.DecreaseQuantity(1);
+                        if (item.Quantity == 0)
+                            basket.RemoveEmptyItems();
+                        break;
+                }
+                await basketRepository.UpdateAsync(basket);
+
+            }
+        }
+    }
+
     public async void RemoveItemFromBasket(string username, int id)
     {
         var basketSpec = new BasketWithItemsSpecification(username);

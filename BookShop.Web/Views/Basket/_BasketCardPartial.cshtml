@@ -13,24 +13,18 @@
             <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
 
                 <div class="row-1 mx-4">
-                    <i class="fas fa-plus"></i>
+                    <a asp-controller="Basket" asp-action="ChangeQuantity" asp-route-itemId="@Model.Id"
+                        asp-route-mode="add">
+                        <i class="fas fa-plus"></i>
+                    </a>
                     <div class="mx-1 my-2">
                         @Model.Quantity
                     </div>
-                    <i class="fas fa-minus"></i>
+                    <a asp-controller="Basket" asp-action="ChangeQuantity" asp-route-itemId="@Model.Id"
+                        asp-route-mode="sub">
+                        <i class="fas fa-minus"></i>
+                    </a>
                 </div>
-                @* <button class="btn btn-link px-2"
-                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-
-                </button>
-
-                <input id="form1" min="0" name="quantity" value="@Model.Quantity" type="number"
-                class="form-control form-control-sm" />
-
-                <button class="btn btn-link px-2"
-                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-
-                </button> *@
             </div>
             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                 <h5 class="mb-0">@Model.UnitPrice руб.</h5>

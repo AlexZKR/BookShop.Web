@@ -52,6 +52,14 @@ public class BasketController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Route("ChangeQuantity/{itemId:int}/{mode}")]
+    public IActionResult ChangeQuantity(int itemId, string mode)
+    {
+        string username = GetOrSetBasketCookieAndUserName();
+        basketService.UpDownQuantity(username, itemId, mode);
+        return RedirectToAction(nameof(Index));
+    }
+
     //private helpers
 
     //Even unauth users can create their cart. If they want to proceed with it, they will have to register
