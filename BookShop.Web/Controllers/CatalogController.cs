@@ -34,6 +34,8 @@ public class CatalogController : Controller
     {
         string username = GetUserName();
         await favouriteService.UpdateFavourite(username, prodId.ToString());
+        // if (returnUrl.Contains("Product"))
+        //     return Redirect($"http://localhost:5092/{returnUrl}");
         return RedirectToAction(nameof(Index));
     }
 
@@ -42,6 +44,7 @@ public class CatalogController : Controller
 
 
     //private helpers
+    //todo refactor repeating code in all controllers
     private string GetUserName()
     {
         var user = Request.HttpContext.User;
