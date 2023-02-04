@@ -9,7 +9,7 @@ public class OrderWithItemsByIdSpec : Specification<Order>, ISingleResultSpecifi
     {
         Query
             .Where(order => order.Id == orderId)
-            .Include(o => o.OrderItems)
-            .ThenInclude(i => i.ItemOrdered);
+            .Include(o => o.OrderItems);
+        //.ThenInclude(i => i.ItemOrdered);
     }
 }

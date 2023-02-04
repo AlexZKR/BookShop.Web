@@ -8,6 +8,7 @@ public static class ConfigureWebServices
     public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IBasketViewModelService, BasketViewModelService>();
+        services.AddScoped<IOrderViewModelService, OrderViewModelService>();
         services.AddTransient<ICatalogViewModelService, CatalogViewModelService>();
         services.AddTransient<IProductDetailsViewModelService, ProductDetailsViewModelService>();
 

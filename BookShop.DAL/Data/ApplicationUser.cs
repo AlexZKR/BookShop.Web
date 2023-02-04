@@ -6,5 +6,7 @@ namespace BookShop.DAL.Data;
 public class ApplicationUser : IdentityUser
 {
     public string Favourites { get; set; } = "0";
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
 }
 

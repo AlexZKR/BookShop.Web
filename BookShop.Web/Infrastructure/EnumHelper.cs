@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BookShop.BLL.Infrastructure;
+namespace BookShop.Web.Infrastructure;
 public static class EnumHelper<T> where T : struct, Enum
 {
     public static IEnumerable<T> GetValues(Enum value)
@@ -68,6 +69,24 @@ public static class EnumHelper<T> where T : struct, Enum
         {
             return null;
         }
+    }
+
+    public static IEnumerable<SelectListItem> GetStaticDataFromEnum(Enum value)
+    {
+
+        var allValues = Enum.GetValues(value.GetType());
+        List<SelectListItem> selects = new List<SelectListItem>();
+        Type genericType = typeof(T);
+        if (genericType.IsEnum)
+        {
+            foreach (T e in allValues)
+            {
+                selects.Add
+                (new SelectListItem(EnumHelper<T>.GetDisplayValue(EnumHelper<T>.Parse(e.ToString()!)),
+                EnumHelper<T>.ConvertToInt(e).ToString()));
+            }
+        }
+        return selects;
     }
 
     public static int ConvertToInt(T enumValue) => Unsafe.As<T, int>(ref enumValue);

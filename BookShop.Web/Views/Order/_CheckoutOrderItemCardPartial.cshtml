@@ -1,0 +1,24 @@
+@model OrderItemViewModel
+
+<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+    <div class="col-md-2 col-lg-2 col-xl-2">
+        <img src="~/img/books/@Model.PictureUrl" class="img-fluid rounded-3" alt="Cotton T-shirt">
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+
+        <h5 class="mb-1">@Model.ProductName</h5>
+        <small class="badge bg-success rounded-pill">@Model.Units шт.</small>
+    </div>
+    @* Author name if item is book *@
+    <p class="mb-1">@Model.AddInfo</p>
+
+    @if (Model.Discount > 0)
+    {
+        <small class="fw-bold" style="text-decoration: line-through;">@Model.FullPrice</small>
+        <small class="fw-bold">@Model.DiscountedPrice руб.</small>
+    }
+    else
+    {
+        <small class="fw-bold">@Model.FullPrice руб.</small>
+    }
+</a>

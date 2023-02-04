@@ -1,8 +1,8 @@
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
-using BookShop.BLL.Infrastructure;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
+using BookShop.Web.Infrastructure;
 using BookShop.Web.Models.Catalog;
 
 namespace BookShop.Web.Services;

@@ -1,8 +1,8 @@
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
-using BookShop.BLL.Infrastructure;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
+using BookShop.Web.Infrastructure;
 using BookShop.Web.Interfaces;
 using BookShop.Web.Models.Catalog;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -76,9 +76,9 @@ public class CatalogViewModelService : ICatalogViewModelService
             FilterInfo = new CatalogFilterViewModel()
             {
                 SearchQuery = searchQuery,
-                Genres = GetStaticDataFromEnum<Genre>(Genre.ChildrenLiterature).ToList(),
-                Languages = GetStaticDataFromEnum<Language>(Language.Russian).ToList(),
-                Covers = GetStaticDataFromEnum<Cover>(Cover.HardCover).ToList(),
+                Genres = EnumHelper<Genre>.GetStaticDataFromEnum(Genre.ChildrenLiterature).ToList(),
+                Languages = EnumHelper<Language>.GetStaticDataFromEnum(Language.Russian).ToList(),
+                Covers = EnumHelper<Cover>.GetStaticDataFromEnum(Cover.HardCover).ToList(),
                 Authors = (await GetAuthors()).ToList(),
             },
             PaginationInfo = new PaginationViewModel()
@@ -110,25 +110,5 @@ public class CatalogViewModelService : ICatalogViewModelService
         items.Insert(0, allItem);
         return items;
     }
-
-    public IEnumerable<SelectListItem> GetStaticDataFromEnum<T>(Enum value) where T : struct, Enum
-    {
-        logger.LogInformation($"GetStaticDataFromEnum called for {value.GetType().ToString()}");
-
-        var allValues = Enum.GetValues(value.GetType());
-        List<SelectListItem> selects = new List<SelectListItem>();
-        Type genericType = typeof(T);
-        if (genericType.IsEnum)
-        {
-            foreach (T e in allValues)
-            {
-                selects.Add
-                (new SelectListItem(EnumHelper<T>.GetDisplayValue(EnumHelper<T>.Parse(e.ToString()!)),
-                EnumHelper<T>.ConvertToInt(e).ToString()));
-            }
-        }
-        return selects;
-    }
-
 
 }

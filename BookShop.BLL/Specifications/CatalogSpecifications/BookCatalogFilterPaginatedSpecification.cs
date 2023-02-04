@@ -1,7 +1,5 @@
 ﻿using Ardalis.Specification;
-using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
-using BookShop.BLL.Infrastructure;
 
 namespace BookShop.BLL.Specifications.CatalogSpecifications;
 

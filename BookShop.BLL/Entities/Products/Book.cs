@@ -83,5 +83,4 @@ public class Book : BaseProduct
 
 
     //ratings
-
 }

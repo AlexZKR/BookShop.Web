@@ -54,7 +54,7 @@ public class BasketViewModelService : IBasketViewModelService
 
     private async Task<List<BasketItemViewModel>> GetBasketItems(IReadOnlyCollection<BasketItem> basketItems)
     {
-        var catalogItemsSpecification = new CatalogItemsSpecification(basketItems.Select(b => b.ProductId).ToArray());
+        var catalogItemsSpecification = new BookCatalogItemsSpecification(basketItems.Select(b => b.ProductId).ToArray());
         var catalogItems = await _itemRepository.ListAsync(catalogItemsSpecification);
 
         var items = basketItems.Select(basketItem =>

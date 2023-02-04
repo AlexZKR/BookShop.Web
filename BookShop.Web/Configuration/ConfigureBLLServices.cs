@@ -20,6 +20,7 @@ public static class ConfigureBLLServices
 
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IBasketQueryService, BasketQueryService>();
+        services.AddScoped<IOrderService, OrderService>();
 
         services.AddSingleton<IUriComposer>(new UriComposer(configuration.Get<CatalogSettings>()!));
         services.AddTransient<IEmailSender, EmailSender>();

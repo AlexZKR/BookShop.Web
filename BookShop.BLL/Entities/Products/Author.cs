@@ -24,5 +24,6 @@ namespace BookShop.BLL.Entities.Products
 
         //nav
         public List<Book> Books { get; set; } = new List<Book>();
+
     }
 }
