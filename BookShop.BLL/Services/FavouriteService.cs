@@ -16,20 +16,6 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
         this.favouritesRepository = favouritesRepository;
     }
 
-    // public List<T> CheckFavourites(ApplicationUser user, List<T> entitiesToCheck)
-    // {
-    //     string[] items = user?.Favourites?.Split(',')!;
-    //     if (items is null)
-    //         return null!;
-
-    //     foreach (var item in entitiesToCheck)
-    //     {
-    //         if (items.Contains(item.Id.ToString()))
-    //             item.IsFavourite = true;
-    //     }
-    //     return entitiesToCheck;
-    // }
-
     public bool CheckIfFavourite(string username, T entity)
     {
         //if username == null than user is not authenticated
@@ -37,11 +23,6 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
         var favs = GetFavouritesObject(username).Result;
         return favs.Favourites.Split(',').Contains(entity.Id.ToString());
     }
-    // public async Task<bool> CheckIfFavourite(string username, T entity)
-    // {
-    //     var favs = await GetFavouritesObject(username);
-    //     return favs.Favourites.Split(',').Contains(entity.Id.ToString());
-    // }
 
     public async Task<bool> RemoveFromFavourites(string username, string Id)
     {
