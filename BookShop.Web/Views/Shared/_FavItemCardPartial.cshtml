@@ -35,12 +35,12 @@
                             <div class="row ">
                                 @if (@Model.Discount > 0)
                                 {
-                                    <small>@Model.Price</small> @Model.DiscountedPrice.ToString("N2") <div>руб.</div>
+                                    <small>@Model.FullPrice</small> @Model.DiscountedPrice.ToString("N2") <div>руб.</div>
 
                                 }
                                 @if (@Model.Discount == 0)
                                 {
-                                    <p>@Model.Price руб.</p>
+                                    <p>@Model.FullPrice руб.</p>
                                 }
                             </div>
                         </div>

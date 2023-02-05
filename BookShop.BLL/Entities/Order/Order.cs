@@ -1,43 +1,28 @@
-using BookShop.BLL.Entities;
-using BookShop.BLL.Entities.Enums;
-using BookShop.BLL.Entities.Order;
+#pragma warning disable CS8618 // Required by Entity Framework
+
+
 using BookShop.BLL.Interfaces;
 
-namespace BookShop.DAL.Entities.Order;
+namespace BookShop.BLL.Entities.Order;
 
 public class Order : BaseEntity, IAggregateRoot
 {
-    public DateTimeOffset OrderDate { get; private set; } = DateTimeOffset.Now;
-    public Address? ShipToAddress { get; private set; }
-    public Buyer? Buyer { get; set; }
+    public int TotalItems => OrderItems.Sum(i => i.Units);
+    public double TotalDiscount => OrderItems.Sum(i => (i.FullPrice - i.DiscountedPrice));
+    public double TotalPrice => OrderItems.Sum(i => i.DiscountedPrice);
+    public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
-    public PaymentType PaymentType { get; set; }
-    public DeliveryType DeliveryType { get; set; }
+    public OrderInfo OrderInfo { get; set; }
+    public Address Address { get; set; }
+    public Buyer Buyer { get; set; }
 
-    private readonly List<OrderItem> _orderItems = new List<OrderItem>();
-    public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
-    public string? OrderComment { get; set; }
-
-    // public Order(string buyerId, Address shipTo, List<OrderItem> items)
-    // {
-    //     Guard.Against.Null(buyerId, nameof(buyerId));
-    //     BuyerId = buyerId;
-    //     ShipToAddress = shipTo;
-    //     _orderItems = items;
-    // }
-
-    public double Total()
+    public Order(Address Address, Buyer Buyer, OrderInfo OrderInfo)
     {
-        double total = 0;
-        foreach (var item in _orderItems)
-        {
-            if (item.DiscountedPrice != 0)
-                total += item.DiscountedPrice * item.Units;
-            else
-                total += item.Price * item.Units;
-        }
-        return total;
+        this.Address = Address;
+        this.Buyer = Buyer;
+        this.OrderInfo = OrderInfo;
     }
 
+    public Order() { }
 }

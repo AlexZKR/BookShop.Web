@@ -1,5 +1,5 @@
 ﻿using Ardalis.Specification;
-using BookShop.DAL.Entities.Order;
+using BookShop.BLL.Entities.Order;
 
 namespace BookShop.Web.Specifications;
 
@@ -10,6 +10,5 @@ public class OrderWithItemsByIdSpec : Specification<Order>, ISingleResultSpecifi
         Query
             .Where(order => order.Id == orderId)
             .Include(o => o.OrderItems);
-        //.ThenInclude(i => i.ItemOrdered);
     }
 }

@@ -4,15 +4,19 @@ namespace BookShop.BLL.Entities.Basket;
 
 public class BasketItem : BaseEntity, IAggregateRoot
 {
-    public double UnitPrice { get; private set; }
+    public double FullPrice { get; private set; }
+    public double Discount { get; set; }
+    public double DiscountedPrice => FullPrice - (FullPrice * Discount);
+
     public int Quantity { get; private set; }
     public int ProductId { get; private set; }
     public int BasketId { get; private set; }
 
-    public BasketItem(int productId, int quantity, double unitPrice)
+    public BasketItem(int productId, int quantity, double fullPrice, double discount)
     {
         ProductId = productId;
-        UnitPrice = unitPrice;
+        FullPrice = fullPrice;
+        Discount = discount;
         SetQuantity(quantity);
     }
 

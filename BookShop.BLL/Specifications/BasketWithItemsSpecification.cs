@@ -12,10 +12,10 @@ public sealed class BasketWithItemsSpecification : Specification<Basket>, ISingl
             .Include(b => b.Items);
     }
 
-    public BasketWithItemsSpecification(string buyerId)
+    public BasketWithItemsSpecification(string username)
     {
         Query
-            .Where(b => b.BuyerId == buyerId)
+            .Where(b => b.BuyerId == username)
             .Include(b => b.Items);
     }
 }

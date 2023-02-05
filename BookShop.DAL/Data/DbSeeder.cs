@@ -116,7 +116,7 @@ public class DbSeeder
 
                         Tag = Tag.Classic,
 
-                        Price = 12,
+                        FullPrice = 12,
                         Discount = 0.10,
                         Quantity = 10,
 
@@ -138,7 +138,7 @@ public class DbSeeder
 
                         Tag = Tag.None,
 
-                        Price = 8,
+                        FullPrice = 8,
                         Discount = 0,
                         Quantity = 15,
 
@@ -161,7 +161,7 @@ public class DbSeeder
 
                         Tag = Tag.Bestseller,
 
-                        Price = 15,
+                        FullPrice = 15,
                         Discount = 0.15,
                         Quantity = 20,
 
@@ -183,7 +183,7 @@ public class DbSeeder
 
                         Tag = Tag.Classic,
 
-                        Price = 10,
+                        FullPrice = 10,
                         Discount = 0,
                         Quantity = 23,
 
@@ -205,7 +205,7 @@ public class DbSeeder
 
                         Tag = Tag.Bestseller,
 
-                        Price = 30,
+                        FullPrice = 30,
                         Discount = 0.14,
                         Quantity = 45,
 
@@ -227,7 +227,7 @@ public class DbSeeder
 
                         Tag = Tag.None,
 
-                        Price = 25,
+                        FullPrice = 25,
                         Discount = 0.05,
                         Quantity = 70,
 

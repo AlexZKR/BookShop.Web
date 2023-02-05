@@ -10,10 +10,10 @@ namespace BookShop.Web.Controllers;
 public class ProductController : Controller
 {
     private readonly IProductDetailsViewModelService productDetailsViewModelService;
-    private readonly IFavouriteService<Book> favouriteService;
+    private readonly IFavouriteService<BaseProduct> favouriteService;
 
     public ProductController(IProductDetailsViewModelService productDetailsViewModelService,
-    IFavouriteService<Book> favouriteService)
+    IFavouriteService<BaseProduct> favouriteService)
     {
         this.productDetailsViewModelService = productDetailsViewModelService;
         this.favouriteService = favouriteService;
@@ -49,7 +49,7 @@ public class ProductController : Controller
                 return user.Identity.Name!;
         }
 
-        return userName;
+        return userName!;
     }
 
 }

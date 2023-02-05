@@ -1,36 +1,36 @@
 #pragma warning disable CS8618 // Required by Entity Framework
 
-using System.ComponentModel.DataAnnotations;
-using BookShop.BLL.Entities;
-
-namespace BookShop.DAL.Entities.Order;
+namespace BookShop.BLL.Entities.Order;
 /// <summary>
 /// Represents a snapshot of the item that was ordered. If catalog item details change, details of
 /// the item that was part of a completed order should not change.
 /// </summary>
 public class OrderItem : BaseEntity
 {
-    // public CatalogItemOrdered ItemOrdered { get; private set; }
-    //$$
-    [Display(Name = "Полная стоимость товара, руб.")]
-    [Range(0, int.MaxValue)]
-    public double Price { get; set; } = 0;
-    [Display(Name = "В наличии")]
-    public int Units { get; set; } = 0;
+    public OrderItem(
+        int ProductId,
+        string? ProductName,
+        double FullPrice,
+        double DiscountedPrice,
+        double Discount,
+        int Units)
+    {
 
-    [Range(0, 1)]
-    [Display(Name = "Скидка")]
-    public double Discount { get; set; } = 0;
-    [Display(Name = "Цена со скидкой")]
-    public double DiscountedPrice => Price - (Price * Discount);
+        this.ProductId = ProductId;
+        this.ProductName = ProductName;
+        this.FullPrice = FullPrice;
+        this.DiscountedPrice = DiscountedPrice;
+        this.Discount = Discount;
+        this.Units = Units;
+    }
 
-    // private OrderItem() { }
-
-    // public OrderItem(CatalogItemOrdered itemOrdered, double unitPrice, int units)
-    // {
-    //     ItemOrdered = itemOrdered;
-    //     UnitPrice = unitPrice;
-    //     Units = units;
-    // }
+    public int OrderId { get; set; }
+    public int ProductId { get; set; }
+    public string? ProductName { get; set; }
+    public double FullPrice { get; set; }
+    public double DiscountedPrice { get; set; }
+    public double Discount { get; set; }
+    public int Units { get; set; }
+    public string? AddInfo { get; set; }
 
 }

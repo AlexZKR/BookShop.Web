@@ -1,9 +1,9 @@
+
 using BookShop.Web.Models.Order;
 
-namespace BookShop.Web.Interfaces
+namespace BookShop.Web.Services;
+
+public interface IOrderViewModelService
 {
-    public interface IOrderViewModelService
-    {
-        Task<OrderViewModel> CreateOrderVMAsync(string username);
-    }
+    Task<OrderViewModel> CreateVM();
 }

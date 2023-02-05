@@ -13,10 +13,10 @@ public class BasketViewModelService : IBasketViewModelService
     private readonly IRepository<Basket> _basketRepository;
     private readonly IUriComposer _uriComposer;
     private readonly IBasketQueryService _basketQueryService;
-    private readonly IRepository<Book> _itemRepository;
+    private readonly IRepository<BaseProduct> _itemRepository;
 
     public BasketViewModelService(IRepository<Basket> basketRepository,
-        IRepository<Book> itemRepository,
+        IRepository<BaseProduct> itemRepository,
         IUriComposer uriComposer,
         IBasketQueryService basketQueryService)
     {
@@ -64,7 +64,9 @@ public class BasketViewModelService : IBasketViewModelService
             var basketItemViewModel = new BasketItemViewModel
             {
                 Id = basketItem.Id,
-                UnitPrice = basketItem.UnitPrice,
+                FullPrice = basketItem.FullPrice,
+                Discount = basketItem.Discount,
+                DiscountedPrice = basketItem.DiscountedPrice,
                 Quantity = basketItem.Quantity,
                 CatalogItemId = basketItem.ProductId,
                 PictureUrl = _uriComposer.ComposePicUri(catalogItem.ImagePath),

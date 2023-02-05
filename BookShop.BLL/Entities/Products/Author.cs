@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BookShop.BLL.Interfaces;
 //using Microsoft.AspNetCore.Http;
 
 namespace BookShop.BLL.Entities.Products
 {
-    public class Author : BaseProduct
+    public class Author : BaseEntity, IAggregateRoot
     {
         [Required]
         [DataType(DataType.Text)]

@@ -67,7 +67,7 @@ public class CatalogViewModelService : ICatalogViewModelService
                 Name = b.Name,
                 AuthorName = b.Author.Name,
                 PictureUri = uriComposer.ComposePicUri(b.ImagePath),
-                Price = b.Price,
+                Price = b.FullPrice,
                 DiscountedPrice = b.DiscountedPrice,
                 IsOnDiscount = b.Discount != 0,
                 IsAvailable = b.Quantity != 0,

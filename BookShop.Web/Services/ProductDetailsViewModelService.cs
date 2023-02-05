@@ -37,7 +37,7 @@ public class ProductDetailsViewModelService : IProductDetailsViewModelService
             PagesCount = item.PagesCount,
             AuthorName = item.Author.Name,
             PictureUrl = uriComposer.ComposePicUri(item.ImagePath),
-            Price = item.Price,
+            Price = item.FullPrice,
             DiscountedPrice = item.DiscountedPrice,
             Discount = item.Discount,
             IsAvailable = false,

@@ -1,25 +1,29 @@
-//#pragma warning disable CS8618 // Required by Entity Framework
+#pragma warning disable CS8618 // Required by Entity Framework
 
-using System.ComponentModel.DataAnnotations.Schema;
+
+using System.ComponentModel.DataAnnotations;
 using BookShop.BLL.Entities.Enums;
 
-namespace BookShop.DAL.Entities.Order
+
+namespace BookShop.BLL.Entities.Order;
+
+public class Address //Value object
 {
-    public class Address // ValueObject
+    public Address()
     {
-        public string? Street { get; private set; }
-        public string? City { get; private set; }
-        public string? Region { get; private set; }
-        public string? PostCode { get; private set; }
-
-        // public Address() { }
-
-        // public Address(string street, string city, string region, string zipcode)
-        // {
-        //     Street = street;
-        //     City = city;
-        //     Region = region;
-        //     PostCode = zipcode;
-        // }
     }
+
+    public Address(string? street, string? city, Region region, string? postCode)
+    {
+        Street = street;
+        City = city;
+        Region = region;
+        PostCode = postCode;
+    }
+
+    public string? Street { get; set; }
+    public string? City { get; set; }
+    [Display(Name = "Область")]
+    public Region Region { get; set; }
+    public string? PostCode { get; set; }
 }

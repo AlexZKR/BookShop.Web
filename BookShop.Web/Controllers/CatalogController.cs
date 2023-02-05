@@ -9,10 +9,10 @@ namespace BookShop.Web.Controllers;
 
 public class CatalogController : Controller
 {
-    private readonly IFavouriteService<Book> favouriteService;
+    private readonly IFavouriteService<BaseProduct> favouriteService;
     private readonly ICatalogViewModelService catalogViewModelService;
 
-    public CatalogController(IFavouriteService<Book> favouriteService,
+    public CatalogController(IFavouriteService<BaseProduct> favouriteService,
     ICatalogViewModelService catalogViewModelService)
     {
         this.favouriteService = favouriteService;
@@ -57,7 +57,7 @@ public class CatalogController : Controller
                 return user.Identity.Name!;
         }
 
-        return userName;
+        return userName!;
     }
 
 

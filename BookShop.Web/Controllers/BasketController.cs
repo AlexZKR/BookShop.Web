@@ -10,11 +10,11 @@ namespace BookShop.Web.Controllers;
 public class BasketController : Controller
 {
     private readonly IBasketViewModelService basketViewModelService;
-    private readonly IRepository<Book> productRepository;
+    private readonly IRepository<BaseProduct> productRepository;
     private readonly IBasketService basketService;
 
     public BasketController(IBasketViewModelService basketViewModelService,
-    IRepository<Book> productRepository,
+    IRepository<BaseProduct> productRepository,
     IBasketService basketService)
     {
         this.basketViewModelService = basketViewModelService;
@@ -37,7 +37,7 @@ public class BasketController : Controller
 
         var username = GetOrSetBasketCookieAndUserName();
         var basket = await basketService.AddItemToBasket(username,
-            id, item.Price);
+            id, item.FullPrice, item.Discount);
 
         // var vm = await basketViewModelService.Map(basket);
         return RedirectToAction(nameof(Index));
