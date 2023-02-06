@@ -10,7 +10,10 @@ public class OrderInfo //Value object
     {
     }
 
-    public OrderInfo(DateTime OrderDate, PaymentType PaymentType, DeliveryType DeliveryType, string? OrderComment)
+    public OrderInfo(DateTime OrderDate,
+                     PaymentType PaymentType,
+                     DeliveryType DeliveryType,
+                     string? OrderComment)
     {
         this.OrderDate = OrderDate;
         this.PaymentType = PaymentType;

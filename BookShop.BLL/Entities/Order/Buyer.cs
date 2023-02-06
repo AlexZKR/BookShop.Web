@@ -7,7 +7,11 @@ public class Buyer //Value object
     {
     }
 
-    public Buyer(string? BuyerId, string? FirstName, string? LastName, string? PhoneNumber, string? Email)
+    public Buyer(string? BuyerId,
+                 string? FirstName,
+                 string? LastName,
+                 string? PhoneNumber,
+                 string? Email)
     {
         this.BuyerId = BuyerId;
         this.FirstName = FirstName;

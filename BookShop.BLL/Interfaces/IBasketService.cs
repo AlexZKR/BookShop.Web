@@ -12,6 +12,7 @@ public interface IBasketService
     Task<Result<Basket>> SetQuantities(int basketId, Dictionary<string, int> quantities);
     void UpDownQuantity(string username, int itemId, string mode);
     Task DeleteBasketAsync(int basketId);
+    Task DeleteBasketAsync(string buyerId);
     Task<Basket> GetBasketAsync(int busketId);
     Task<Basket> GetBasketAsync(string username);
     Task<List<BaseProduct>> GetBasketItemsAsync(string username);

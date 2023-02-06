@@ -86,6 +86,12 @@ public class BasketService : IBasketService
         Guard.Against.Null(basket, nameof(basket));
         await basketRepository.DeleteAsync(basket);
     }
+    public async Task DeleteBasketAsync(string buyerId)
+    {
+        var basket = await GetBasketAsync(buyerId);
+        Guard.Against.Null(basket, nameof(basket));
+        await basketRepository.DeleteAsync(basket);
+    }
 
     public async Task<Result<Basket>> SetQuantities(int basketId, Dictionary<string, int> quantities)
     {
@@ -158,7 +164,7 @@ public class BasketService : IBasketService
             if (product != null)
                 list.Add(product);
             else
-                throw new ProductNotFoundException(item.ProductId);
+                throw new Exceptions.NotFoundInDbException($"Item with id {item.ProductId} not found in db");
         }
         return list;
     }
@@ -172,7 +178,7 @@ public class BasketService : IBasketService
             if (product != null)
                 list.Add(product);
             else
-                throw new ProductNotFoundException(item.ProductId);
+                throw new Exceptions.NotFoundInDbException($"Item with id {item.ProductId} not found in db");
         }
         return list;
     }

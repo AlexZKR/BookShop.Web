@@ -30,16 +30,14 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // var nav = builder.Entity<Order>().Metadata.FindNavigation(nameof(Order.ShipToAddress));
-        // nav?.SetPropertyAccessMode(PropertyAccessMode.Field);
-        // nav = builder.Entity<Order>().Metadata.FindNavigation(nameof(Order.Buyer));
-        // nav?.SetPropertyAccessMode(PropertyAccessMode.Field);
-        // nav = builder.Entity<Order>().Metadata.FindNavigation(nameof(Order.OrderItems));
-        // nav?.SetPropertyAccessMode(PropertyAccessMode.Field);
+
         base.OnModelCreating(builder);
+        //order value objects configuration
         builder.Entity<Order>().OwnsOne(o => o.OrderInfo);
         builder.Entity<Order>().OwnsOne(o => o.Buyer);
         builder.Entity<Order>().OwnsOne(o => o.Address);
+
+        //builder.Entity<Order>().HasMany(o => o.OrderItems);
 
 
     }

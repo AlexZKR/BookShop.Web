@@ -5,5 +5,5 @@ namespace BookShop.Web.Services;
 
 public interface IOrderViewModelService
 {
-    Task<OrderViewModel> CreateVM();
+    Task<OrderViewModel> CreateOrderViewModelAsync(int orderId);
 }

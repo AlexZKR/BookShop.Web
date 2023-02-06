@@ -13,7 +13,10 @@ public class Address //Value object
     {
     }
 
-    public Address(string? street, string? city, Region region, string? postCode)
+    public Address(string? street,
+                   string? city,
+                   Region region,
+                   string? postCode)
     {
         Street = street;
         City = city;

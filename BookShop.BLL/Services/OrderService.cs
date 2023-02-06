@@ -11,27 +11,43 @@ public class OrderService : IOrderService
     private readonly IRepository<Order> orderRepository;
     private readonly IBasketService basketService;
     private readonly IRepository<BaseProduct> productRepository;
+    private readonly IAppLogger<OrderService> logger;
+    private readonly IRepository<OrderItem> orderItemsRepository;
 
     public OrderService(IRepository<Order> orderRepository,
     IBasketService basketService,
-    IRepository<BaseProduct> productRepository)
+    IRepository<BaseProduct> productRepository,
+    IAppLogger<OrderService> logger,
+    IRepository<OrderItem> orderItemsRepository)
     {
         this.orderRepository = orderRepository;
         this.basketService = basketService;
         this.productRepository = productRepository;
+        this.logger = logger;
+        this.orderItemsRepository = orderItemsRepository;
     }
-    public async Task<Order> CreateOrderAsync(string username)
+    public async Task<Order> CreateOrderAsync(Address address, Buyer buyer, OrderInfo orderInfo)
     {
-        // var basket = await basketService.GetBasketAsync(username);
-        // var orderItems = await MapBasketItems(basket.Items);
-        // // var order = new Order
-        // // {
-        // //     OrderItems = orderItems,
+        if (buyer.BuyerId == null) throw new NotFoundInDbException($"User was not found in db.");
+        logger.LogInformation($"Creating order for userId: {buyer.BuyerId}");
+        var basket = await basketService.GetBasketAsync(buyer.BuyerId);
+        var orderItems = await MapBasketItems(basket.Items);
+        var order = new Order(address, buyer, orderInfo)
+        {
+            OrderItems = orderItems,
+        };
+        await orderRepository.AddAsync(order);
+        //configuring order items
+        // order.OrderItems.Select(i => i.OrderId = order.Id);
 
-        // // };
-        // // await orderRepository.AddAsync(order);
-        // return new Order(new Address(), new Buyer(), new OrderInfo());
-        return null;
+        //await orderItemsRepository.AddRangeAsync(order.OrderItems);
+
+        //deleting basket
+        //TODO items in basket sold++
+
+        await basketService.DeleteBasketAsync(buyer.BuyerId);
+
+        return order;
     }
     // public async Task<Order> CreateOrderAsync(double totalPrice, double discountSize, string orderComment, string buyerId, string firstName, string lastName, string phoneNumber, string email, string street, string city, string postCode, int region, int paymentType, int deliveryType)
     // {
@@ -72,13 +88,15 @@ public class OrderService : IOrderService
         foreach (var item in basketItems)
         {
             var product = await productRepository.GetByIdAsync(item.ProductId);
-            if (product == null) throw new ProductNotFoundException(item.ProductId);
+            if (product == null) throw new Exceptions.NotFoundInDbException($"Item with id {item.ProductId} not found in db");
+
             var orderItem = new OrderItem(item.Id,
                                           product.Name,
                                           item.FullPrice,
                                           item.DiscountedPrice,
                                           item.Discount,
                                           item.Quantity);
+            list.Add(orderItem);
 
             // if (item is Book)
             // {

@@ -1,13 +1,13 @@
 @model OrderViewModel
 
 <section class="h-100 gradient-custom">
-    <div class="container py-5 h-100">
+    <div class="container-1 py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-10 col-xl-8">
                 <div class="card" style="border-radius: 10px;">
                     <div class="card-header px-4 py-5">
                         <h5 class="text-muted mb-0">Спасибо за заказ,
-                            <span class="text-success">@Model.BuyerFirstName</span>!
+                            <span class="text-success">@Model.BuyerFirstName @Model.BuyerLastName</span>!
                         </h5>
                     </div>
                     <div class="card-body p-4">
@@ -16,30 +16,52 @@
                             <p class="small text-muted mb-0">Номер заказа : @Model.OrderId</p>
                         </div>
 
+                        <div class="row mb-3">
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">Название</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">Количество</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">Скидка</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">Полная цена</p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0">Цена со скидкой</p>
+                            </div>
+                        </div>
+
                         @foreach (var item in Model.Items)
                         {
                             <partial name="_OrderDetailsCardPartial" model="@item" />
                         }
 
+                        <div class="d-flex justify-content-between pt-1">
+                            <p class="fw-bold mb-0">Детали</p>
+                            <p class="text-muted mb-0"><span class="fw-bold me-4">Итоговая цена:</span>
+                                @Model.TotalPrice руб.
+                            </p>
+                        </div>
                         <div class="d-flex justify-content-between pt-2">
-                            <p class="fw-bold mb-0">Order Details</p>
-                            <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> @Model.TotalPrice
+                            <p class="text-muted mb-0">Дата заказа : @Model.OrderDate</p>
+                            <p class="text-muted mb-0"><span class="fw-bold me-2">Скидка</span>
+                                @Model.TotalDiscount.ToString("N2")
+                                руб.
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between ">
+                            <p class="text-muted mb-0">Номер телефона : @Model.PhoneNumber</p>
+                            <p class="text-muted mb-0"><span class="fw-bold me-2">Доставка: </span> @Model.DeliveryType
+
+
                             </p>
                         </div>
 
-                        <div class="d-flex justify-content-between pt-2">
-                            <p class="text-muted mb-0">Invoice Number : 788152</p>
-                            <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> @Model.TotalDiscount
-                            </p>
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <p class="text-muted mb-0">Invoice Date : 22 Dec,2019</p>
-                            <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-5">
-                            <p class="text-muted mb-0">Recepits Voucher : 18KU-62IIK</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <p class="text-muted mb-0">Эл. почта : @Model.Email</p>
                             <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
                         </div>
                     </div>

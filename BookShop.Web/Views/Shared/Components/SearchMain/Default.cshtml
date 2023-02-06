@@ -1,6 +1,8 @@
 @model CatalogViewModel
 
-
+@{
+#pragma warning disable CS8602 // Null
+}
 <form asp-controller="Catalog" asp-action="Index" method="get" class="d-flex mt-1 ml-1">
 
     <input asp-for="FilterInfo.SearchQuery!" title="Поиск" class="form-control" type="text" placeholder="Поиск">

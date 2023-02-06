@@ -9,8 +9,14 @@ public class OrderViewModel
     public string? BuyerLastName { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
-    public string? ShipmentAddress { get; set; }
+    public string? Region { get; set; }
+    public string? City { get; set; }
+    public string? Street { get; set; }
+    public string? PostCode { get; set; }
     public string? OrderDate { get; set; }
+    public string? OrderComment { get; set; }
+    public string? DeliveryType { get; set; }
+    public string? PaymentType { get; set; }
 
     public List<OrderItemViewModel> Items { get; set; } = new List<OrderItemViewModel>();
 }

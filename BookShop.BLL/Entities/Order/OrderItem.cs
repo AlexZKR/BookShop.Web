@@ -1,11 +1,14 @@
 #pragma warning disable CS8618 // Required by Entity Framework
 
+using System.ComponentModel.DataAnnotations.Schema;
+using BookShop.BLL.Interfaces;
+
 namespace BookShop.BLL.Entities.Order;
 /// <summary>
 /// Represents a snapshot of the item that was ordered. If catalog item details change, details of
 /// the item that was part of a completed order should not change.
 /// </summary>
-public class OrderItem : BaseEntity
+public class OrderItem : BaseEntity, IAggregateRoot
 {
     public OrderItem(
         int ProductId,
@@ -23,7 +26,6 @@ public class OrderItem : BaseEntity
         this.Discount = Discount;
         this.Units = Units;
     }
-
     public int OrderId { get; set; }
     public int ProductId { get; set; }
     public string? ProductName { get; set; }
