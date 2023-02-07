@@ -88,12 +88,12 @@ public class OrderController : Controller
 
         if (signInManager.IsSignedIn(HttpContext.User))
         {
-            vm = await checkOutViewModelService.CreateOrderVMAsync(User.Identity!.Name!);
+            vm = await checkOutViewModelService.CreateCheckOutVMAsync(User.Identity!.Name!);
         }
         else
         {
             GetOrSetBasketCookieAndUserName();
-            vm = await checkOutViewModelService.CreateOrderVMAsync(username!);
+            vm = await checkOutViewModelService.CreateCheckOutVMAsync(username!);
         }
         return vm;
     }

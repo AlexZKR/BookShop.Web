@@ -37,10 +37,6 @@ public class OrderService : IOrderService
             OrderItems = orderItems,
         };
         await orderRepository.AddAsync(order);
-        //configuring order items
-        // order.OrderItems.Select(i => i.OrderId = order.Id);
-
-        //await orderItemsRepository.AddRangeAsync(order.OrderItems);
 
         //deleting basket
         //TODO items in basket sold++
@@ -49,38 +45,6 @@ public class OrderService : IOrderService
 
         return order;
     }
-    // public async Task<Order> CreateOrderAsync(double totalPrice, double discountSize, string orderComment, string buyerId, string firstName, string lastName, string phoneNumber, string email, string street, string city, string postCode, int region, int paymentType, int deliveryType)
-    // {
-    //     var basket = await basketService.GetBasketAsync(buyerId);
-
-    //     var order = new Order()
-    //     {
-    //         OrderItems = MapBasketItems(await basketService.GetBasketItemsAsync(buyerId)),
-
-    //         TotalPrice = totalPrice,
-    //         DiscountSize = discountSize,
-    //         OrderComment = orderComment,
-    //         BuyerId = buyerId,
-
-    //         FirstName = firstName,
-    //         LastName = lastName,
-    //         Email = email,
-    //         PhoneNumber = phoneNumber,
-
-
-    //         Region = (Region)region,
-    //         City = city,
-    //         Street = street,
-    //         PostCode = postCode,
-
-    //         PaymentType = (PaymentType)paymentType,
-    //         DeliveryType = (DeliveryType)deliveryType
-
-    //     };
-
-    //     await orderRepository.AddAsync(order);
-    //     return order;
-    // }
 
     private async Task<List<OrderItem>> MapBasketItems(IReadOnlyCollection<BasketItem> basketItems)
     {

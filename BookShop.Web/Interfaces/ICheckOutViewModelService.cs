@@ -4,6 +4,6 @@ namespace BookShop.Web.Interfaces
 {
     public interface ICheckOutViewModelService
     {
-        Task<CheckOutViewModel> CreateOrderVMAsync(string username);
+        Task<CheckOutViewModel> CreateCheckOutVMAsync(string username);
     }
 }

@@ -29,7 +29,7 @@ public class CheckOutViewModelService : ICheckOutViewModelService
         this.uriComposer = uriComposer;
     }
 
-    public async Task<CheckOutViewModel> CreateOrderVMAsync(string username)
+    public async Task<CheckOutViewModel> CreateCheckOutVMAsync(string username)
     {
         var basketSpec = new BasketWithItemsSpecification(username);
         var basket = await basketRepository.FirstOrDefaultAsync(basketSpec);
