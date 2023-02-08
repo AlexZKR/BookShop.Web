@@ -1,0 +1,68 @@
+@model OrderViewModel
+
+<table>
+    <thead>
+
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+
+
+@* @model OrderViewModel
+
+@{
+    var statusString = Model.IsInProcess == true ? "В обработке" : "Обработан";
+    var statusColor = Model.IsInProcess == true ? "warning" : "success";
+}
+
+<div class="prod-card my-3">
+    <div class="row">
+
+        <div class="col">
+            <div class="prod-details d-block flex-end">
+                <div class="row mb-4 ">
+                    <div class="col">
+                        <h4>
+                            Заказ: № @Model.OrderId от @Model.OrderDate
+                        </h4>
+                    </div>
+
+                </div>
+                <div class="row py-4">
+                    <div class="prod-bottom-details d-flex justify-content-between">
+                        <div class="prod-price">
+                            <div class="row ">
+                                    <h4>Сумма: @Model.TotalPrice.ToString("N2")</h4>
+
+                                @* @if (@Model.TotalDiscount > 0)
+                                {
+                                    <h4>@Model.TotalDiscount.ToString("N2")</h4>
+
+                                }
+                                @if (@Model.TotalDiscount == 0)
+                                {
+                                    <h4>@Model.TotalPrice</h4>
+                                }
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <a title="Текущий статус заказа"
+                                 class="btn btn-@statusColor  mt-2">
+                                <i class="fa-solid fa-cart-shopping"></i> Статус заказа: @statusString
+                            </a>
+                            <a asp-controller="Order" asp-action="OrderDetails" asp-route-id="@Model.OrderId"
+                                class="btn btn-primary mt-2">
+                                <i class="fa-solid fa-circle-info"></i> Отобразить детали заказа
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+*@

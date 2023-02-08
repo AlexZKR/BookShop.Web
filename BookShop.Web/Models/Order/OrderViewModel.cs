@@ -1,6 +1,8 @@
 namespace BookShop.Web.Models.Order;
 public class OrderViewModel
 {
+    public bool IsInProcess {get; set;} = true;
+
     public int OrderId { get; set; }
     public string? BuyerId { get; set; }
     public double TotalPrice { get; set; }
@@ -19,4 +21,6 @@ public class OrderViewModel
     public string? PaymentType { get; set; }
 
     public List<OrderItemViewModel> Items { get; set; } = new List<OrderItemViewModel>();
+
+    public int Units {get; set;}
 }

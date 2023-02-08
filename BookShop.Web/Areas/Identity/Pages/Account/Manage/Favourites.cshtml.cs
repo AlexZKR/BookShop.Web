@@ -10,14 +10,14 @@ namespace BookShop.Web.Areas.Identity.Pages.Account.Manage;
 public class FavouritesModel : PageModel
 {
     private readonly UserManager<ApplicationUser> userManager;
-    private readonly IFavouriteService<Book> favouriteService;
-    private readonly IRepository<Book> repository;
+    private readonly IFavouriteService<BaseProduct> favouriteService;
+    private readonly IRepository<BaseProduct> repository;
 
-    public List<Book> Favourites { get; set; } = new List<Book>();
+    public List<BaseProduct> Favourites { get; set; } = new List<BaseProduct>();
 
     public FavouritesModel(UserManager<ApplicationUser> userManager,
-     IFavouriteService<Book> favouriteService,
-     IRepository<Book> repository)
+     IFavouriteService<BaseProduct> favouriteService,
+     IRepository<BaseProduct> repository)
     {
         this.userManager = userManager;
         this.favouriteService = favouriteService;

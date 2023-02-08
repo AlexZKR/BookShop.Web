@@ -44,7 +44,7 @@ public class OrderController : Controller
         this.basketViewModelService = basketViewModelService;
         this.orderViewModelService = orderViewModelService;
     }
-
+    [Route("Index")]
     public async Task<IActionResult> Index()
     {
         var user = await userManager.GetUserAsync(HttpContext.User);
@@ -67,12 +67,12 @@ public class OrderController : Controller
         GetOrSetBasketCookieAndUserName();
         MapCheckoutVm(vm, out Address address, out Buyer buyer, out OrderInfo orderInfo);
         Order order = await orderService.CreateOrderAsync(address, buyer, orderInfo);
-        return RedirectToAction(order.Id.ToString(), "Order");
-
+        var orderVm = await orderViewModelService.CreateOrderViewModelAsync(order.Id);
+        return View("OrderDetails",orderVm);
     }
 
     // [HttpGet("{orderId:int}")]
-    [Route("{orderId:int}")]
+    [Route("[action]/{orderId:int}")]
 
     public async Task<IActionResult> OrderDetails(int orderId)
     {

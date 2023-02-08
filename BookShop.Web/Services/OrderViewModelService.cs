@@ -53,6 +53,7 @@ public class OrderViewModelService : IOrderViewModelService
             OrderComment = order.OrderInfo.OrderComment,
             DeliveryType = EnumHelper<DeliveryType>.GetDisplayValue(order.OrderInfo.DeliveryType),
             PaymentType = EnumHelper<PaymentType>.GetDisplayValue(order.OrderInfo.PaymentType),
+            Units = order.TotalItems,
 
             Items = order.OrderItems.Select(i => new OrderItemViewModel
             {

@@ -1,0 +1,72 @@
+@page
+@model OrdersModel
+@{
+    Layout = "_Layout.cshtml";
+}
+@{
+    ViewData["Title"] = "История заказов";
+    ViewData["ActivePage"] = ManageNavPages.Orders;
+}
+<h3 class="mb-4">@ViewData["Title"]</h3>
+<table class="table table-hover table-fixed align-middle text-center">
+
+
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Дата заказа</th>
+      <th>Количество</th>
+      <th>Сумма</th>
+      <th>Скидка</th>
+      <th>Статус</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+@if (Model.orderViewModels.Count > 0)
+    {
+        @foreach (var item in Model.orderViewModels)
+        {
+            string discount = @item.TotalDiscount == 0 ? "-" : @item.TotalDiscount.ToString("N2");
+            string status = @item.IsInProcess == true ? "В обработке" : "Обработан";
+            string statusColor = @item.IsInProcess == true ? "warning" : "success";
+            <tr class="table-@statusColor ">
+                <th>@item.OrderId</th>
+                <td>@item.OrderDate</td>
+                <td>@item.Units</td>
+                <td>@item.TotalPrice</td>
+                <td>@discount</td>
+                <td>@status</td>
+                <td>
+                    <a asp-controller="Order" asp-action="OrderDetails" asp-route-id="@item.OrderId" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
+                </td>
+            </tr>
+            @* <partial name="_OrderHistoryCardPartial" model="@item" /> *@
+        }
+    }
+    else
+    {
+        <div class="">
+            <div class="h-150 py-5 services-icon-wap shadow">
+                <div class="h1 text-success text-center"><i class="fa-solid fa-heart-crack"></i></div>
+                <div class="row px-4 mx-4">
+                    <h2 class="h5 mt-2 text-center fw-light">У вас пока еще нет любимых товаров!</h2>
+                    <a asp-controller="Catalog" asp-action="Index" class="btn btn-success mt-4 fw-bold ">
+                        В каталог
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+  </tbody>
+  <!--Table body-->
+
+</table>
+<!--Table-->
+
+<div class="row">
+
+
+</div>

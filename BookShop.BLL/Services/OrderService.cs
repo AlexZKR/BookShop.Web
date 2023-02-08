@@ -3,6 +3,7 @@ using BookShop.BLL.Entities.Order;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Exceptions;
 using BookShop.BLL.Interfaces;
+using BookShop.BLL.Specifications.OrderSpecifications;
 
 namespace BookShop.BLL.Services;
 
@@ -44,6 +45,13 @@ public class OrderService : IOrderService
         await basketService.DeleteBasketAsync(buyer.BuyerId);
 
         return order;
+    }
+
+    public async Task<List<Order>> GetUserOrdersAsync(string username)
+    {
+        var spec = new UserOrdersWithItemsByUsernameSpecification(username);
+        var orderList = await orderRepository.ListAsync(spec);
+        return orderList;
     }
 
     private async Task<List<OrderItem>> MapBasketItems(IReadOnlyCollection<BasketItem> basketItems)

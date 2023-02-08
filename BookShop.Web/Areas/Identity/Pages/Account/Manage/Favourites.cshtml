@@ -8,10 +8,29 @@
     ViewData["ActivePage"] = ManageNavPages.Favourites;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h3 class="mb-4">@ViewData["Title"]</h3>
 <div class="row">
-    @foreach (var item in Model.Favourites)
+    @if (Model.Favourites.Count > 0)
     {
-        <partial name="_FavItemCardPartial" model="@item" />
+        @foreach (var item in Model.Favourites)
+        {
+            <partial name="_FavItemCardPartial" model="@item" />
+        }
     }
+    else
+    {
+        <div class="">
+            <div class="h-150 py-5 services-icon-wap shadow">
+                <div class="h1 text-success text-center"><i class="fa-solid fa-heart-crack"></i></div>
+                <div class="row px-4 mx-4">
+                    <h2 class="h5 mt-2 text-center fw-light">У вас пока еще нет любимых товаров!</h2>
+                    <a asp-controller="Catalog" asp-action="Index" class="btn btn-success mt-4 fw-bold ">
+                        В каталог
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>
