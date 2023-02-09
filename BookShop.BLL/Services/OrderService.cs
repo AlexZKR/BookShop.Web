@@ -40,8 +40,8 @@ public class OrderService : IOrderService
         await orderRepository.AddAsync(order);
 
         //deleting basket
-        //TODO items in basket sold++
-
+        //items in basket sold++
+        IncSoldOnItems(basket.Items);
         await basketService.DeleteBasketAsync(buyer.BuyerId);
 
         return order;
@@ -76,6 +76,22 @@ public class OrderService : IOrderService
             // }
         }
         return list;
+    }
+
+    private async void IncSoldOnItems(IReadOnlyCollection<BasketItem> basketItems)
+    {
+
+        foreach (var item in basketItems)
+        {
+            var product = await productRepository.GetByIdAsync(item.ProductId);
+            if(product != null)
+            {
+                product.Sold++;
+                await productRepository.UpdateAsync(product);
+            }
+            else
+                throw new NotFoundInDbException($"Product with id {item.ProductId} was not fount");
+        }
     }
 
 
