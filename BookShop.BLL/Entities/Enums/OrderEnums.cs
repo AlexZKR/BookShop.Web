@@ -12,7 +12,7 @@ public enum PaymentType
 
 public enum DeliveryType
 {
-    [Display(Name = "Бесплатная доставка")]
+    [Display(Name = "Стандартная доставка")]
     FreeShipment,
     [Display(Name = "Самовывоз")]
     Self_delivery,

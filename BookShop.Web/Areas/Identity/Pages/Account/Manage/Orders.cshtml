@@ -8,41 +8,43 @@
     ViewData["ActivePage"] = ManageNavPages.Orders;
 }
 <h3 class="mb-4">@ViewData["Title"]</h3>
-<table class="table table-hover table-fixed align-middle text-center">
 
 
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Дата заказа</th>
-      <th>Количество</th>
-      <th>Сумма</th>
-      <th>Скидка</th>
-      <th>Статус</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
+
 @if (Model.orderViewModels.Count > 0)
     {
-        @foreach (var item in Model.orderViewModels)
-        {
-            string discount = @item.TotalDiscount == 0 ? "-" : @item.TotalDiscount.ToString("N2");
-            string status = @item.IsInProcess == true ? "В обработке" : "Обработан";
-            string statusColor = @item.IsInProcess == true ? "warning" : "success";
-            <tr class="table-@statusColor ">
-                <th>@item.OrderId</th>
-                <td>@item.OrderDate</td>
-                <td>@item.Units</td>
-                <td>@item.TotalPrice</td>
-                <td>@discount</td>
-                <td>@status</td>
-                <td>
-                    <a asp-controller="Order" asp-action="OrderDetails" asp-route-id="@item.OrderId" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
-                </td>
-            </tr>
-            @* <partial name="_OrderHistoryCardPartial" model="@item" /> *@
-        }
+    <table class="table table-hover table-fixed align-middle text-center">
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>Дата заказа</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+        <th>Скидка</th>
+        <th class="fw-bold">Статус</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.orderViewModels)
+    {
+        string discount = @item.TotalDiscount == 0 ? "-" : @item.TotalDiscount.ToString("N2");
+        string status = @item.IsInProcess == true ? "В обработке" : "Обработан";
+        string statusColor = @item.IsInProcess == true ? "warning" : "success";
+        <tr class="table-@statusColor ">
+            <th>@item.OrderId</th>
+            <td>@item.OrderDate</td>
+            <td>@item.Units</td>
+            <td>@item.TotalPrice</td>
+            <td>@discount</td>
+            <td>@status</td>
+            <td>
+                <a asp-controller="Order" asp-action="OrderDetails" asp-route-id="@item.OrderId" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
+            </td>
+        </tr>
+    }
+        </tbody>
+    </table>
     }
     else
     {
@@ -60,11 +62,7 @@
         </div>
     }
 
-  </tbody>
-  <!--Table body-->
 
-</table>
-<!--Table-->
 
 <div class="row">
 

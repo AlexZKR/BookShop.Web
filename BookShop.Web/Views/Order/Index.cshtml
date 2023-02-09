@@ -9,10 +9,12 @@
                         <div class="row g-0">
                             <div class="col-lg-6">
                                 <div class="p-5">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                         <h2 class="fw-bold mb-0 text-black">Оформление заказа</h2>
                                         <h6 class="mb-0 text-muted">Количество: @Model.TotalItems</h6>
                                     </div>
+                                        <small class="text-muted pb-4">Заполните профиль в личном кабинете, чтобы часть информации вносилась автоматически</small>
+
                                     <div class="col-12">
                                         <partial name="_CheckoutDetailsPartial" model="@Model" />
                                     </div>

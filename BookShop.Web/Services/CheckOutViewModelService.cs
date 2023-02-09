@@ -58,7 +58,7 @@ public class CheckOutViewModelService : ICheckOutViewModelService
                 FullPrice = i.FullPrice,
                 DiscountedPrice = i.DiscountedPrice,
                 Discount = i.Discount,
-                Units = basket.Items.First(i => i.Id == i.Id).Quantity,
+                Units = basket.Items.FirstOrDefault(bi => bi.ProductId == i.Id)!.Quantity,
                 PictureUrl = uriComposer.ComposePicUri(i.ImagePath),
                 //AddInfo = i.Author.Name
 

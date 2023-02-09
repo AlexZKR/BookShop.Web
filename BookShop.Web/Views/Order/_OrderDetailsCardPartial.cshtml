@@ -1,4 +1,9 @@
 @model OrderItemViewModel
+
+@{
+    var discount = Model.Discount == 0 ? "-" : $"{Model.Discount * 100}%";
+}
+
 <div class="card shadow-1 border-2 mb-2 card-hover">
     <div class="card-body">
         <div class="row">
@@ -11,19 +16,11 @@
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                 <p class="text-muted mb-0 small">@Model.Units шт.</p>
             </div>
-            @if (Model.Discount > 0)
-            {
-                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">@((Model.Discount * 100))%</p>
-                </div>
 
-            }
-            else
-            {
-                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">Нет</p>
-                </div>
-            }
+            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                <p class="text-muted mb-0 small">@discount</p>
+            </div>
+
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                 <p class="text-muted mb-0 small">@Model.FullPrice руб.</p>
             </div>

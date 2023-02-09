@@ -23,10 +23,24 @@
             </a>
             <ul class="dropdown-menu">
                 <li class="dropdown-item">
+                    <form method="get" id="profile" class="form-inline" asp-area="Identity"
+                    asp-page="/Account/Manage/Index">
+                        <button id="profile" type="submit" class="nav-link btn btn-link text-dark border-0">
+                            <i class="fa-solid fa-user"></i> Личный кабинет</button>
+                    </form>
+                </li>
+                <li class="dropdown-item">
                     <form method="get" id="favs" class="form-inline" asp-area="Identity"
                     asp-page="/Account/Manage/Favourites">
-                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">
+                        <button id="favs" type="submit" class="nav-link btn btn-link text-dark border-0">
                             <i class="fa-solid fa-heart"></i> Избранные товары</button>
+                    </form>
+                </li>
+                <li class="dropdown-item">
+                    <form method="get" id="orders" class="form-inline" asp-area="Identity"
+                    asp-page="/Account/Manage/Orders">
+                        <button id="orders" type="submit" class="nav-link btn btn-link text-dark border-0">
+                            <i class="fa-solid fa-clipboard-list"></i> История заказов</button>
                     </form>
                 </li>
                 <li class="dropdown-item">
