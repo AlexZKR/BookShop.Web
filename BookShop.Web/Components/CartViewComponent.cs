@@ -1,21 +1,22 @@
-using BookShop.Web.Interfaces;
+using BookShop.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.WebComponents;
 
 public class CartViewComponent : ViewComponent
 {
-    private readonly IBasketViewModelService basketViewModelService;
+    private readonly IBasketQueryService basketQueryService;
 
-    public CartViewComponent(IBasketViewModelService basketViewModelService)
+    public CartViewComponent(IBasketQueryService basketQueryService)
     {
-        this.basketViewModelService = basketViewModelService;
+        this.basketQueryService = basketQueryService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync(string username)
     {
         if (username == null) username = new Guid().ToString();
-        var vm = await basketViewModelService.GetOrCreateBasketForUser(username);
-        return View(vm);
+        ViewData["basketCount"] = await basketQueryService.CountTotalBasketItems(username);
+        return View();
     }
+
 }

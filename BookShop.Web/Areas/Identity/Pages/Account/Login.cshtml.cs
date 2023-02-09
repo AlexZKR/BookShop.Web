@@ -19,19 +19,24 @@ namespace BookShop.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IBasketService basketService;
+        private readonly IBasketQueryService basketQueryService;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger,
-        IBasketService basketService)
+        IBasketService basketService,
+        IBasketQueryService basketQueryService)
         {
             _signInManager = signInManager;
             _logger = logger;
             this.basketService = basketService;
+            this.basketQueryService = basketQueryService;
+
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
         public string ReturnUrl { get; set; }
+        public string BasketCount = "";
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -66,6 +71,8 @@ namespace BookShop.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+            var count = await basketQueryService.CountTotalBasketItems(Input?.Email);
+            BasketCount = count.ToString();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
