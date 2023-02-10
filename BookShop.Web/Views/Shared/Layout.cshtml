@@ -107,26 +107,6 @@
     </nav>
     <!-- Close Header -->
 
-    @* <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-    <div class="w-100 pt-1 mb-5 text-right">
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <form asp-controller="Catalog" asp-action="Index" method="get"
-    class="modal-content modal-body border-0 p-0">
-    <div class="input-group mb-2">
-    <input type="text" asp-for="search" class="form-control" id="inputModalSearch"
-    placeholder="Поиск ...">
-    <button type="submit" class="input-group-text bg-success text-light">
-    <i class="fa fa-fw fa-search text-white"></i>
-    </button>
-    </div>
-    </form>
-    </div>
-    </div> *@
-
     @RenderBody()
 
     <!-- Start Footer -->
@@ -172,7 +152,6 @@
                     <ul class="list-unstyled text-light footer-link-list">
                         <li><a class="text-decoration-none" href="#">Главная страница</a></li>
                         <li><a class="text-decoration-none" href="#">О нас</a></li>
-                        <li><a class="text-decoration-none" href="#">Адреса магазинов</a></li>
                         <li><a class="text-decoration-none" href="#">Частые вопросы</a></li>
                         <li><a class="text-decoration-none" href="#">Контакты</a></li>
                     </ul>
@@ -204,14 +183,14 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-auto">
+                @* <div class="col-auto">
                     <label class="sr-only" for="subscribeEmail">Эл. почта</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control bg-dark border-light" id="subscribeEmail"
                             placeholder="Email address">
                         <div class="input-group-text btn-success text-light">Подпишитесь</div>
                     </div>
-                </div>
+                </div> *@
             </div>
         </div>
 

@@ -9,7 +9,7 @@ namespace BookShop.Web.Services;
 
 public class ProductDetailsViewModelService : IProductDetailsViewModelService
 {
-    private readonly ILogger<CatalogViewModelService> logger;
+    private readonly ILogger<BookCatalogViewModelService> logger;
     private readonly IRepository<Book> bookRepository;
     private readonly IUriComposer uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
@@ -19,7 +19,7 @@ public class ProductDetailsViewModelService : IProductDetailsViewModelService
     IUriComposer uriComposer,
     IFavouriteService<Book> favouriteService)
     {
-        logger = loggerFactory.CreateLogger<CatalogViewModelService>();
+        logger = loggerFactory.CreateLogger<BookCatalogViewModelService>();
         this.bookRepository = bookRepository;
         this.uriComposer = uriComposer;
         this.favouriteService = favouriteService;

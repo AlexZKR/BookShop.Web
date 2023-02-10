@@ -9,21 +9,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookShop.Web.Services;
 
-public class CatalogViewModelService : ICatalogViewModelService
+public class BookCatalogViewModelService : ICatalogViewModelService
 {
-    private readonly ILogger<CatalogViewModelService> logger;
+    private readonly ILogger<BookCatalogViewModelService> logger;
     private readonly IRepository<Book> bookRepository;
     private readonly IRepository<Author> authorRepository;
     private readonly IUriComposer uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
 
-    public CatalogViewModelService(ILoggerFactory loggerFactory,
+    public BookCatalogViewModelService(ILoggerFactory loggerFactory,
     IRepository<Book> bookRepository,
     IRepository<Author> authorRepository,
     IUriComposer uriComposer,
     IFavouriteService<Book> favouriteService)
     {
-        logger = loggerFactory.CreateLogger<CatalogViewModelService>();
+        logger = loggerFactory.CreateLogger<BookCatalogViewModelService>();
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.uriComposer = uriComposer;
@@ -95,6 +95,27 @@ public class CatalogViewModelService : ICatalogViewModelService
         return vm;
     }
 
+    public async Task<CatalogViewModel> GetTopSoldItems(int quantity, string username)
+    {
+        var spec = new BookCatalogGetNumberOfTopSoldItemsSpecification(quantity);
+        var products = await bookRepository.ListAsync(spec);
+
+        var vm = new CatalogViewModel()
+        {
+            CatalogItems = products.Select( p => new CatalogItemViewModel
+            {
+                 Id = p.Id,
+                 Name = p.Name,
+                 PictureUri = uriComposer.ComposePicUri(p.ImagePath),
+                 Price = p.FullPrice,
+                 DiscountedPrice = p.DiscountedPrice,
+                 IsFavourite = favouriteService.CheckIfFavourite(username, p),
+                 IsOnDiscount = p.Discount > 0 ? true : false,
+
+            }).ToList(),
+        };
+        return vm;
+    }
 
 
     public async Task<IEnumerable<SelectListItem>> GetAuthors()

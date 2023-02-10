@@ -16,12 +16,13 @@
                     <li>
                         <form asp-controller="Catalog" asp-action="UpdateFav" method="post"
                             enctype="multipart/form-data">
-                            <a class="btn btn-success text-white" asp-asp-controller="Catalog" asp-action="UpdateFav"
+                            <a class="btn btn-success text-white" asp-controller="Catalog" asp-action="UpdateFav"
                                 asp-route-prodId="@Model.Id" asp-route-returnUrl="@returnUrl"><i
                                     class="@iconType"></i></a>
                         </form>
                     </li>
-                    <li><a class="btn btn-success text-white mt-2" asp-controller="Product" asp-action="Index"
+                    <li>
+                        <a class="btn btn-success text-white mt-2" asp-controller="Product" asp-action="Index"
                             asp-route-id="@Model.Id"><i class="far fa-eye"></i></a></li>
                     <li>
                         <a class="btn btn-success text-white mt-2" asp-controller="Basket" asp-action="AddToCart"
@@ -33,7 +34,7 @@
             </div>
         </div>
         <div class="card-body">
-            <a href="shop-single.html" class="h3 text-decoration-none">@Model.Name</a>
+            <a asp-controller="Product" asp-action="Index" asp-route-id="@Model.Id" class="h3 text-decoration-none">@Model.Name</a>
             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                 <li>@Model.AuthorName</li>
                 <li class="pt-2">

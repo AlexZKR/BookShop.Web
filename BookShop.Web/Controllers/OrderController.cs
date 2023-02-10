@@ -139,20 +139,3 @@ public class OrderController : Controller
         };
     }
 }
-
-// var items = vm.OrderItems.Select(i => new OrderItem()
-// {
-//     ProductId = i.ProductId,
-//     ProductName = i.ProductName,
-//     FullPrice = i.FullPrice,
-//     DiscountedPrice = i.DiscountedPrice,
-//     Discount = i.Discount,
-//     Units = i.Units,
-//     PictureUrl = i.PictureUrl,
-//     AddInfo = i.AddInfo
-// }).ToList();
-
-// Order order = await orderService.CreateOrderAsync(totalPrice: vm.TotalPrice,
-//  discountSize: vm.DiscountSize, orderComment: vm.OrderComment!, buyerId: vm.BuyerId!, firstName: vm.FirstName!,
-// lastName: vm.LastName!, phoneNumber: vm.PhoneNumber!, email: vm.Email!, street: vm.Street!,
-// city: vm.City!, postCode: vm.PostCode!, region: vm.Region, paymentType: vm.PaymentType, deliveryType: vm.DeliveryType);

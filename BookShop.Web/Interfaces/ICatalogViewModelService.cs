@@ -8,5 +8,5 @@ public interface ICatalogViewModelService
 {
     Task<CatalogViewModel> GetCatalogItems(string username, int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang);
     Task<IEnumerable<SelectListItem>> GetAuthors();
-
+    Task<CatalogViewModel> GetTopSoldItems(int quantity, string username);
 }
