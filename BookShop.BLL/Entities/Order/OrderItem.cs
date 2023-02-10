@@ -8,7 +8,7 @@ namespace BookShop.BLL.Entities.Order;
 /// Represents a snapshot of the item that was ordered. If catalog item details change, details of
 /// the item that was part of a completed order should not change.
 /// </summary>
-public class OrderItem : BaseEntity, IAggregateRoot
+public class OrderItem : BaseEntity, ICatalogAggregateRoot
 {
     public OrderItem(
         int ProductId,

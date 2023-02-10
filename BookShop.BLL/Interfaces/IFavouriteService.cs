@@ -2,7 +2,7 @@ using BookShop.BLL.Entities.Products;
 
 namespace BookShop.BLL.Interfaces;
 
-public interface IFavouriteService<T> where T : BaseProduct, IAggregateRoot
+public interface IFavouriteService<T> where T : BaseProduct, ICatalogAggregateRoot
 {
     // public Task<bool> CheckIfFavourite(string username, T entity);
     public bool CheckIfFavourite(string username, T entity);

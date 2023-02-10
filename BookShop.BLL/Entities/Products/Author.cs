@@ -5,7 +5,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Products
 {
-    public class Author : BaseEntity, IAggregateRoot
+    public class Author : BaseEntity, ICatalogAggregateRoot
     {
         [Required]
         [DataType(DataType.Text)]

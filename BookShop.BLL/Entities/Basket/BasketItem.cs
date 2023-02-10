@@ -2,7 +2,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Basket;
 
-public class BasketItem : BaseEntity, IAggregateRoot
+public class BasketItem : BaseEntity, ICatalogAggregateRoot
 {
     public double FullPrice { get; private set; }
     public double Discount { get; set; }

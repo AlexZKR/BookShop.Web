@@ -2,7 +2,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Basket;
 
-public class Basket : BaseEntity, IAggregateRoot
+public class Basket : BaseEntity, ICatalogAggregateRoot
 {
     public string BuyerId { get; private set; }
     private readonly List<BasketItem> items = new List<BasketItem>();

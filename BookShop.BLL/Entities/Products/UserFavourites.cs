@@ -3,7 +3,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Products;
 
-public class UserFavourites : IAggregateRoot
+public class UserFavourites : ICatalogAggregateRoot
 {
     [Key]
     public string? Username { get; set; }

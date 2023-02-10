@@ -5,7 +5,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Order;
 
-public class Order : BaseEntity, IAggregateRoot
+public class Order : BaseEntity, ICatalogAggregateRoot
 {
     public bool IsInProcess {get; set;} = true;
 

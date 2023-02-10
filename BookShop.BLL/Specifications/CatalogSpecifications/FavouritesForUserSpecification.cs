@@ -4,7 +4,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Specifications.CatalogSpecifications;
 
-public class FavouritesForUserSpecification<T> : Specification<T> where T : BaseProduct, IAggregateRoot
+public class FavouritesForUserSpecification<T> : Specification<T> where T : BaseProduct, ICatalogAggregateRoot
 {
     public FavouritesForUserSpecification(string[] Ids)
     {

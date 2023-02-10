@@ -12,20 +12,17 @@ namespace BookShop.Web.Services;
 public class BookCatalogViewModelService : ICatalogViewModelService
 {
     private readonly ILogger<BookCatalogViewModelService> logger;
-    private readonly IRepository<Book> bookRepository;
-    private readonly IRepository<Author> authorRepository;
+    private readonly IBookCatalogService bookCatalogService;
     private readonly IUriComposer uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
 
     public BookCatalogViewModelService(ILoggerFactory loggerFactory,
-    IRepository<Book> bookRepository,
-    IRepository<Author> authorRepository,
+    IBookCatalogService bookCatalogService,
     IUriComposer uriComposer,
     IFavouriteService<Book> favouriteService)
     {
         logger = loggerFactory.CreateLogger<BookCatalogViewModelService>();
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
+        this.bookCatalogService = bookCatalogService;
         this.uriComposer = uriComposer;
         this.favouriteService = favouriteService;
     }
@@ -33,30 +30,9 @@ public class BookCatalogViewModelService : ICatalogViewModelService
     //todo: split method cause it violates single responsibility principle, add sorting and tag filter on top of the catalog
     public async Task<CatalogViewModel> GetCatalogItems(string username, int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
     {
-        logger.LogInformation("GetCatalogItems called");
+        logger.LogInformation("GetCatalogItemsViewModels called");
 
-        List<Book> itemsOnPage;
-        int totalItemsCount;
-
-        //first configuring filters, then using them to query data from repos
-        if (searchQuery == null)
-        {
-            var filterSpec =
-             new BookCatalogFilterSpecification(AuthorId, cover, genre, lang);
-            var paginatedFilterSpec =
-             new BookCatalogFilterPaginatedSpecification(skip: itemsPage * pageIndex, take: itemsPage, AuthorId, cover, genre, lang);
-
-            itemsOnPage = await bookRepository.ListAsync(paginatedFilterSpec);
-            totalItemsCount = await bookRepository.CountAsync(filterSpec);
-        }
-        else
-        {
-            var filterSearchQuerySpec =
-            new BookCatalogSearchQuerySpecification(searchQuery);
-
-            itemsOnPage = await bookRepository.ListAsync(filterSearchQuerySpec);
-            totalItemsCount = await bookRepository.CountAsync(filterSearchQuerySpec);
-        }
+        List<Book> itemsOnPage = await bookCatalogService.GetCatalogItems(username, pageIndex, itemsPage, searchQuery, AuthorId, cover,genre, lang);
 
 
         var vm = new CatalogViewModel()
@@ -85,8 +61,8 @@ public class BookCatalogViewModelService : ICatalogViewModelService
             {
                 ActualPage = pageIndex,
                 ItemsPerPage = itemsOnPage.Count,
-                TotalItems = totalItemsCount,
-                TotalPages = int.Parse(Math.Ceiling(((decimal)totalItemsCount / itemsPage)).ToString())
+                TotalItems = itemsPage,
+                TotalPages = int.Parse(Math.Ceiling(((decimal)itemsOnPage.Count / itemsPage)).ToString())
             }
         };
 
@@ -97,8 +73,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
 
     public async Task<CatalogViewModel> GetTopSoldItems(int quantity, string username)
     {
-        var spec = new BookCatalogGetNumberOfTopSoldItemsSpecification(quantity);
-        var products = await bookRepository.ListAsync(spec);
+        var products = await bookCatalogService.GetTopSoldItems(quantity, username);
 
         var vm = new CatalogViewModel()
         {
@@ -121,7 +96,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
     public async Task<IEnumerable<SelectListItem>> GetAuthors()
     {
         logger.LogInformation("GetAuthors called");
-        var authorNames = await authorRepository.ListAsync();
+        var authorNames = await bookCatalogService.GetAuthors();
 
         var items = authorNames.Select(n => new SelectListItem() { Text = n.Name, Value = n.Id.ToString() })
             .OrderBy(n => n.Text)

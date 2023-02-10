@@ -4,7 +4,7 @@ using BookShop.BLL.Specifications.CatalogSpecifications;
 
 namespace BookShop.BLL.Services;
 
-public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, IAggregateRoot
+public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, ICatalogAggregateRoot
 {
     private readonly IRepository<T> productRepository;
     private readonly IRepository<UserFavourites> favouritesRepository;

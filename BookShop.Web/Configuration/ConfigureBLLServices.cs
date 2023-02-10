@@ -15,6 +15,7 @@ public static class ConfigureBLLServices
     {
         services.AddScoped(typeof(IReadRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IBookCatalogService, BookCatalogService>();
 
         services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
 
