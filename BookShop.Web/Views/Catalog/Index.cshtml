@@ -48,12 +48,13 @@
 
             @* Prod cards *@
 
-
+        @if (Model.CatalogItems.Count != 0)
+        {
             <div class="mx-4">
                 <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
             </div>
-        </div>
-
+        }
+</div>
     </div>
 </div>
 <!-- End Content -->

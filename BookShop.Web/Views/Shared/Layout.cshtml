@@ -133,18 +133,51 @@
                     </ul>
                 </div>
 
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Каталог</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Художественная литература</a></li>
-                        <li><a class="text-decoration-none" href="#">Нехудожественная литература</a></li>
-                        <li><a class="text-decoration-none" href="#">Детская литература</a></li>
-                        <li><a class="text-decoration-none" href="#">Бизнес-литература</a></li>
-                        <li><a class="text-decoration-none" href="#">Учебная литература</a></li>
-                        <li><a class="text-decoration-none" href="#">Психология</a></li>
-                        <li><a class="text-decoration-none" href="#">Книги на иностранных языках</a></li>
-                    </ul>
-                </div>
+    <div class="col-md-4 pt-5">
+        <h2 class="h2 text-light border-bottom pb-3 border-light">Каталог</h2>
+        <ul class="list-unstyled text-light footer-link-list">
+            <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="1">
+                    Художественная литература
+                </a>
+            </li>
+            <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="2">
+                    Нехудожественная литература
+                </a>
+            </li>
+            <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="3">
+                    Детская литература
+                </a>
+            </li>
+            <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="4">
+                    Бизнес-литература
+                </a>
+            </li>
+             <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="5">
+                    Учебная литература
+                </a>
+            </li>
+             <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="6">
+                    На иностранных языках
+                </a>
+            </li>
+             <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="7">
+                    Психология
+                </a>
+            </li>
+            <li>
+                <a class="text-decoration-none" asp-controller="Catalog" asp-action="Index" asp-route-genre="8">
+                    Научно-популярная литература
+                </a>
+            </li>
+        </ul>
+    </div>
 
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Информация</h2>
