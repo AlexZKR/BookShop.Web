@@ -13,7 +13,7 @@ public static class HttpContextExtensions
             if (user.Identity.Name != null)
                 return user.Identity.Name!;
         }
-
+        userName = Guid.NewGuid().ToString();
         return userName!;
     }
 }

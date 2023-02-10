@@ -19,12 +19,12 @@ public class CatalogController : Controller
         this.favouriteService = favouriteService;
         this.catalogViewModelService = catalogViewModelService;
     }
-    public async Task<IActionResult> Index([FromQuery] string? searchQuery, int? pageId, int author, int? cover, int? genre, int? lang)
+    public async Task<IActionResult> Index([FromQuery] string? SearchQuery, int? pageId, int author, int? cover, int? genre, int? lang)
     {
         //todo: even not auth users can get userfavs object. thats not right
         string username = HttpContext.GetUsername();
         var catalogModel = await catalogViewModelService
-        .GetCatalogViewModel(username,searchQuery, pageId ?? 0,  AuthorId: author, genre: genre, lang: lang!, cover: cover);
+        .GetCatalogViewModel(username,SearchQuery, pageId ?? 0,  AuthorId: author, genre: genre, lang: lang!, cover: cover);
 
         return View(catalogModel);
     }
