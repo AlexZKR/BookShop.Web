@@ -16,7 +16,7 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var catalogModel = await catalogViewModelService
-        .GetTopSoldItems(3, HttpContext.GetUsername());
+        .GetTopSoldItemsViewModel(3, HttpContext.GetUsername());
 
         return View(catalogModel);
     }

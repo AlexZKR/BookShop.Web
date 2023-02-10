@@ -29,7 +29,7 @@ public class OrderService : IOrderService
     }
     public async Task<Order> CreateOrderAsync(Address address, Buyer buyer, OrderInfo orderInfo)
     {
-        if (buyer.BuyerId == null) throw new NotFoundInDbException($"User was not found in db.");
+        if (buyer.BuyerId == null) throw new NotFoundException($"User was not found in db.");
         logger.LogInformation($"Creating order for userId: {buyer.BuyerId}");
         var basket = await basketService.GetBasketAsync(buyer.BuyerId);
         var orderItems = await MapBasketItems(basket.Items);
@@ -60,7 +60,7 @@ public class OrderService : IOrderService
         foreach (var item in basketItems)
         {
             var product = await productRepository.GetByIdAsync(item.ProductId);
-            if (product == null) throw new Exceptions.NotFoundInDbException($"Item with id {item.ProductId} not found in db");
+            if (product == null) throw new Exceptions.NotFoundException($"Item with id {item.ProductId} not found in db");
 
             var orderItem = new OrderItem(item.Id,
                                           product.Name,
@@ -90,7 +90,7 @@ public class OrderService : IOrderService
                 await productRepository.UpdateAsync(product);
             }
             else
-                throw new NotFoundInDbException($"Product with id {item.ProductId} was not fount");
+                throw new NotFoundException($"Product with id {item.ProductId} was not fount");
         }
     }
 

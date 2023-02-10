@@ -1,8 +1,8 @@
 namespace BookShop.BLL.Exceptions;
 
-public class NotFoundInDbException : Exception
+public class NotFoundException : Exception
 {
-    public NotFoundInDbException(string message) : base(message)
+    public NotFoundException(string message) : base(message)
     {
     }
 }

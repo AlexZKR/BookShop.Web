@@ -29,7 +29,7 @@ public class OrderViewModelService : IOrderViewModelService
     {
         var spec = new OrderWithItemsByIdSpecification(orderId);
         var order = await orderRepository.FirstOrDefaultAsync(spec);
-        if (order == null) throw new NotFoundInDbException($"Order with id {orderId} not found in db");
+        if (order == null) throw new NotFoundException($"Order with id {orderId} not found in db");
         return order;
     }
 

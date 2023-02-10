@@ -1,4 +1,5 @@
 using BookShop.BLL.Entities.Products;
+using BookShop.BLL.Exceptions;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
 
@@ -19,12 +20,11 @@ public class BookCatalogService : IBookCatalogService
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
     }
-    public async Task<List<Book>> GetCatalogItems(string username, int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
+    public async Task<List<Book>> GetCatalogItems(string username, string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE, int? AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
     {
         logger.LogInformation("GetCatalogItems called");
 
         List<Book> itemsOnPage;
-        //first configuring filters, then using them to query data from repos
         if (searchQuery == null)
         {
             var paginatedFilterSpec =
@@ -54,5 +54,23 @@ public class BookCatalogService : IBookCatalogService
         var authors = await authorRepository.ListAsync();
         return authors;
     }
+
+    public async Task<int> TotalItemsCountAsync(string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE)
+    {
+
+        if (searchQuery == null)
+        {
+            var paginatedFilterSpec = new BookCatalogFilterPaginatedSpecification(skip: itemsPage
+                * pageIndex, take: itemsPage, AuthorId, cover, genre, lang);
+            return await bookRepository.CountAsync(paginatedFilterSpec);
+        }
+        else
+        {
+            var filterSearchQuerySpec = new BookCatalogSearchQuerySpecification(searchQuery);
+            return await bookRepository.CountAsync(filterSearchQuerySpec);
+        }
+        throw new NotFoundException("Error when counting total items");
+    }
+
 
 }

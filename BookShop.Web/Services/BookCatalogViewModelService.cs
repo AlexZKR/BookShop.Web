@@ -1,7 +1,7 @@
+using BookShop.BLL;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Interfaces;
-using BookShop.BLL.Specifications.CatalogSpecifications;
 using BookShop.Web.Infrastructure;
 using BookShop.Web.Interfaces;
 using BookShop.Web.Models.Catalog;
@@ -27,12 +27,11 @@ public class BookCatalogViewModelService : ICatalogViewModelService
         this.favouriteService = favouriteService;
     }
 
-    //todo: split method cause it violates single responsibility principle, add sorting and tag filter on top of the catalog
-    public async Task<CatalogViewModel> GetCatalogItems(string username, int pageIndex, int itemsPage, string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang)
+    public async Task<CatalogViewModel> GetCatalogViewModel(string username,string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE,  int AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
     {
         logger.LogInformation("GetCatalogItemsViewModels called");
 
-        List<Book> itemsOnPage = await bookCatalogService.GetCatalogItems(username, pageIndex, itemsPage, searchQuery, AuthorId, cover,genre, lang);
+        List<Book> itemsOnPage = await bookCatalogService.GetCatalogItems(username, searchQuery,pageIndex, itemsPage, AuthorId, cover, genre, lang );
 
 
         var vm = new CatalogViewModel()
@@ -55,23 +54,28 @@ public class BookCatalogViewModelService : ICatalogViewModelService
                 Genres = EnumHelper<Genre>.GetStaticDataFromEnum(Genre.ChildrenLiterature).ToList(),
                 Languages = EnumHelper<Language>.GetStaticDataFromEnum(Language.Russian).ToList(),
                 Covers = EnumHelper<Cover>.GetStaticDataFromEnum(Cover.HardCover).ToList(),
-                Authors = (await GetAuthors()).ToList(),
+                Authors = (await GetAuthorsSelectList()).ToList(),
             },
             PaginationInfo = new PaginationViewModel()
             {
+
                 ActualPage = pageIndex,
-                ItemsPerPage = itemsOnPage.Count,
-                TotalItems = itemsPage,
-                TotalPages = int.Parse(Math.Ceiling(((decimal)itemsOnPage.Count / itemsPage)).ToString())
+                ItemsPerPage = SD.ITEMS_PER_PAGE,
+                TotalItems = await bookCatalogService.TotalItemsCountAsync(searchQuery, AuthorId, cover, genre, lang, pageIndex, itemsPage),
             }
         };
 
+        vm.PaginationInfo.IsNextPageHasItems = (vm.PaginationInfo.TotalItems - vm.PaginationInfo.ItemsPerPage*vm.PaginationInfo.ActualPage) > 0 ? true : false;
+        vm.PaginationInfo.TotalPages = vm.PaginationInfo.TotalItems / vm.PaginationInfo.ItemsPerPage;
         vm.PaginationInfo.Next = (vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1) ? "is-disabled" : "";
         vm.PaginationInfo.Previous = (vm.PaginationInfo.ActualPage == 0) ? "is-disabled" : "";
+
+        vm.PaginationInfo.IsNextPageHasItems = vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1 ? false : true;
+
         return vm;
     }
 
-    public async Task<CatalogViewModel> GetTopSoldItems(int quantity, string username)
+    public async Task<CatalogViewModel> GetTopSoldItemsViewModel(int quantity, string username)
     {
         var products = await bookCatalogService.GetTopSoldItems(quantity, username);
 
@@ -93,7 +97,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
     }
 
 
-    public async Task<IEnumerable<SelectListItem>> GetAuthors()
+    public async Task<IEnumerable<SelectListItem>> GetAuthorsSelectList()
     {
         logger.LogInformation("GetAuthors called");
         var authorNames = await bookCatalogService.GetAuthors();
@@ -106,5 +110,4 @@ public class BookCatalogViewModelService : ICatalogViewModelService
         items.Insert(0, allItem);
         return items;
     }
-
 }

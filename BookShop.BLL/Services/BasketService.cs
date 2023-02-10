@@ -164,7 +164,7 @@ public class BasketService : IBasketService
             if (product != null)
                 list.Add(product);
             else
-                throw new Exceptions.NotFoundInDbException($"Item with id {item.ProductId} not found in db");
+                throw new Exceptions.NotFoundException($"Item with id {item.ProductId} not found in db");
         }
         return list;
     }
@@ -178,7 +178,7 @@ public class BasketService : IBasketService
             if (product != null)
                 list.Add(product);
             else
-                throw new Exceptions.NotFoundInDbException($"Item with id {item.ProductId} not found in db");
+                throw new Exceptions.NotFoundException($"Item with id {item.ProductId} not found in db");
         }
         return list;
     }
