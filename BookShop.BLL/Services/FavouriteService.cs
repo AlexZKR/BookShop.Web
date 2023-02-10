@@ -35,6 +35,17 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
         await favouritesRepository.UpdateAsync(favs);
         return isExisted;
     }
+    public async Task<bool> RemoveFromFavourites(string username, T entity)
+    {
+        string postIdComplate = ',' + entity.Id.ToString();
+        bool isExisted = false;
+        var favs = await GetFavouritesObject(username);
+
+        favs.Favourites = favs.Favourites.Replace(postIdComplate, "");
+        isExisted = true;
+        await favouritesRepository.UpdateAsync(favs);
+        return isExisted;
+    }
 
     public async Task<bool> UpdateFavourite(string username, string Id)
     {

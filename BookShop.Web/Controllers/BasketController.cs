@@ -1,7 +1,7 @@
 using Ardalis.GuardClauses;
 using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using BookShop.BLL;
+using BookShop.Web.Extensions;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Entities.Products;
 
@@ -11,19 +11,23 @@ public class BasketController : Controller
 {
     private readonly IBasketViewModelService basketViewModelService;
     private readonly IRepository<BaseProduct> productRepository;
+    private readonly BLL.Interfaces.IFavouriteService<BaseProduct> favouriteService;
     private readonly IBasketService basketService;
 
     public BasketController(IBasketViewModelService basketViewModelService,
     IRepository<BaseProduct> productRepository,
-    IBasketService basketService)
+    IBasketService basketService,
+    IFavouriteService<BaseProduct> favouriteService)
     {
         this.basketViewModelService = basketViewModelService;
         this.productRepository = productRepository;
         this.basketService = basketService;
+        this.favouriteService = favouriteService;
+        this.basketService = basketService;
     }
     public async Task<IActionResult> Index()
     {
-        var vm = await basketViewModelService.GetOrCreateBasketForUser(GetOrSetBasketCookieAndUserName());
+        var vm = await basketViewModelService.GetOrCreateBasketForUser(ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this));
         return View(vm);
     }
     [Route("AddToCart/{id:int}")]
@@ -35,18 +39,24 @@ public class BasketController : Controller
             return RedirectToPage("/Index");
         }
 
-        var username = GetOrSetBasketCookieAndUserName();
+
+        var username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
+        //if item was in favs, then remove it
+        if(favouriteService.CheckIfFavourite(username,item) == true)
+        {
+            await favouriteService.RemoveFromFavourites(username,item);
+        }
+
         var basket = await basketService.AddItemToBasket(username,
             id, item.FullPrice, item.Discount);
 
-        // var vm = await basketViewModelService.Map(basket);
         return RedirectToAction(nameof(Index));
     }
 
     [Route("Remove/{id:int}")]
     public IActionResult Remove(int id)
     {
-        var username = GetOrSetBasketCookieAndUserName();
+        var username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
         basketService.RemoveItemFromBasket(username, id);
         return RedirectToAction(nameof(Index));
     }
@@ -54,44 +64,9 @@ public class BasketController : Controller
     [Route("ChangeQuantity/{itemId:int}/{mode}")]
     public IActionResult ChangeQuantity(int itemId, string mode)
     {
-        string username = GetOrSetBasketCookieAndUserName();
+        string username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
         basketService.UpDownQuantity(username, itemId, mode);
         return RedirectToAction(nameof(Index));
     }
 
-    //private helpers
-
-    //Even unauth users can create their cart. If they want to proceed with it, they will have to register
-    private string GetOrSetBasketCookieAndUserName()
-    {
-        Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));
-        string? userName = null;
-
-        if (Request.HttpContext.User.Identity.IsAuthenticated)
-        {
-            Guard.Against.Null(Request.HttpContext.User.Identity.Name, nameof(Request.HttpContext.User.Identity.Name));
-            return Request.HttpContext.User.Identity.Name!;
-        }
-
-        if (Request.Cookies.ContainsKey(SD.BASKET_COOKIENAME))
-        {
-            userName = Request.Cookies[SD.BASKET_COOKIENAME];
-
-            if (!Request.HttpContext.User.Identity.IsAuthenticated)
-            {
-                if (!Guid.TryParse(userName, out var _))
-                {
-                    userName = null;
-                }
-            }
-        }
-        if (userName != null) return userName;
-
-        userName = Guid.NewGuid().ToString();
-        var cookieOptions = new CookieOptions { IsEssential = true };
-        cookieOptions.Expires = DateTime.Today.AddYears(10);
-        Response.Cookies.Append(SD.BASKET_COOKIENAME, userName, cookieOptions);
-
-        return userName;
-    }
 }

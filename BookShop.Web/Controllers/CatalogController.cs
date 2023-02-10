@@ -1,7 +1,6 @@
 using BookShop.BLL.Entities.Products;
 using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using BookShop.BLL;
 using BookShop.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using BookShop.Web.Extensions;
