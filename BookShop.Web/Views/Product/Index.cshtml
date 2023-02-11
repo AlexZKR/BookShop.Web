@@ -225,7 +225,7 @@
                         </table>
 
                         <form action="" method="GET">
-                            <input type="hidden" name="product-title" value="Activewear">
+                            @* <input type="hidden" name="product-title" value="Activewear">
                             <div class="row">
                                 <div class="col-auto">
                                     <ul class="list-inline pb-3">
@@ -241,7 +241,7 @@
                                                 id="btn-plus">+</span></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> *@
 
                             <div class="row pb-3">
                                 <div class="container text-center">
@@ -253,9 +253,11 @@
                                             <i class="@iconType"></i>@labelType</a>
                                     </form>
 
-                                    <a class="btn btn-success btn-lg mx-4 w-45" name="submit" value="buy">
-                                        <i class="fa-solid fa-cart-shopping"></i> Добавить в корзину</a>
-
+                                    <a asp-controller="Basket" asp-action="AddToCart" asp-route-id="@Model.Id"
+                                        class="btn btn-success btn-lg mx-4 w-45">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        Добавить в корзину
+                                    </a>
                                 </div>
                             </div>
                         </form>
