@@ -15,16 +15,19 @@ public class BookCatalogViewModelService : ICatalogViewModelService
     private readonly IBookCatalogService bookCatalogService;
     private readonly IUriComposer uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
+    private readonly IRatingService ratingService;
 
     public BookCatalogViewModelService(ILoggerFactory loggerFactory,
     IBookCatalogService bookCatalogService,
     IUriComposer uriComposer,
-    IFavouriteService<Book> favouriteService)
+    IFavouriteService<Book> favouriteService,
+    IRatingService ratingService)
     {
         logger = loggerFactory.CreateLogger<BookCatalogViewModelService>();
         this.bookCatalogService = bookCatalogService;
         this.uriComposer = uriComposer;
         this.favouriteService = favouriteService;
+        this.ratingService = ratingService;
     }
 
     public async Task<CatalogViewModel> GetCatalogViewModel(string username,string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE,  int AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
@@ -32,7 +35,6 @@ public class BookCatalogViewModelService : ICatalogViewModelService
         logger.LogInformation("GetCatalogItemsViewModels called");
 
         List<Book> itemsOnPage = await bookCatalogService.GetCatalogItems(username, searchQuery,pageIndex, itemsPage, AuthorId, cover, genre, lang );
-
 
         var vm = new CatalogViewModel()
         {
@@ -47,6 +49,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
                 IsOnDiscount = b.Discount != 0,
                 IsAvailable = b.Quantity != 0,
                 IsFavourite = favouriteService.CheckIfFavourite(username, b),
+                Rating = new RatingViewModel {Rating = ratingService.GetRating(username,b.Id).Result},
             }).ToList(),
             FilterInfo = new CatalogFilterViewModel()
             {

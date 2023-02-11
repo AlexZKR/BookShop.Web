@@ -15,4 +15,6 @@ public class CatalogItemViewModel
     public bool IsAvailable { get; set; }
     public bool IsFavourite { get; set; }
 
+    public RatingViewModel Rating {get; set; } = new RatingViewModel();
+
 }

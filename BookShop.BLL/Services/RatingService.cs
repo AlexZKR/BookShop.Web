@@ -9,12 +9,15 @@ public class RatingService : IRatingService
 {
     private readonly IRepository<BaseProduct> productRepository;
     private readonly IRepository<ProductRating> ratingRepository;
+    private readonly IAppLogger<RatingService> logger;
 
     public RatingService(IRepository<BaseProduct> productRepository,
-    IRepository<ProductRating> ratingRepository)
+    IRepository<ProductRating> ratingRepository,
+    IAppLogger<RatingService> logger)
     {
         this.productRepository = productRepository;
         this.ratingRepository = ratingRepository;
+        this.logger = logger;
     }
 
     public async Task<double> UpdateProductAverageRating(int productId)
@@ -33,13 +36,23 @@ public class RatingService : IRatingService
 
     public async Task<int> GetRating(string username, int productId)
     {
-        //var product = GetProduct(productId);
-
-        var spec = new GetRatingByUsernameAndProdIdSpecification(username, productId);
+        try
+        {
+            var spec = new GetRatingByUsernameAndProdIdSpecification(username, productId);
         var rating = await ratingRepository.FirstOrDefaultAsync(spec);
         if(rating == null)
             throw new NotFoundException($"Rating record for product with id {productId} and user {username} was not found");
         return rating.Rating;
+        }
+        catch (Exception ex)
+        {
+            if(ex is NotFoundException)
+            {
+                logger.LogWarning(ex.Message);
+                return 5;
+            }
+            throw;
+        }
     }
 
     public async Task<int> SetRating(string username, int productId, int rating)

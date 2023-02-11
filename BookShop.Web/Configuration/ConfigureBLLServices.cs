@@ -18,7 +18,7 @@ public static class ConfigureBLLServices
         services.AddScoped<IBookCatalogService, BookCatalogService>();
 
         services.AddTransient(typeof(IFavouriteService<>), typeof(FavouriteService<>));
-
+        services.AddTransient<IRatingService, RatingService>();
 
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IBasketQueryService, BasketQueryService>();

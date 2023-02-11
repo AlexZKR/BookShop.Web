@@ -11,16 +11,23 @@ public class CatalogController : Controller
 {
     private readonly IFavouriteService<BaseProduct> favouriteService;
     private readonly ICatalogViewModelService catalogViewModelService;
+    private readonly IRatingService ratingService;
 
     public CatalogController(IFavouriteService<BaseProduct> favouriteService,
-    ICatalogViewModelService catalogViewModelService)
+                             ICatalogViewModelService catalogViewModelService,
+                             IRatingService ratingService)
     {
         this.favouriteService = favouriteService;
         this.catalogViewModelService = catalogViewModelService;
+        this.ratingService = ratingService;
     }
-    public async Task<IActionResult> Index([FromQuery] string? SearchQuery, int? pageId, int author, int? cover, int? genre, int? lang)
+    public async Task<IActionResult> Index([FromQuery] string? SearchQuery,
+                                           int? pageId,
+                                           int author,
+                                           int? cover,
+                                           int? genre,
+                                           int? lang)
     {
-        //todo: even not auth users can get userfavs object. thats not right
         string username = HttpContext.GetUsername();
         var catalogModel = await catalogViewModelService
         .GetCatalogViewModel(username,SearchQuery, pageId ?? 0,  AuthorId: author, genre: genre, lang: lang!, cover: cover);
@@ -34,10 +41,16 @@ public class CatalogController : Controller
     [Route("UpdateFav")]
     public async Task<IActionResult> UpdateFav(int prodId, string returnUrl)
     {
-        string username = HttpContext.GetUsername();
-        await favouriteService.UpdateFavourite(username, prodId.ToString());
+        await favouriteService.UpdateFavourite(HttpContext.GetUsername(), prodId.ToString());
         // if (returnUrl.Contains("Product"))
         //     return Redirect($"http://localhost:5092/{returnUrl}");
+        return RedirectToAction(nameof(Index));
+    }
+
+    [Authorize]
+    public async Task<IActionResult> UpdateRating(int id, int rating, string returnUrl)
+    {
+        await ratingService.SetRating(HttpContext.GetUsername(),id,rating);
         return RedirectToAction(nameof(Index));
     }
 

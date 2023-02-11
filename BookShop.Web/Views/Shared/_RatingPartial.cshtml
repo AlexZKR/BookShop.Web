@@ -1,0 +1,64 @@
+@model RatingViewModel
+
+
+
+<div class="container">
+<div class="rating">
+@for (int i = 0; i < Model.Rating; i++)
+{
+    <input type="radio" name="rating" value="@i" id="@i">
+    <label class="h2" for="@i">
+        ☆
+    </label>
+}
+
+</div>
+</div>
+
+<style>
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 30px;
+    font-weight: 500;
+    color: #FFD600;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+
+
+.buttons{
+	top: 36px;
+    position: relative;
+}
+
+</style>

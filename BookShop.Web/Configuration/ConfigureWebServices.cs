@@ -7,11 +7,12 @@ public static class ConfigureWebServices
 {
     public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IBasketViewModelService, BasketViewModelService>();
-        services.AddScoped<ICheckOutViewModelService, CheckOutViewModelService>();
-        services.AddScoped<IOrderViewModelService, OrderViewModelService>();
+        services.AddTransient<IBasketViewModelService, BasketViewModelService>();
+        services.AddTransient<ICheckOutViewModelService, CheckOutViewModelService>();
+        services.AddTransient<IOrderViewModelService, OrderViewModelService>();
         services.AddTransient<ICatalogViewModelService, BookCatalogViewModelService>();
         services.AddTransient<IProductDetailsViewModelService, ProductDetailsViewModelService>();
+        services.AddTransient<IRatingViewModelService, RatingViewModelService>();
 
         return services;
     }
