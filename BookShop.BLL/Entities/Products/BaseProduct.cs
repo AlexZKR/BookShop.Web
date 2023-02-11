@@ -4,7 +4,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Products;
 
-public abstract class BaseProduct : BaseEntity, ICatalogAggregateRoot
+public abstract class BaseProduct : BaseEntity, IAggregateRoot
 {
     [Required]
     [DataType(DataType.Text)]
@@ -37,11 +37,11 @@ public abstract class BaseProduct : BaseEntity, ICatalogAggregateRoot
     [Range(0, int.MaxValue)]
     public int Sold { get; set; }
 
-
-
-
     [Display(Name = "Изображение")]
     public string ImagePath { get; set; } = SD.NO_PHOTO;
 
-    //ratings
+    //av. rating for sorting and displaying
+    [Display(Name = "Средний рейтинг")]
+    [Range(0,5)]
+    public double Rating { get; set; }
 }

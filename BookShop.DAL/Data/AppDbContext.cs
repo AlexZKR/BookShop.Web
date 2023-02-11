@@ -21,6 +21,7 @@ public class AppDbContext : DbContext
     //product tables
     public DbSet<BaseProduct> BaseProducts { get; set; }
     public DbSet<UserFavourites> Favourites { get; set; }
+    public DbSet<ProductRating> Ratings { get; set; }
     public DbSet<Book> Books { get; set; }
     public DbSet<Author> Authors { get; set; }
 
@@ -42,4 +43,3 @@ public class AppDbContext : DbContext
 
     }
 }
-

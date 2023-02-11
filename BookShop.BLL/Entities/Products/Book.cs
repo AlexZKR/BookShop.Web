@@ -5,7 +5,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Products;
 
-public class Book : BaseProduct, ICatalogAggregateRoot
+public class Book : BaseProduct, IAggregateRoot
 {
 
     [Range(0, int.MaxValue)]

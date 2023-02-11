@@ -7,7 +7,7 @@ using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Order;
 
-public class Address : IOrderAggregateRoot //Value object
+public class Address  //Value object
 {
     public Address()
     {

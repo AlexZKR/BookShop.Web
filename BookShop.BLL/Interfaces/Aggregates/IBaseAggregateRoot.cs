@@ -1,4 +1,4 @@
 namespace BookShop.BLL.Interfaces;
 
-public interface IBaseAggregateRoot
+public interface IAggregateRoot
 {}

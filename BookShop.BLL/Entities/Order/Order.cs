@@ -1,11 +1,10 @@
 #pragma warning disable CS8618 // Required by Entity Framework
 
-
 using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Order;
 
-public class Order : BaseEntity, IOrderAggregateRoot
+public class Order : BaseEntity, IAggregateRoot
 {
     public bool IsInProcess {get; set;} = true;
 
