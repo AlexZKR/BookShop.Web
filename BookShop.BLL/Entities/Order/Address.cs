@@ -3,11 +3,11 @@
 
 using System.ComponentModel.DataAnnotations;
 using BookShop.BLL.Entities.Enums;
-
+using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Order;
 
-public class Address //Value object
+public class Address : IOrderAggregateRoot //Value object
 {
     public Address()
     {

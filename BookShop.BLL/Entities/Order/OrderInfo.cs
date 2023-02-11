@@ -1,10 +1,11 @@
 #pragma warning disable CS8618 // Required by Entity Framework
 
 using BookShop.BLL.Entities.Enums;
+using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Order;
 
-public class OrderInfo //Value object
+public class OrderInfo : IOrderAggregateRoot //Value object
 {
     public OrderInfo()
     {

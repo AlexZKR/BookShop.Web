@@ -1,7 +1,9 @@
 
+using BookShop.BLL.Interfaces;
+
 namespace BookShop.BLL.Entities.Order;
 
-public class Buyer //Value object
+public class Buyer : IOrderAggregateRoot //Value object
 {
     public Buyer()
     {

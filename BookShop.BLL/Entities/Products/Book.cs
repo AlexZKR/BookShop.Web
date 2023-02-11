@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using BookShop.BLL.Entities.Enums;
+using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Products;
 
-public class Book : BaseProduct
+public class Book : BaseProduct, ICatalogAggregateRoot
 {
 
     [Range(0, int.MaxValue)]

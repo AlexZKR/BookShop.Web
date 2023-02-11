@@ -2,6 +2,6 @@ using Ardalis.Specification;
 
 namespace BookShop.BLL.Interfaces;
 
-public interface IRepository<T> : IRepositoryBase<T> where T : class, ICatalogAggregateRoot
+public interface IRepository<T> : IRepositoryBase<T> where T : class, IBaseAggregateRoot
 {
 }
