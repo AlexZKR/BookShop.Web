@@ -16,12 +16,9 @@
               </p>
             </div>
           </div>
-
-          @foreach (var item in @Model.Items)
-          {
-            <partial name="_BasketCardPartial" model="@item" />
-          }
-
+          <div id="list">
+            <partial name="_BasketListPartial" model="@Model" />
+          </div>
 
           <div class="card mb-4">
             <div class="card-body p-4 d-flex flex-row">

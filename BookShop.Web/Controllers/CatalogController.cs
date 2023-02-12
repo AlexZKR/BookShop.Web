@@ -45,6 +45,7 @@ public class CatalogController : Controller
         // if (returnUrl.Contains("Product"))
         //     return Redirect($"http://localhost:5092/{returnUrl}");
         return RedirectToAction(nameof(Index));
+        // return NoContent();
     }
 
     [Authorize]

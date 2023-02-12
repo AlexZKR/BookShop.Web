@@ -1,0 +1,6 @@
+@model BasketViewModel
+
+@foreach (var item in @Model.Items)
+{
+    <partial name="_BasketCardPartial" model="@item" />
+}
