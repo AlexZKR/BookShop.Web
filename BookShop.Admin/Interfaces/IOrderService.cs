@@ -1,9 +1,9 @@
 namespace BookShop.Admin.Interfaces;
 
-public interface IOrderService : IBaseService
+public interface IEntityService : IBaseService
 {
-    Task<T> GetAllOrdersAsync<T>();
-    Task<T> GetOrderByIdAsync<T>(int id);
+    Task<T> GetAllEntitiesAsync<T>();
+    Task<T> GetEntityByIdAsync<T>(int id);
 
 
 }

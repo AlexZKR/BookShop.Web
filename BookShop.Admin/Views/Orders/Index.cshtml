@@ -1,1 +1,13 @@
 @model OrdersPageViewModel
+@if(Model.StatusMessage != "")
+{
+    <h2>@Model.StatusMessage</h2>
+}
+@foreach (var item in @Model.Orders)
+{
+    <p>@item.Id</p>
+    @foreach (var product in @item.ItemViewModels)
+    {
+        <p>@product.Name Количество: @product.Units</p>
+    }
+}

@@ -1,5 +1,5 @@
-namespace BookShop.Admin.Models.Order
-{
+namespace BookShop.Web.Models.DTOs.Order;
+
     public class OrderItemDTO
     {
         public int Id { get; set; }
@@ -8,5 +8,5 @@ namespace BookShop.Admin.Models.Order
         public double Price { get; set; }
         public double Discount { get; set; }
         public int Units { get; set; }
+
     }
-}

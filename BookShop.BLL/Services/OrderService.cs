@@ -54,6 +54,15 @@ public class OrderService : IOrderService
         return orderList;
     }
 
+    //TODO: make this paged, bool proccessed
+    public async Task<List<Order>> GetAllOrdersAsync()
+    {
+        var spec = new AllOrdersWithItemsSpecification();
+        return await orderRepository.ListAsync(spec);
+        // var spec = new OrdersByProccessedSpecification(false);
+        // return await orderRepository.ListAsync(spec);
+    }
+
     private async Task<List<OrderItem>> MapBasketItems(IReadOnlyCollection<BasketItem> basketItems)
     {
         var list = new List<OrderItem>();
@@ -77,14 +86,13 @@ public class OrderService : IOrderService
         }
         return list;
     }
-
     private async void IncSoldOnItems(IReadOnlyCollection<BasketItem> basketItems)
     {
 
         foreach (var item in basketItems)
         {
             var product = await productRepository.GetByIdAsync(item.ProductId);
-            if(product != null)
+            if (product != null)
             {
                 product.Sold++;
                 await productRepository.UpdateAsync(product);
@@ -94,5 +102,20 @@ public class OrderService : IOrderService
         }
     }
 
+    public async Task<Order> GetOrderByIdAsync(int id)
+    {
+        var spec = new OrderWithItemsByIdSpecification(id);
+        var order = await orderRepository.FirstOrDefaultAsync(spec);
+        if (order == null) throw new NotFoundException($"Order with id {id}was not found.");
+        return order;
 
+    }
+
+    public async Task<Order> GetOrderByUsernameAsync(string username)
+    {
+        var spec = new UserOrdersWithItemsByUsernameSpecification(username);
+        var order = await orderRepository.FirstOrDefaultAsync(spec);
+        if (order == null) throw new NotFoundException($"Order with id {username} was not found.");
+        return order;
+    }
 }

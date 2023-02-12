@@ -1,6 +1,11 @@
+using BookShop.Admin;
+using BookShop.Admin.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+SD.MainAPIBase = builder.Configuration["ServiceUrls:MainAPI"];
+
+builder.Services.AddServices();
 
 var app = builder.Build();
 

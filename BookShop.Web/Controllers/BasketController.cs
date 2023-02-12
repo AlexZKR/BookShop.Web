@@ -62,14 +62,14 @@ public class BasketController : Controller
     }
 
     [Route("ChangeQuantity/{itemId:int}/{mode}")]
-    public async Task<IActionResult> ChangeQuantity(int itemId, string mode)
+    public IActionResult ChangeQuantity(int itemId, string mode)
     {
         string username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
         basketService.UpDownQuantity(username, itemId, mode);
-        //return RedirectToAction(nameof(Index));
-        var vm = await basketViewModelService.GetOrCreateBasketForUser(ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this));
+        return RedirectToAction(nameof(Index));
+        // var vm = await basketViewModelService.GetOrCreateBasketForUser(ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this));
 
-        return PartialView("_BasketListPartial", vm);
+        // return PartialView("_BasketListPartial", vm);
     }
 
 }
