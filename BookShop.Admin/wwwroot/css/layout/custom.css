@@ -1,0 +1,84 @@
+/*
+Custom Css
+*/
+/* Header dropdown submenu on hover */
+
+.dropdown:hover .dropdown-menu {
+    display: block !important;
+    position: relative;
+}
+
+
+/* FavItem card partial */
+
+/* Product card css */
+
+.prod-card {
+
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+    transition: all .3s;
+}
+
+.card-img-top {
+    width: 250px !important;
+    height: 300px !important;
+}
+
+.prod-card:hover {
+    box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+}
+
+.img-card-sizefx {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    padding: 20px;
+}
+
+
+.prod-details {
+    padding: 20px;
+}
+
+.prod-details h4 a {
+    display: block;
+    height: 60px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+
+.prod-details p {
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: #999;
+    height: 44px;
+    overflow: hidden;
+}
+
+.prod-bottom-details {
+    overflow: hidden;
+    border-top: 3px solid #eee;
+    padding-top: 20px;
+
+}
+
+.prod-price {
+    font-size: 18px;
+    color: #ee6e73;
+    font-weight: 600;
+}
+
+.prod-price small {
+    color: #ccc;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+
+/* FavItem card partial */
+
+.btn-link:hover {
+    color: #0a58ca
+}

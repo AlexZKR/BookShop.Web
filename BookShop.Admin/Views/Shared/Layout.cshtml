@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@ViewData["Title"] BookShop.Web - Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="apple-touch-icon" href="~/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/book.png">
+
+    <link rel="stylesheet" href="~/css/layout/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/layout/templatemo.css">
+    <link rel="stylesheet" href="~/css/layout/custom.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <!-- Slick -->
+    <link rel="stylesheet" type="text/css" href="~/css/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/slick-theme.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <script src="https://kit.fontawesome.com/7fdcb5ad0b.js" crossorigin="anonymous"></script>
+    <!-- -->
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" asp-controller="Home" asp-action="Index">
+                <img style="height: 88px; width: 280px;" src="~/img/logo_full_trans.png" />
+
+            </a>
+
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-evenly mx-lg-5">
+                        <li class="nav-item">
+                            <a class="nav-link h3 fw-bold" asp-controller="Home" asp-action="Index">Каталог</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h3 fw-bold" asp-controller="Home" asp-action="Index">Заказы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h3 fw-bold" asp-controller="Home" asp-action="Index">Пользователи</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+   
+    @RenderBody()
+
+    <!-- Start Footer -->
+    <footer class="bg-dark mt-auto" id="tempaltemo_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 pt-4"></div>
+                    <h2 class="h2 text-success pb-3 logo">
+                        <img style="height: 55px; width: 175px;" src="~/img/logo_full_trans.png" />
+                    </h2>
+                </div>
+            </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="~/js/jquery-1.11.0.min.js"></script>
+    <script src="~/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/templatemo.js"></script>
+    <script src="~/js/custom.js"></script>
+    <!-- End Script -->
+
+
+    <!-- Identity Script -->
+    <environment include="Development">
+        <script src="~/Identity/lib/jquery/dist/jquery.js"></script>
+        <script src="~/Identity/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/Identity/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+            asp-fallback-src="~/Identity/lib/jquery/dist/jquery.min.js" asp-fallback-test="window.jQuery"
+            crossorigin="anonymous" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2">
+            </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            asp-fallback-src="~/Identity/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal" crossorigin="anonymous"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj">
+            </script>
+        <script src="~/Identity/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- End Script -->
+</body>
+
+</html>

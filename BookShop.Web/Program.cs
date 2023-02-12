@@ -46,7 +46,6 @@ using (var scope = app.Services.CreateScope())
     }
     catch (System.Exception)
     {
-
         throw;
     }
 }
