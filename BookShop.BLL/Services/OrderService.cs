@@ -29,7 +29,7 @@ public class OrderService : IOrderService
     }
     public async Task<Order> CreateOrderAsync(Address address, Buyer buyer, OrderInfo orderInfo)
     {
-        if (buyer.BuyerId == null) throw new NotFoundException($"User was not found in db.");
+        if (buyer.BuyerId == null) throw new NotFoundException($"User was not found");
         logger.LogInformation($"Creating order for userId: {buyer.BuyerId}");
         var basket = await basketService.GetBasketAsync(buyer.BuyerId);
         var orderItems = await MapBasketItems(basket.Items);
@@ -47,7 +47,7 @@ public class OrderService : IOrderService
         return order;
     }
 
-    public async Task<List<Order>> GetUserOrdersAsync(string username)
+    public async Task<List<Order>> GetBuyersOrdersAsync(string username)
     {
         var spec = new UserOrdersWithItemsByUsernameSpecification(username);
         var orderList = await orderRepository.ListAsync(spec);
@@ -117,5 +117,20 @@ public class OrderService : IOrderService
         var order = await orderRepository.FirstOrDefaultAsync(spec);
         if (order == null) throw new NotFoundException($"Order with id {username} was not found.");
         return order;
+    }
+
+
+    public async Task<List<Order>> GetAllBuyersAsync()
+    {
+        var spec = new BuyersOnlySpecification();
+        var buyers = await orderRepository.ListAsync(spec);
+        //set non proccessed orders count for api notification
+        foreach (var item in buyers)
+        {
+            if(item.Buyer.BuyerId == null) throw new NotFoundException($"User was not found");
+            var countSpec = new UnproccessedByUserNameSpecification(item.Buyer.BuyerId);
+            item.Buyer.UnproccessedOrdersCount = await orderRepository.CountAsync(countSpec);
+        }
+        return buyers;
     }
 }

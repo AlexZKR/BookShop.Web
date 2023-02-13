@@ -1,5 +1,4 @@
-
-using BookShop.BLL.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookShop.BLL.Entities.Order;
 
@@ -27,6 +26,6 @@ public class Buyer //Value object
     public string? LastName { get; set; }
     public string? PhoneNumber { get; set; }
     public string? Email { get; set; }
-
-
+    [NotMapped]
+    public int UnproccessedOrdersCount { get; set; }
 }

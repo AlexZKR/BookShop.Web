@@ -1,4 +1,5 @@
-using BookShop.BLL.Entities.DTO;
+using AutoMapper;
+using BookShop.Web.Models;
 using BookShop.BLL.Interfaces;
 using BookShop.Web.Models.DTOs.Order;
 using Microsoft.AspNetCore.Mvc;
@@ -11,39 +12,28 @@ namespace BookShop.Web.Controllers;
 public class OrdersAPIController : ControllerBase
 {
     private readonly IOrderService orderService;
+    private readonly IMapper mapper;
     protected ResponseDTO response;
 
-    public OrdersAPIController(IOrderService orderService)
+    public OrdersAPIController(IOrderService orderService, IMapper mapper)
     {
         this.orderService = orderService;
+        this.mapper = mapper;
         response = new ResponseDTO();
     }
+    //Getting full list of buyers. Then,
+    //only unproccessed orders or orders specific to buyer by buyerId
 
-    [HttpGet]
-    public async Task<ActionResult<object>> Get()
+    ///api/orders/buyers
+    [HttpGet("buyers")]
+    public async Task<ActionResult<object>> GetBuyers()
     {
         try
         {
-            //should not be mapped inside controller
-            var orders = await orderService.GetAllOrdersAsync();
+            var buyers = (await orderService.GetAllBuyersAsync())
+                .Select(o => o.Buyer).ToList();
 
-            var dtos = orders.Select(o => new OrderDTO
-            {
-                OrderId = o.Id,
-                BuyerId = o.Buyer.BuyerId,
-                IsProccessed = o.IsInProcess,
-                OrderDate = o.OrderInfo.OrderDate,
-                OrderItems = o.OrderItems.Select(i => new OrderItemDTO
-                {
-                    Id= i.Id,
-                    OrderId = i.OrderId,
-                    Name = i.ProductName,
-                    Price = i.FullPrice,
-                    Discount = i.Discount,
-                    Units = i.Units
-                }).ToList(),
-            }).ToList();
-
+            var dtos = buyers.Select(o => mapper.Map<BuyerDTO>(o)).DistinctBy(x => x.Id).ToList();
             response.Result = dtos;
 
         }
@@ -54,29 +44,15 @@ public class OrdersAPIController : ControllerBase
         }
         return response;
     }
-
+        ///api/orders?id=id
         [HttpGet]
-        [Route("{id:int}")]
-        public async Task<ActionResult<object>> Get(int id)
+        public async Task<ActionResult<object>> GetBuyersOrders([FromQuery] string id)
         {
             try
             {
-                var order = await orderService.GetOrderByIdAsync(id);
-                OrderDTO dto = new OrderDTO
-                {
-                    OrderId = order.Id,
-                    BuyerId = order.Buyer.BuyerId,
-                    OrderDate = order.OrderInfo.OrderDate,
-                    OrderItems = order.OrderItems.Select(i => new OrderItemDTO
-                    {
-                        Id = i.Id,
-                        OrderId = i.OrderId,
-                        Price = i.FullPrice,
-                        Discount = i.Discount,
-                        Name = i.ProductName,
-                    }).ToList(),
-                };
-                response.Result = dto;
+                var orderList = await orderService.GetBuyersOrdersAsync(id);
+                var dtos = orderList.Select(o => mapper.Map<OrderDTO>(o)).ToList();
+                response.Result = dtos;
             }
             catch (Exception ex)
             {

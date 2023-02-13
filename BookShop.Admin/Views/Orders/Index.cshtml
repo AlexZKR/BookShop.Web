@@ -1,175 +1,65 @@
 @model OrdersPageViewModel
 
-<div class="container-1 mt-5">
-    <div class="row mx-2">
-        <aside class="col-3">
 
-            <div class="card">
-                <article class="filter-group">
-                    <header class="card-header">
-                        <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-                            <i class="icon-control fa fa-chevron-down"></i>
-                            <h6 class="title">Пользователи</h6>
-                        </a>
-                    </header>
-                    <div class="filter-content collapse show" id="collapse_1" style="">
-                        <div class="card-body">
-                            <ul class="list-menu">
-                                @foreach (var user in @Model.Users)
-                                {
-                                    <li><a asp-controller="Orders" asp-action="ManageOrders"
-                                        asp-route-clientId="@user.Id">@user.Name
-                                            (@user.PhoneNumber)</a>
-                                    </li>
-                                }
-                                <hr />
-                                <li><a asp-controller="Orders" asp-action="ManageOrders">
-                                        Управление заказами
-                                    </a>
-                                </li>
-                            </ul>
+<div class="container-1 row ">
+  <div class="col-2 mx-4 mt-2">
+    <a href="#" class="nav-link  h3 mt-4">Управление заказами</a>
+    <hr>
+    <h4>Пользователи:</h4>
+    <div class="list-group">
 
-                        </div> <!-- card-body.// -->
-                    </div>
-                </article> <!-- filter-group  .// -->
-            </div>
-        </aside>
-        <main class="col">
-            @if (Model.User == null)
-            {
-                <header class="border-bottom mb-4 pb-3">
-                    <span class="mr-md-auto display-5">Управление заказами</span>
-                </header>
+  @foreach (var item in Model.Buyers)
+  {
+    <button onclick="getBuyer('@item.Id','@item.Name','@item.UnproccessedOrdersCount')" id="getBuyer" class="list-group-item list-group-item-action link-get-user" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">@item.Name</h5>
+          @if(item.UnproccessedOrdersCount > 0)
+          {
+            <span class="badge bg-success rounded-pill fw-bold mt-1">@item.UnproccessedOrdersCount</span>
+          }
+        </div>
+        <p class="mb-1">@item.PhoneNumber</p>
+        <small>@item.Id</small>
+      </button>
 
-                <div class="container">
-
-
-                    <ul class="nav nav-pills d-flex align-items-center justify-content-between">
-                        <li>
-                            <button type="button" data-toggle="pill" href="#menu1"
-                            class="btn btn-primary position-relative">
-                                Необработанные заказы
-                                <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    @Model.UnproccessedOrders.Count
-                                    <span class="visually-hidden">unread messages</span>
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" data-toggle="pill" href="#menu2"
-                            class="btn btn-primary position-relative">
-                                История заказов
-                            </button>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content mt-4">
-                        <div id="menu1" class="tab-pane fade">
-                            <h3>Необработанные заказы</h3>
-                            @if (@Model.UnproccessedOrders.Count == 0)
-                            {
-                                <div>Пока тут пусто :)</div>
-                            }
-                            @if (@Model.UnproccessedOrders.Count > 0)
-                            {
-                                @foreach (var item in @Model.UnproccessedOrders)
-                                {
-                                    <partial name="_OrderListItemPartial" model=@item />
-                                }
-                            }
-                        </div>
-                        <div id="menu2" class="tab-pane fade mt-4">
-                            <h3>История заказов</h3>
-                            @if (@Model.ProccessedOrders.Count == 0)
-                            {
-                                <div>Пока тут пусто :)</div>
-                            }
-                            @if (@Model.ProccessedOrders.Count > 0)
-                            {
-                                @foreach (var item in @Model.ProccessedOrders)
-                                {
-                                    <partial name="_OrderListItemPartial" model=@item />
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-            @if (Model.User != null)
-            {
-                <header class="border-bottom mb-4 pb-3">
-                    <span class="mr-md-auto display-5">@Model.User.Name</span>
-                </header>
-
-                <div class="container">
-
-
-                    <ul class="nav nav-pills d-flex align-items-center justify-content-between">
-                        <li>
-                            <button type="button" data-toggle="pill" href="#menu1"
-                            class="btn btn-primary position-relative">
-                                Необработанные заказы
-                                <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    @Model.UnproccessedOrders.Count
-                                    <span class="visually-hidden">unread messages</span>
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" data-toggle="pill" href="#menu2"
-                            class="btn btn-primary position-relative">
-                                История заказов
-                            </button>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content mt-4">
-                        <div id="menu1" class="tab-pane fade">
-                            <h3>Необработанные заказы</h3>
-                            @if (@Model.UnproccessedOrders.Count == 0)
-                            {
-                                <div>Пока тут пусто :)</div>
-                            }
-                            @if (@Model.UnproccessedOrders.Count > 0)
-                            {
-                                @foreach (var item in @Model.UnproccessedOrders)
-                                {
-                                    <partial name="_OrderListItemPartial" model=@item />
-                                }
-                            }
-                        </div>
-                        <div id="menu2" class="tab-pane fade mt-4">
-                            <h3>История заказов</h3>
-                            @if (@Model.ProccessedOrders.Count == 0)
-                            {
-                                <div>Пока тут пусто :)</div>
-                            }
-                            @if (@Model.ProccessedOrders.Count > 0)
-                            {
-                                @foreach (var item in @Model.ProccessedOrders)
-                                {
-                                    <partial name="_OrderListItemPartial" model=@item />
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-
-        </main>
+  }
     </div>
 </div>
-@* @if(Model.StatusMessage != "")
-{
-    <h2>@Model.StatusMessage</h2>
-}
-@foreach (var item in @Model.Orders)
-{
-    <p>@item.Id</p>
-    @foreach (var product in @item.ItemViewModels)
-    {
-        <p>@product.Name Количество: @product.Units</p>
-    }
-} *@
+  <div class="col mt-5">
+<!-- Nav tabs -->
+    <div id="orderMenu">
+     @* there goes the partial *@
+    </div>
+  </div>
+</div>
+
+@section Scripts
+      {
+        <script>
+          function getBuyer(buyerId,buyerName,count) {
+        $.ajax({
+            url: "Orders/GetOrders/" + buyerId,
+            type: "get",
+            data: { buyerId:buyerId, buyerName:buyerName, count:count },
+            success: function (result) {
+                $("#orderMenu").html(result);
+            }
+        });
+      }
+        </script>
+        @* <script>
+          $("#getBuyer").click(function () {
+            var buyerId = $(this).attr("data-buyerId");
+            var buyerName = $(this).attr("data-buyerName");
+            var count = $(this).attr("data-count");
+        $.ajax({
+            url: "Orders/GetOrders/" + buyerId,
+            type: "get",
+            data: { buyerId:buyerId, buyerName:buyerName, count:count },
+            success: function (result) {
+                $("#orderMenu").html(result);
+            }
+        });
+      })
+        </script> *@
+      }

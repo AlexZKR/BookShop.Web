@@ -1,0 +1,26 @@
+@model OrdersPageViewModel
+@if(@Model.BuyerName != "")
+{
+  <h1>Управление заказами: @Model.BuyerName</h1>
+}
+else
+{
+  <h1>Управление заказами</h1>
+}
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-bs-toggle="tab" href="#msg">Необработанные заказы
+      <span class="badge bg-success rounded-pill fw-bold mt-1">@Model.UnproccessedOrdersCount</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="tab" href="#pro">История заказов</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane container active" id="msg">This is a message tab.</div>
+  <div class="tab-pane container fade" id="pro">This is a profile tab.</div>
+  <div class="tab-pane container fade" id="set">This is a setting tab.</div>
+</div>

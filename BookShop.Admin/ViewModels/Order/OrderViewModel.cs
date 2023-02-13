@@ -1,10 +1,12 @@
+using BookShop.Admin.Models.Order;
+
 namespace BookShop.Admin.ViewModels.Order;
 
-public class OrderViewModel
+public class OrderViewModel : BaseViewModel
 {
-    public int Id {get; set;}
-    public string? BuyerId {get; set;}
-    public DateTime OrderDate {get; set;}
-    public bool IsProccessed {get; set;}
-    public List<OrderItemViewModel> ItemViewModels { get; set; } = new List<OrderItemViewModel>();
+    public int OrderId {get; set;}
+    public string? BuyerId { get; set; }
+    public bool IsProccessed { get; set; }
+    public DateTime OrderDate { get; set; }
+    public List<OrderItemDTO>? OrderItems { get; set; }
 }

@@ -1,3 +1,5 @@
+using AutoMapper;
+using BookShop.Web.Configuration.MapperConfig;
 using BookShop.Web.Interfaces;
 using BookShop.Web.Services;
 
@@ -7,12 +9,21 @@ public static class ConfigureWebServices
 {
     public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
     {
+        //viewmodel services
         services.AddTransient<IBasketViewModelService, BasketViewModelService>();
         services.AddTransient<ICheckOutViewModelService, CheckOutViewModelService>();
         services.AddTransient<IOrderViewModelService, OrderViewModelService>();
         services.AddTransient<ICatalogViewModelService, BookCatalogViewModelService>();
         services.AddTransient<IProductDetailsViewModelService, ProductDetailsViewModelService>();
         services.AddTransient<IRatingViewModelService, RatingViewModelService>();
+
+        //automapper config
+        var mapperConfig = new MapperConfiguration(mc => {
+            mc.AddProfile(new DTOMapProfile());
+        });
+        IMapper mapper = mapperConfig.CreateMapper();
+        services.AddSingleton(mapper);
+
 
         return services;
     }

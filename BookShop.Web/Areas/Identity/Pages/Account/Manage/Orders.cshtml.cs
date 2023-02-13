@@ -43,7 +43,7 @@ public class OrdersModel : PageModel
         var name = Request.HttpContext.User.Identity!.Name;
         if(name != null)
         {
-            var orders = await orderService.GetUserOrdersAsync(name);
+            var orders = await orderService.GetBuyersOrdersAsync(name);
             orders.ForEach(async o =>
             orderViewModels.Add(await orderViewModelService.CreateOrderViewModelAsync(o.Id))
             );

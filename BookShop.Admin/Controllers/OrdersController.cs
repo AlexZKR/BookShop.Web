@@ -1,3 +1,4 @@
+using AutoMapper;
 using BookShop.Admin.Interfaces;
 using BookShop.Admin.Models;
 using BookShop.Admin.Models.Order;
@@ -9,51 +10,65 @@ namespace BookShop.Web.Controllers;
 
 public class OrdersController : Controller
 {
-    private readonly IEntityService entityService;
+    private readonly IOrderService orderService;
+    private readonly IMapper mapper;
 
-    public OrdersController(IEntityService entityService)
+    public OrdersController(IOrderService orderService,
+    IMapper mapper)
     {
-        this.entityService = entityService;
+        this.orderService = orderService;
+        this.mapper = mapper;
     }
 
     //TODO: service for creating vms
     public async Task<IActionResult> Index()
     {
-        var list = new List<OrderDTO>();
-        var vm = new OrdersPageViewModel
-        {
-            Users = new List<UserViewModel>(),
-        };
-        var response = await entityService.GetAllEntitiesAsync<ResponseDTO>();
+        var vm = new OrdersPageViewModel();
+
+        var response = await orderService.GetAllBuyersAsync<ResponseDTO>();
         if(response != null && response.IsSuccess)
         {
-            list = JsonConvert.DeserializeObject<List<OrderDTO>>(Convert.ToString(response.Result)!);
-            vm.UnproccessedOrders = list!.Select(i => new OrderViewModel
-            {
-                Id = i.OrderId,
-                BuyerId = i.BuyerId,
-                OrderDate = i.OrderDate,
-                IsProccessed = i.IsProccessed,
-
-                ItemViewModels = i.OrderItems.Select(o => new OrderItemViewModel
-                {
-                    Id = o.Id,
-                    Name = o.Name,
-                    FullPrice = o.Price,
-                    Discount = o.Discount,
-                    Units = o.Units,
-                }).ToList(),
-            }).ToList();
+            var list = JsonConvert.DeserializeObject<List<BuyerDTO>>(Convert.ToString(response.Result)!);
+            vm.Buyers = list!.Select(d => mapper.Map<BuyerViewModel>(d)).ToList();
         }
         else
         {
-            vm.StatusMessage = "Error loading orders. Try later.";
+            vm.StatusMessage = "Error loading data. Try later.";
             return View(vm);
         }
 
         //TODO: add for user specific orders
-        if(vm.UnproccessedOrders.Count == 0) vm.StatusMessage = "Nothing found";
+        if(vm.Buyers.Count == 0) vm.StatusMessage = "Nothing found";
 
         return View(vm);
+    }
+    //get list of orders by buyerId
+    [HttpGet]
+    public async Task<IActionResult> GetOrders(string buyerId, string buyerName, int count)
+    {
+        var response = await orderService.GetUserWithOrdersByIdAsync<ResponseDTO>(buyerId);
+        var vm = new OrdersPageViewModel();
+
+        if(response != null && response.IsSuccess)
+        {
+            var ordersDTOs = JsonConvert.DeserializeObject<List<OrderDTO>>(Convert.ToString(response.Result)!);
+            var orders = ordersDTOs!.Select(o => mapper.Map<OrderViewModel>(o)).ToList();
+
+            vm.ProccessedOrders.AddRange(orders.Where(o => o.IsProccessed == true));
+            vm.UnproccessedOrders.AddRange(orders.Where(o => o.IsProccessed == false));
+
+            vm.BuyerName = buyerName;
+            vm.UnproccessedOrdersCount = count;
+        }
+        else
+        {
+            vm.StatusMessage = "Error loading data. Try later.";
+            //return PartialView("_OrdersMenuPartial",vm);
+        }
+
+        //TODO: add for user specific orders
+        //if(vm.Buyers.Count == 0) vm.StatusMessage = "Nothing found";
+
+        return PartialView("_OrdersMenuPartial", vm);
     }
 }
