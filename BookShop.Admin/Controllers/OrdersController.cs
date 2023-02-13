@@ -28,7 +28,7 @@ public class OrdersController : Controller
         if(response != null && response.IsSuccess)
         {
             list = JsonConvert.DeserializeObject<List<OrderDTO>>(Convert.ToString(response.Result)!);
-            vm.Orders = list!.Select(i => new OrderViewModel
+            vm.UnproccessedOrders = list!.Select(i => new OrderViewModel
             {
                 Id = i.OrderId,
                 BuyerId = i.BuyerId,
@@ -52,7 +52,7 @@ public class OrdersController : Controller
         }
 
         //TODO: add for user specific orders
-        if(vm.Orders.Count == 0) vm.StatusMessage = "Nothing found";
+        if(vm.UnproccessedOrders.Count == 0) vm.StatusMessage = "Nothing found";
 
         return View(vm);
     }
