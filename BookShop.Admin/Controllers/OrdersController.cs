@@ -57,6 +57,7 @@ public class OrdersController : Controller
             vm.ProccessedOrders.AddRange(orders.Where(o => o.IsInProcess == false));
             vm.UnproccessedOrders.AddRange(orders.Where(o => o.IsInProcess == true));
 
+            vm.BuyerId = buyerId;
             vm.BuyerName = buyerName;
             vm.UnproccessedOrdersCount = count;
         }

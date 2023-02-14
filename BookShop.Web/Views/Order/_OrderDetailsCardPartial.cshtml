@@ -1,7 +1,7 @@
 @model OrderItemViewModel
 
 @{
-    var discount = Model.Discount == 0 ? "-" : $"{Model.Discount * 100}%";
+    var discount = Model.Discount == 0 ? "-" : $"{(Model.Discount * 100).ToString("N0")}%";
 }
 
 <div class="card shadow-1 border-2 mb-2 card-hover">

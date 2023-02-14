@@ -6,10 +6,10 @@
 
 <div class="container-1 row ">
   <div class="col-2 mx-4 mt-2">
-    <a href="#" class="nav-link  h3 mt-4">Управление заказами</a>
+    <a href="Orders" class="nav-link  h3 mt-4">Управление заказами</a>
     <hr>
     <h4>Пользователи:</h4>
-    <div class="list-group">
+  <div class="list-group">
 
   @foreach (var item in Model.Buyers)
   {
@@ -37,17 +37,25 @@
 </div>
 
 @section Scripts
+{
+  <script>
+    function getBuyer(buyerId,buyerName,count)
+    {
+      $.ajax(
       {
-        <script>
-          function getBuyer(buyerId,buyerName,count) {
-        $.ajax({
-            url: "Orders/GetBuyersOrders/" + buyerId,
-            type: "get",
-            data: { buyerId:buyerId, buyerName:buyerName, count:count },
-            success: function (result) {
-                $("#orderMenu").html(result);
-            }
-        });
-      }
-        </script>
-      }
+        url: "Orders/GetBuyersOrders/" + buyerId,
+        type: "get",
+        data:
+        {
+          buyerId:buyerId,
+          buyerName:buyerName,
+          count:count
+        },
+        success: function (result)
+        {
+          $("#orderMenu").html(result);
+        }
+      });
+    }
+  </script>
+}

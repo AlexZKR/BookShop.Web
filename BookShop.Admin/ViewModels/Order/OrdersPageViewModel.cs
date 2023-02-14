@@ -4,7 +4,7 @@ namespace BookShop.Admin.ViewModels.Order;
 
 public class OrdersPageViewModel : BaseViewModel
 {
-    //public BuyerViewModel? Buyer { get; set; }
+    public string? BuyerId { get; set; }
     public string? BuyerName { get; set; }
     public int UnproccessedOrdersCount { get; set; }
 

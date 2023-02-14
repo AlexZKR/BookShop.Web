@@ -3,8 +3,8 @@
 @{
     string discount = @Model.TotalDiscount == 0 ? "-" : @Model.TotalDiscount.ToString("N2");
     string finalPrice = (@Model.TotalPrice - @Model.TotalDiscount).ToString("N2");
-    string status = @Model.IsInProcess == false ? "В обработке" : "Обработан";
-    string statusColor = @Model.IsInProcess == false ? "danger" : "success";
+    string status = @Model.IsInProcess == true ? "В обработке" : "Обработан";
+    string statusColor = @Model.IsInProcess == true ? "danger" : "success";
 }
 <h1 class="text-danger">
   @Model.StatusMessage
@@ -16,23 +16,23 @@
                 <div class="card" style="border-radius: 10px;">
                     <div class="card-header px-4 py-5 d-flex  align-items-baseline">
                         <div class="col-6 ">
-                            <img style="height: 50px; width: 175px;" src="~/img/logo_full_trans.png" />
+                            <img style="height: 50px; width: 175px;" src="~/img/logo_full_ADMIN.png" />
                         </div>
                         <div class="col-6">
-                            @if(@Model.IsInProcess == false)
-                            {
-                            <div class="d-flex justify-content-evenly align-items-center">
-                                <button onclick="confirmOrder()" class="btn btn-success">Подтвердить заказ</button>
-                                <a class="btn btn-primary">Изменить заказ</a>
-                                <a class="btn btn-danger">Отменить заказ</a>
-                            </div>
-                            }
-                            else
-                            {
-                            <div class="d-flex justify-content-evenly align-items-center">
-                                <a class="btn btn-danger">Удалить заказ</a>
-                            </div>
-                            }
+                            <div class="d-flex justify-content-around align-items-center">
+                                @if(@Model.IsInProcess == true)
+                                {
+                                    <button onclick="confirmOrder()" class="btn btn-success">Подтвердить заказ</button>
+                                    <button class="btn btn-primary">Изменить заказ</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-danger">Удалить заказ</button>
+                                    <a href="/Orders">
+                                        <button  class="btn btn-primary">Вернуться к заказам</button>
+                                    </a>
+                                }
+                        </div>
                         </div>
                     </div>
                     <div class="card-body p-4">
