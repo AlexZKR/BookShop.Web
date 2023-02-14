@@ -3,13 +3,13 @@
 @{
     string discount = @Model.TotalDiscount == 0 ? "-" : @Model.TotalDiscount.ToString("N2");
     string finalPrice = (@Model.TotalPrice - @Model.TotalDiscount).ToString("N2");
-    string status = @Model.IsProccessed == false ? "В обработке" : "Обработан";
-    string statusColor = @Model.IsProccessed == false ? "danger" : "success";
+    string status = @Model.IsInProcess == false ? "В обработке" : "Обработан";
+    string statusColor = @Model.IsInProcess == false ? "danger" : "success";
 }
 <h1 class="text-danger">
   @Model.StatusMessage
 </h1>
-<section class="h-100 gradient-custom">
+<section id="orderDetails" class="h-100 gradient-custom">
     <div class="container-1 py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-10 col-xl-8 ">
@@ -18,10 +18,21 @@
                         <div class="col-6 ">
                             <img style="height: 50px; width: 175px;" src="~/img/logo_full_trans.png" />
                         </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <h4 class="text-muted mb-0 mt-2">Спасибо за заказ,
-                                <span class="text-success">@Model.BuyerName</span>! Скоро вам перезвонит оператор.
-                            </h4>
+                        <div class="col-6">
+                            @if(@Model.IsInProcess == false)
+                            {
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <button onclick="confirmOrder()" class="btn btn-success">Подтвердить заказ</button>
+                                <a class="btn btn-primary">Изменить заказ</a>
+                                <a class="btn btn-danger">Отменить заказ</a>
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <a class="btn btn-danger">Удалить заказ</a>
+                            </div>
+                            }
                         </div>
                     </div>
                     <div class="card-body p-4">
@@ -119,3 +130,19 @@
         </div>
     </div>
 </section>
+
+@section Scripts
+      {
+        <script>
+          function confirmOrder() {
+        $.ajax({
+            url: "@SD.MainAPIBase/api/orders/approve?orderId=@Model.OrderId",
+            type: "post",
+
+            success: function (result) {
+                $("#orderDetails").html(result);
+            }
+        });
+      }
+        </script>
+      }

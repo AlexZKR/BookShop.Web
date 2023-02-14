@@ -5,7 +5,7 @@ namespace BookShop.Admin.ViewModels.Order;
 public class OrderViewModel : BaseViewModel
 {
     public int OrderId {get; set;}
-    public bool IsProccessed { get; set; }
+    public bool IsInProcess { get; set; }
 
     public int TotalItems { get; set; }
     public double TotalDiscount { get; set; }

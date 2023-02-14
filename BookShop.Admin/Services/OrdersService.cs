@@ -40,4 +40,15 @@ public class OrderService : BaseService, IOrderService
                 AccessToken = ""
             });
     }
+
+    public async Task<T> ApproveOrder<T>(int id)
+    {
+        return await this.SendAsync<T>(new APIRequest()
+        {
+            APIType = SD.APIType.POST,
+            URL = SD.MainAPIBase + "/api/orders/approve?orderId=" + id,
+            AccessToken = ""
+        });
+    }
+
 }

@@ -13,4 +13,6 @@ public interface IOrderService
     Task<List<Order>> GetAllBuyersAsync();
     Task<Order> GetOrderByIdAsync(int id);
     Task<Order> GetOrderByUsernameAsync(string username);
+    Task<Order> ApproveOrderByIdAsync(int id);
+
 }

@@ -18,7 +18,8 @@ public class DTOMapProfile : Profile
             .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Buyer.PhoneNumber))
             .ForMember(dest => dest.PaymentType, opt => opt.MapFrom(src => (EnumHelper<PaymentType>.GetName(src.OrderInfo.PaymentType))))
             .ForMember(dest => dest.DeliveryType, opt => opt.MapFrom(src => (EnumHelper<DeliveryType>.GetName(src.OrderInfo.DeliveryType))))
-            .ForMember(dest => dest.OrderComment, opt => opt.MapFrom(src => src.OrderInfo.OrderComment));
+            .ForMember(dest => dest.OrderComment, opt => opt.MapFrom(src => src.OrderInfo.OrderComment))
+            .ForMember(dest => dest.IsInProcess, opt => opt.MapFrom(src => src.IsInProcess));
 
         CreateMap<OrderItemDTO, OrderItem>().ReverseMap();
 

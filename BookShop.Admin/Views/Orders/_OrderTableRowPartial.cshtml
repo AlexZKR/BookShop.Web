@@ -1,0 +1,20 @@
+@model OrderViewModel
+@{
+    string discount = @Model.TotalDiscount == 0 ? "-" : @Model.TotalDiscount.ToString("N2");
+    string finalPrice = (@Model.TotalPrice - @Model.TotalDiscount).ToString("N2");
+    string status = @Model.IsInProcess == true ? "В обработке" : "Обработан";
+    string statusColor = @Model.IsInProcess == true ? "danger" : "success";
+}
+<tr class="table-@statusColor ">
+    <th>@Model.OrderId</th>
+    <td>@Model.OrderDate.ToString("dd.MM.yyyy")</td>
+    <td>@Model.TotalItems</td>
+    <td>@finalPrice</td>
+    <td>@discount</td>
+    <td class="fw-bold text-@statusColor">@status</td>
+    <td>
+        <a asp-controller="Orders" asp-action="GetOrderDetails" asp-route-id="@Model.OrderId" class="btn btn-primary">
+            <i class="fa-solid fa-circle-info"></i>
+            </a>
+    </td>
+</tr>

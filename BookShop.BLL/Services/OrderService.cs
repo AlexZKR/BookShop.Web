@@ -108,7 +108,6 @@ public class OrderService : IOrderService
         var order = await orderRepository.FirstOrDefaultAsync(spec);
         if (order == null) throw new NotFoundException($"Order with id {id} was not found.");
         return order;
-
     }
 
     public async Task<Order> GetOrderByUsernameAsync(string username)
@@ -132,5 +131,13 @@ public class OrderService : IOrderService
             item.Buyer.UnproccessedOrdersCount = await orderRepository.CountAsync(countSpec);
         }
         return buyers;
+    }
+
+    public async Task<Order> ApproveOrderByIdAsync(int id)
+    {
+        var order = await GetOrderByIdAsync(id);
+        order.IsInProcess = false;
+        await orderRepository.UpdateAsync(order);
+        return order;
     }
 }

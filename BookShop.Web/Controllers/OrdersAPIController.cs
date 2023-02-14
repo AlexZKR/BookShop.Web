@@ -56,47 +56,59 @@ public class OrdersAPIController : ControllerBase
         response.DisplayMessage ="GetBuyers";
         return response;
     }
-        ///api/orders?buyer=id
-        [HttpGet]
-        [HttpGet]
-        [QueryParameterConstraint("buyer")]
-        // [HttpGet("buyers")]
-        public async Task<ActionResult<object>> GetBuyersOrders([FromQuery] string buyer)
+
+    ///api/orders?buyer=id
+
+    [HttpGet]
+    [QueryParameterConstraint("buyer")]
+    // [HttpGet("buyers")]
+    public async Task<ActionResult<object>> GetBuyersOrders([FromQuery] string buyer)
+    {
+        try
         {
-            try
-            {
-                var orderList = await orderService.GetBuyersOrdersAsync(buyer);
-                var dtos = orderList.Select(o => mapper.Map<OrderDTO>(o)).ToList();
-                response.Result = dtos;
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.ErrorMessage = new List<string> { ex.ToString() };
-            }
-            response.DisplayMessage ="GetBuyersOrders";
-            return response;
+            var orderList = await orderService.GetBuyersOrdersAsync(buyer);
+            var dtos = orderList.Select(o => mapper.Map<OrderDTO>(o)).ToList();
+            response.Result = dtos;
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessage = new List<string> { ex.ToString() };
+        }
+        response.DisplayMessage ="GetBuyersOrders";
+        return response;
+    }
+
+    ///api/orders?id=orderId
+    // [HttpGet]
+    [HttpGet]
+    [QueryParameterConstraint("orderId")]
+    public async Task<ActionResult<object>> GetOrderDetails([FromQuery] string orderId)
+    {
+        try
+        {
+            var order = await orderService.GetOrderByIdAsync(Int32.Parse(orderId));
+            var dto = mapper.Map<OrderDTO>(order);
+            response.Result = dto;
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessage = new List<string> { ex.ToString() };
         }
 
-        ///api/orders?id=orderId
-        // [HttpGet]
-        [HttpGet]
-        [QueryParameterConstraint("orderId")]
-        public async Task<ActionResult<object>> GetOrderDetails([FromQuery] string orderId)
-        {
-            try
-            {
-                var order = await orderService.GetOrderByIdAsync(Int32.Parse(orderId));
-                var dto = mapper.Map<OrderDTO>(order);
-                response.Result = dto;
+        response.DisplayMessage ="GetOrderDetails";
+        return response;
+    }
+    [HttpPost]
+    [HttpPost("approve")]
+    [QueryParameterConstraint("orderId")]
+    public async Task<ActionResult<object>> ApproveOrderAsync([FromQuery]int orderId)
+    {
+        var order = await orderService.ApproveOrderByIdAsync(orderId);
+        response.IsSuccess = true;
+        response.DisplayMessage ="OrderApproved";
 
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.ErrorMessage = new List<string> { ex.ToString() };
-            }
-            response.DisplayMessage ="GetOrderDetails";
-            return response;
-        }
+        return response;
+    }
 }

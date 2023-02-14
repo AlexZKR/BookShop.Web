@@ -3,7 +3,7 @@ namespace BookShop.Web.Models.DTOs.Order;
 public class OrderDTO
 {
     public int OrderId {get; set;}
-    public bool IsProccessed { get; set; }
+    public bool IsInProcess { get; set; }
 
     public int TotalItems { get; set; }
     public double TotalDiscount { get; set; }

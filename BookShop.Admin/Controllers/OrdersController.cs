@@ -1,4 +1,5 @@
 using AutoMapper;
+using BookShop.Admin.Extensions;
 using BookShop.Admin.Interfaces;
 using BookShop.Admin.Models;
 using BookShop.Admin.Models.Order;
@@ -53,8 +54,8 @@ public class OrdersController : Controller
             var ordersDTOs = JsonConvert.DeserializeObject<List<OrderDTO>>(Convert.ToString(response.Result)!);
             var orders = ordersDTOs!.Select(o => mapper.Map<OrderViewModel>(o)).ToList();
 
-            vm.ProccessedOrders.AddRange(orders.Where(o => o.IsProccessed == true));
-            vm.UnproccessedOrders.AddRange(orders.Where(o => o.IsProccessed == false));
+            vm.ProccessedOrders.AddRange(orders.Where(o => o.IsInProcess == false));
+            vm.UnproccessedOrders.AddRange(orders.Where(o => o.IsInProcess == true));
 
             vm.BuyerName = buyerName;
             vm.UnproccessedOrdersCount = count;
@@ -101,12 +102,61 @@ public class OrdersController : Controller
                     order.PaymentType = "Карта";
                 break;
             }
-            return View(order);
+            if(Request.IsAjaxRequest())
+                return PartialView("OrderDetails",order);
+            else
+                return View("OrderDetails",order);
         }
         else
         {
             order.StatusMessage = "Error loading data. Try later.";
             return View(order);
+        }
+    }
+
+    //too many requests
+    [HttpPost]
+    public async Task<IActionResult> ApproveOrder(int orderId)
+    {
+        var responseApprove = await orderService.ApproveOrder<ResponseDTO>(orderId);
+        var vm = new OrdersPageViewModel();
+        if(responseApprove != null && responseApprove.IsSuccess)
+        {
+            var response = await orderService.GetOrderDetails<ResponseDTO>(orderId);
+            var order = new OrderViewModel();
+                        var orderDTO = JsonConvert.DeserializeObject<OrderDTO>(Convert.ToString(response.Result)!);
+            order = mapper.Map<OrderViewModel>(orderDTO);
+
+            switch (order.DeliveryType)
+            {
+                case "FreeShipment":
+                    order.DeliveryType = "Стандартная доставка";
+                break;
+                case "Self_delivery":
+                    order.DeliveryType = "Самовывоз";
+                break;
+                case "PostShipment":
+                    order.DeliveryType = "Почтой";
+                break;
+            }
+            switch (order.PaymentType)
+            {
+                case "Cash":
+                    order.PaymentType = "Наличные";
+                break;
+                case "PaymentCard":
+                    order.PaymentType = "Карта";
+                break;
+            }
+            if(Request.IsAjaxRequest())
+                return PartialView("OrderDetails",order);
+            else
+                return View("OrderDetails",order);
+        }
+        else
+        {
+            vm.StatusMessage = "Error loading data. Try later.";
+            return View("Index", vm);
         }
     }
 }

@@ -1,0 +1,28 @@
+@model List<OrderViewModel>
+
+@if (Model.Count > 0)
+{
+    <table class="table table-hover table-fixed align-middle text-center">
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>Дата заказа</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+        <th>Скидка</th>
+        <th class="fw-bold">Статус</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+       <partial name="_OrderTableRowPartial" model="@item"/>
+    }
+        </tbody>
+    </table>
+}
+else
+{
+    <partial name="_ListCountZeroPartial" />
+}
