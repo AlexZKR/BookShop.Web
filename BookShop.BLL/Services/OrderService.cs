@@ -106,7 +106,7 @@ public class OrderService : IOrderService
     {
         var spec = new OrderWithItemsByIdSpecification(id);
         var order = await orderRepository.FirstOrDefaultAsync(spec);
-        if (order == null) throw new NotFoundException($"Order with id {id}was not found.");
+        if (order == null) throw new NotFoundException($"Order with id {id} was not found.");
         return order;
 
     }

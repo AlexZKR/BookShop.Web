@@ -9,6 +9,7 @@ public class DTOMapProfile : Profile
     public DTOMapProfile()
     {
         CreateMap<OrderDTO, OrderViewModel>().ReverseMap();
+        //.ForMember(dest => dest.PaymentType, opt => opt.MapFrom(src => src.PaymentType));
 
         CreateMap<OrderItemDTO, OrderItemViewModel>().ReverseMap();
 

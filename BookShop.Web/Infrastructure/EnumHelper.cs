@@ -29,6 +29,10 @@ public static class EnumHelper<T> where T : struct, Enum
     {
         return value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
     }
+    public static string GetName(Enum value)
+    {
+        return value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).FirstOrDefault()!;
+    }
 
     public static IEnumerable<string?> GetDisplayValues(Enum value)
     {

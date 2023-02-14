@@ -21,12 +21,22 @@ public class OrderService : BaseService, IOrderService
         });
     }
 
+    public async Task<T> GetOrderDetails<T>(int id)
+    {
+        return await this.SendAsync<T>(new APIRequest()
+        {
+            APIType = SD.APIType.GET,
+            URL = SD.MainAPIBase + "/api/orders?orderId=" + id,
+            AccessToken = ""
+        });
+    }
+
     public async Task<T> GetUserWithOrdersByIdAsync<T>(string id)
     {
        return await this.SendAsync<T>(new APIRequest()
             {
                 APIType = SD.APIType.GET,
-                URL = SD.MainAPIBase + "/api/orders?id=" + id,
+                URL = SD.MainAPIBase + "/api/orders?buyer=" + id,
                 AccessToken = ""
             });
     }
