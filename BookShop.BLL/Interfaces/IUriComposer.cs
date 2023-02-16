@@ -1,6 +1,6 @@
 namespace BookShop.BLL.Interfaces;
 
-public interface IUriComposer
+public interface IImageService
 {
-    string ComposePicUri(string uriTemplate);
+    Task<string> ComposePicUriById(int id);
 }

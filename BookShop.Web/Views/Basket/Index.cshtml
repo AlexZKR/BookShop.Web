@@ -4,8 +4,6 @@
   <div class="container h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-10">
-
-
         @if (@Model.Items.Count > 0)
         {
           <div class="d-flex justify-content-between align-items-center mb-4">
@@ -19,7 +17,6 @@
           <div id="list">
             <partial name="_BasketListPartial" model="@Model" />
           </div>
-
           <div class="card mb-4">
             <div class="card-body p-4 d-flex flex-row">
               <div class="form-outline flex-fill">
@@ -44,21 +41,44 @@
         }
         else
         {
-
-          <div class="">
-            <div class="h-150 py-5 services-icon-wap shadow">
-              <div class="h1 text-success text-center"><i class="fa-solid fa-face-sad-tear"></i></div>
-              <div class="row px-4 mx-4">
-                <h2 class="h5 mt-2 text-center fw-light">Корзина пуста!</h2>
-                <a asp-controller="Catalog" asp-action="Index" class="btn btn-success mt-4 fw-bold ">В каталог <i
-                    class="fa-solid fa-bag-shopping"></i></a>
-              </div>
-            </div>
-          </div>
-
+          <partial name="_BasketEmptyPartial" />
         }
-
       </div>
     </div>
   </div>
 </section>
+
+@section Scripts
+{
+  <script>
+    function updateListItem(itemId, mode)
+    {
+      var divId = `#li-${itemId}`;
+      $.ajax(
+      {
+        url: "Basket/ChangeQuantity",
+        type: "get",
+        data:
+        {
+          itemId:itemId,
+          mode:mode,
+        },
+        success: function (result)
+        {
+          if(result == 0)
+          {
+            $(divId).remove();
+            if( $("#list").is(':empty') == true)
+            {
+              window.location.reload()
+            }
+          }
+          else
+          {
+            $(divId).html(result);
+          }
+        }
+      });
+    }
+  </script>
+}

@@ -40,30 +40,27 @@ public class BasketService : IBasketService
         return basket;
     }
 
-    public async void UpDownQuantity(string username, int itemId, string mode)
+    public async Task<BasketItem> UpDownQuantity(string username, int itemId, string mode)
     {
         var basket = await GetBasketAsync(username);
-
-        if (basket != null)
+        var item = basket.Items.FirstOrDefault(i => i.Id == itemId);
+        if (item != null)
         {
-            var item = basket.Items.FirstOrDefault(i => i.Id == itemId);
-            if (item != null)
+            switch (mode)
             {
-                switch (mode)
-                {
-                    case "add":
-                        item.AddQuantity(1);
-                        break;
-                    case "sub":
-                        item.DecreaseQuantity(1);
-                        if (item.Quantity == 0)
-                            basket.RemoveEmptyItems();
-                        break;
-                }
-                await basketRepository.UpdateAsync(basket);
-
+                case "add":
+                    item.AddQuantity(1);
+                    break;
+                case "sub":
+                    item.DecreaseQuantity(1);
+                    if (item.Quantity == 0)
+                        basket.RemoveEmptyItems();
+                    break;
             }
+            await basketRepository.UpdateAsync(basket);
+            return item;
         }
+        throw new Exceptions.NotFoundException($"Basket item with id {itemId} was not found");
     }
 
     public async void RemoveItemFromBasket(string username, int id)
@@ -183,5 +180,15 @@ public class BasketService : IBasketService
                 throw new Exceptions.NotFoundException($"Item with id {item.ProductId} not found in db");
         }
         return list;
+    }
+
+    public async Task<bool> CheckIfEmpty(int basketId)
+    {
+        var basket = await GetBasketAsync(basketId);
+        if(basket.Items.Count == 0)
+            return true;
+        if(basket.Items.All(i => i.Quantity > 0) == false)
+            return true;
+        return false;
     }
 }

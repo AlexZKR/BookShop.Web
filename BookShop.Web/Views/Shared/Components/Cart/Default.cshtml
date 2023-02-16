@@ -1,12 +1,11 @@
 @{
-var count = (int)ViewData["basketCount"]!;
-
+    var count = (int)ViewData["basketCount"]!;
 }
 
- <a asp-controller="Basket" asp-action="Index" class="nav-icon position-relative text-decoration-none"
-                title="Корзина">
-                <i class="fa fa-fw fa-cart-arrow-down text-dark mt-2 pt-1 mx-2"></i>
-                <span style="background-color: #59ab6e;" class="position-absolute top-0 left-40 translate-middle badge rounded-pill text-dark">
-                @count
-            </span>
-            </a>
+<a asp-controller="Basket" asp-action="Index" class="nav-icon position-relative text-decoration-none"
+    title="Корзина">
+    <i class="fa fa-fw fa-cart-arrow-down text-dark mt-2 pt-1 mx-2"></i>
+    <span style="background-color: #59ab6e;" class="position-absolute top-0 left-40 translate-middle badge rounded-pill text-dark">
+    @count
+    </span>
+</a>

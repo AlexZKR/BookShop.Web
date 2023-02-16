@@ -5,17 +5,21 @@ namespace BookShop.Web.Infrastructure;
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 public class QueryParameterConstraintAttribute : Attribute, IActionConstraint
 {
-    private readonly string _parameterName;
+    private readonly string[] parameterNames;
 
-    public QueryParameterConstraintAttribute(string parameterName)
+    public QueryParameterConstraintAttribute(params string[] parameterNames)
     {
-        this._parameterName = parameterName;
+        this.parameterNames = parameterNames;
     }
 
     public bool Accept(ActionConstraintContext context)
     {
-        return context.RouteContext.HttpContext.Request.Query.Keys.Contains(this._parameterName);
+        var keys = context.RouteContext.HttpContext.Request.Query.Keys.ToArray();
+        for (int i = 0; i < parameterNames.Length; i++)
+        {
+            if(keys[i] != parameterNames[i]) return false;
+        }
+        return true;
     }
-
     public int Order { get; }
 }

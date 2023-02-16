@@ -2,5 +2,7 @@
 
 @foreach (var item in @Model.Items)
 {
+  <div id="li-@item.Id">
     <partial name="_BasketCardPartial" model="@item" />
+  </div>
 }

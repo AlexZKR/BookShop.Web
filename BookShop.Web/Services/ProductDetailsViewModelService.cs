@@ -11,12 +11,12 @@ public class ProductDetailsViewModelService : IProductDetailsViewModelService
 {
     private readonly ILogger<BookCatalogViewModelService> logger;
     private readonly IRepository<Book> bookRepository;
-    private readonly IUriComposer uriComposer;
+    private readonly IImageService uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
 
     public ProductDetailsViewModelService(ILoggerFactory loggerFactory,
     IRepository<Book> bookRepository,
-    IUriComposer uriComposer,
+    IImageService uriComposer,
     IFavouriteService<Book> favouriteService)
     {
         logger = loggerFactory.CreateLogger<BookCatalogViewModelService>();
@@ -36,7 +36,7 @@ public class ProductDetailsViewModelService : IProductDetailsViewModelService
             Description = item.Description,
             PagesCount = item.PagesCount,
             AuthorName = item.Author.Name,
-            PictureUrl = uriComposer.ComposePicUri(item.ImagePath),
+            PictureUrl = item.ImagePath,
             Price = item.FullPrice,
             DiscountedPrice = item.DiscountedPrice,
             Discount = item.Discount,

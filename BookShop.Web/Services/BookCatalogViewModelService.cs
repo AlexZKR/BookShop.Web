@@ -13,13 +13,13 @@ public class BookCatalogViewModelService : ICatalogViewModelService
 {
     private readonly ILogger<BookCatalogViewModelService> logger;
     private readonly IBookCatalogService bookCatalogService;
-    private readonly IUriComposer uriComposer;
+    private readonly IImageService uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
     private readonly IRatingService ratingService;
 
     public BookCatalogViewModelService(ILoggerFactory loggerFactory,
     IBookCatalogService bookCatalogService,
-    IUriComposer uriComposer,
+    IImageService uriComposer,
     IFavouriteService<Book> favouriteService,
     IRatingService ratingService)
     {
@@ -43,7 +43,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
                 Id = b.Id,
                 Name = b.Name,
                 AuthorName = b.Author.Name,
-                PictureUri = uriComposer.ComposePicUri(b.ImagePath),
+                PictureUri = b.ImagePath,
                 Price = b.FullPrice,
                 DiscountedPrice = b.DiscountedPrice,
                 IsOnDiscount = b.Discount != 0,
@@ -88,7 +88,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
             {
                  Id = p.Id,
                  Name = p.Name,
-                 PictureUri = uriComposer.ComposePicUri(p.ImagePath),
+                 PictureUri = p.ImagePath,
                  Price = p.FullPrice,
                  DiscountedPrice = p.DiscountedPrice,
                  IsFavourite = favouriteService.CheckIfFavourite(username, p),

@@ -5,7 +5,7 @@ namespace BookShop.Web.Models.Basket;
 public class BasketItemViewModel
 {
     public int Id { get; set; }
-    public int CatalogItemId { get; set; }
+    public int ProductId { get; set; }
     public string? ProductName { get; set; }
     public double FullPrice { get; set; }
     public double Discount { get; set; }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using BookShop.Web.Extensions;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Entities.Products;
+using BookShop.Web.Infrastructure;
 
 namespace BookShop.Web.Controllers;
 
@@ -61,15 +62,21 @@ public class BasketController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [Route("ChangeQuantity/{itemId:int}/{mode}")]
-    public IActionResult ChangeQuantity(int itemId, string mode)
+    //[Route("ChangeQuantity/{itemId:int}/{mode}")]
+    [HttpGet]
+    [QueryParameterConstraint("itemId","mode")]
+    public async Task<IActionResult> ChangeQuantity([FromQuery]int itemId, string mode)
     {
         string username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
-        basketService.UpDownQuantity(username, itemId, mode);
-        return RedirectToAction(nameof(Index));
-        // var vm = await basketViewModelService.GetOrCreateBasketForUser(ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this));
-
-        // return PartialView("_BasketListPartial", vm);
+        var item = await basketService.UpDownQuantity(username, itemId, mode);
+        var vm = await basketViewModelService.MapBasketItem(item);
+        if(item.Quantity == 0)
+        {
+            if(await basketService.CheckIfEmpty(item.BasketId) == true)
+                //return PartialView("_BasketEmptyPartial", vm);
+            return Empty;
+        }
+        return PartialView("_BasketCardPartial", vm);
     }
 
 }

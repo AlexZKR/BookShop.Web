@@ -5,31 +5,35 @@ using BookShop.Web.Interfaces;
 using BookShop.BLL.Specifications;
 using BookShop.BLL.Specifications.CatalogSpecifications;
 using BookShop.Web.Models.Basket;
+using AutoMapper;
 
 namespace BookShop.Web.Services;
 
 public class BasketViewModelService : IBasketViewModelService
 {
-    private readonly IRepository<Basket> _basketRepository;
-    private readonly IUriComposer _uriComposer;
-    private readonly IBasketQueryService _basketQueryService;
-    private readonly IRepository<BaseProduct> _itemRepository;
+    private readonly IRepository<Basket> basketRepository;
+    private readonly IImageService uriComposer;
+    private readonly IBasketQueryService basketQueryService;
+    private readonly IMapper mapper;
+    private readonly IRepository<BaseProduct> itemRepository;
 
     public BasketViewModelService(IRepository<Basket> basketRepository,
         IRepository<BaseProduct> itemRepository,
-        IUriComposer uriComposer,
-        IBasketQueryService basketQueryService)
+        IImageService uriComposer,
+        IBasketQueryService basketQueryService,
+        IMapper mapper)
     {
-        _basketRepository = basketRepository;
-        _uriComposer = uriComposer;
-        _basketQueryService = basketQueryService;
-        _itemRepository = itemRepository;
+        this.basketRepository = basketRepository;
+        this.uriComposer = uriComposer;
+        this.basketQueryService = basketQueryService;
+        this.mapper = mapper;
+        this.itemRepository = itemRepository;
     }
 
     public async Task<BasketViewModel> GetOrCreateBasketForUser(string userName)
     {
         var basketSpec = new BasketWithItemsSpecification(userName);
-        var basket = (await _basketRepository.FirstOrDefaultAsync(basketSpec));
+        var basket = (await basketRepository.FirstOrDefaultAsync(basketSpec));
 
         if (basket == null)
         {
@@ -43,7 +47,7 @@ public class BasketViewModelService : IBasketViewModelService
     private async Task<BasketViewModel> CreateBasketForUser(string userId)
     {
         var basket = new Basket(userId);
-        await _basketRepository.AddAsync(basket);
+        await basketRepository.AddAsync(basket);
 
         return new BasketViewModel()
         {
@@ -54,28 +58,19 @@ public class BasketViewModelService : IBasketViewModelService
 
     private async Task<List<BasketItemViewModel>> GetBasketItems(IReadOnlyCollection<BasketItem> basketItems)
     {
-        var catalogItemsSpecification = new BookCatalogItemsSpecification(basketItems.Select(b => b.ProductId).ToArray());
-        var catalogItems = await _itemRepository.ListAsync(catalogItemsSpecification);
-
-        var items = basketItems.Select(basketItem =>
+        var items = new List<BasketItemViewModel>();
+        foreach(var item in basketItems)
         {
-            var catalogItem = catalogItems.First(c => c.Id == basketItem.ProductId);
-
-            var basketItemViewModel = new BasketItemViewModel
-            {
-                Id = basketItem.Id,
-                FullPrice = basketItem.FullPrice,
-                Discount = basketItem.Discount,
-                DiscountedPrice = basketItem.DiscountedPrice,
-                Quantity = basketItem.Quantity,
-                CatalogItemId = basketItem.ProductId,
-                PictureUrl = _uriComposer.ComposePicUri(catalogItem.ImagePath),
-                ProductName = catalogItem.Name
-            };
-            return basketItemViewModel;
-        }).ToList();
-
+            items.Add(await MapBasketItem(item));
+        }
         return items;
+    }
+
+    public async Task<BasketItemViewModel> MapBasketItem(BasketItem item)
+    {
+        var viewModel = mapper.Map<BasketItem, BasketItemViewModel>(item);
+        viewModel.PictureUrl = await uriComposer.ComposePicUriById(viewModel.ProductId);
+        return viewModel;
     }
 
     public async Task<BasketViewModel> Map(Basket basket)
@@ -90,7 +85,7 @@ public class BasketViewModelService : IBasketViewModelService
 
     public async Task<int> CountTotalBasketItems(string username)
     {
-        var counter = await _basketQueryService.CountTotalBasketItems(username);
+        var counter = await basketQueryService.CountTotalBasketItems(username);
 
         return counter;
     }

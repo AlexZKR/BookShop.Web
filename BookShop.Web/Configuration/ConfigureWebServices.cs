@@ -20,6 +20,7 @@ public static class ConfigureWebServices
         //automapper config
         var mapperConfig = new MapperConfiguration(mc => {
             mc.AddProfile(new DTOMapProfile());
+            mc.AddProfile(new ViewModelMapProfile());
         });
         IMapper mapper = mapperConfig.CreateMapper();
         services.AddSingleton(mapper);

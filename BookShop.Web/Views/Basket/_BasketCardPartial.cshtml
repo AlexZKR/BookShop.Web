@@ -13,17 +13,15 @@
             <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
 
                 <div class="row-1 mx-4">
-                    <a asp-controller="Basket" asp-action="ChangeQuantity" asp-route-itemId="@Model.Id"
-                        asp-route-mode="add">
+                    <button class="btn" onclick="updateListItem('@Model.Id','add')">
                         <i class="fas fa-plus"></i>
-                    </a>
-                    <div class="mx-1 my-2">
+                    </button>
+                    <div class="mx-2 my-2">
                         @Model.Quantity
                     </div>
-                    <a asp-controller="Basket" asp-action="ChangeQuantity" asp-route-itemId="@Model.Id"
-                        asp-route-mode="sub">
+                    <button class="btn" onclick="updateListItem('@Model.Id','sub')">
                         <i class="fas fa-minus"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">

@@ -15,14 +15,14 @@ namespace BookShop.Web.Services;
 
 public class CheckOutViewModelService : ICheckOutViewModelService
 {
-    private readonly IUriComposer uriComposer;
+    private readonly IImageService uriComposer;
     private readonly IRepository<Basket> basketRepository;
     private readonly IRepository<BaseProduct> itemRepository;
 
     public CheckOutViewModelService(IRepository<Basket> basketRepository,
         IRepository<BaseProduct> itemRepository,
         IRepository<Order> orderRepository,
-        IUriComposer uriComposer)
+        IImageService uriComposer)
     {
         this.basketRepository = basketRepository;
         this.itemRepository = itemRepository;
@@ -59,7 +59,7 @@ public class CheckOutViewModelService : ICheckOutViewModelService
                 DiscountedPrice = i.DiscountedPrice,
                 Discount = i.Discount,
                 Units = basket.Items.FirstOrDefault(bi => bi.ProductId == i.Id)!.Quantity,
-                PictureUrl = uriComposer.ComposePicUri(i.ImagePath),
+                PictureUrl = i.ImagePath,
                 //AddInfo = i.Author.Name
 
             }).ToList(),

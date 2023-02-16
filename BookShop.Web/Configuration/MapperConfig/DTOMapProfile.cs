@@ -26,5 +26,7 @@ public class DTOMapProfile : Profile
         CreateMap<BuyerDTO, Buyer>().ReverseMap()
         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BuyerId))
         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => (src.FirstName + " " + src.LastName)));
+
+        
     }
 }

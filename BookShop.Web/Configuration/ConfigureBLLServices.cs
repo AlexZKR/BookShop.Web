@@ -1,4 +1,5 @@
 using BookShop.BLL;
+using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Services;
 using BookShop.DAL.Data;
@@ -24,7 +25,7 @@ public static class ConfigureBLLServices
         services.AddScoped<IBasketQueryService, BasketQueryService>();
         services.AddScoped<IOrderService, OrderService>();
 
-        services.AddSingleton<IUriComposer>(new UriComposer(configuration.Get<CatalogSettings>()!));
+        services.AddScoped<IImageService, ImageService>();
         services.AddTransient<IEmailSender, EmailSender>();
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
