@@ -17,7 +17,7 @@ public class BasketQueryService : IBasketQueryService
     /// </summary>
     /// <param name="username"></param>
     /// <returns></returns>
-    public async Task<int> CountTotalBasketItems(string username)
+    public async Task<int> CountTotalBasketItemsAsync(string username)
     {
         var totalItems = await context.Baskets
             .Where(basket => basket.BuyerId == username)

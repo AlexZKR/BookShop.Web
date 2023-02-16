@@ -1,4 +1,3 @@
-using Ardalis.GuardClauses;
 using BookShop.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BookShop.Web.Extensions;
@@ -7,22 +6,24 @@ using BookShop.BLL.Entities.Products;
 using BookShop.Web.Infrastructure;
 
 namespace BookShop.Web.Controllers;
-
 public class BasketController : Controller
 {
     private readonly IBasketViewModelService basketViewModelService;
     private readonly IRepository<BaseProduct> productRepository;
     private readonly BLL.Interfaces.IFavouriteService<BaseProduct> favouriteService;
     private readonly IBasketService basketService;
+    private readonly IBasketQueryService basketQueryService;
 
     public BasketController(IBasketViewModelService basketViewModelService,
     IRepository<BaseProduct> productRepository,
     IBasketService basketService,
+    IBasketQueryService basketQueryService,
     IFavouriteService<BaseProduct> favouriteService)
     {
         this.basketViewModelService = basketViewModelService;
         this.productRepository = productRepository;
         this.basketService = basketService;
+        this.basketQueryService = basketQueryService;
         this.favouriteService = favouriteService;
         this.basketService = basketService;
     }
@@ -54,15 +55,17 @@ public class BasketController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [Route("Remove/{id:int}")]
-    public IActionResult Remove(int id)
+    [HttpDelete]
+    public async Task<IActionResult> Remove(int itemId, int basketId)
     {
         var username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
-        basketService.RemoveItemFromBasket(username, id);
-        return RedirectToAction(nameof(Index));
+        basketService.RemoveItemFromBasket(username, itemId);
+        var basketCount = basketQueryService.CountTotalBasketItemsAsync(username);
+        if(await basketService.CheckIfEmpty(basketId) == true)
+                return NoContent();
+        return Ok(basketCount);
     }
 
-    //[Route("ChangeQuantity/{itemId:int}/{mode}")]
     [HttpGet]
     [QueryParameterConstraint("itemId","mode")]
     public async Task<IActionResult> ChangeQuantity([FromQuery]int itemId, string mode)
@@ -70,13 +73,22 @@ public class BasketController : Controller
         string username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
         var item = await basketService.UpDownQuantity(username, itemId, mode);
         var vm = await basketViewModelService.MapBasketItem(item);
+        if(await basketService.CheckIfEmpty(item.BasketId) == true)
+                return NoContent();
         if(item.Quantity == 0)
         {
-            if(await basketService.CheckIfEmpty(item.BasketId) == true)
-                //return PartialView("_BasketEmptyPartial", vm);
             return Empty;
         }
         return PartialView("_BasketCardPartial", vm);
+    }
+
+    [HttpGet]
+    [Route("GetBasketItemsCountAsync")]
+    public async Task<IActionResult> GetBasketItemsCountAsync()
+    {
+        string username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
+        var basketCount = await basketQueryService.CountTotalBasketItemsAsync(username);
+        return Ok(basketCount);
     }
 
 }

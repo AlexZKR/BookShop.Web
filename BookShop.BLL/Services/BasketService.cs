@@ -5,6 +5,7 @@ using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Exceptions;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications;
+using BookShop.BLL.Specifications.BasketSpecifications;
 
 namespace BookShop.BLL.Services;
 
@@ -13,14 +14,17 @@ public class BasketService : IBasketService
     private readonly IRepository<Basket> basketRepository;
     private readonly IAppLogger<BasketService> logger;
     private readonly IRepository<BaseProduct> productRepository;
+    private readonly IRepository<BasketItem> basketItemRepository;
 
     public BasketService(IRepository<Basket> basketRepository,
         IAppLogger<BasketService> logger,
-        IRepository<BaseProduct> productRepository)
+        IRepository<BaseProduct> productRepository,
+        IRepository<BasketItem> basketItemRepository)
     {
         this.basketRepository = basketRepository;
         this.logger = logger;
         this.productRepository = productRepository;
+        this.basketItemRepository = basketItemRepository;
     }
 
     public async Task<Basket> AddItemToBasket(string username, int catalogItemId, double price, double discount, int quantity = 1)
@@ -151,6 +155,15 @@ public class BasketService : IBasketService
         if (basket != null)
             return basket;
         throw new BasketNotFoundException(busketId);
+    }
+
+    public async Task<BasketItem> GetBasketItemAsync(int id)
+    {
+        var itemSpec = new BasketItemByIdSpecification(id);
+        var item = await basketItemRepository.FirstOrDefaultAsync(itemSpec);
+        if (item != null)
+            return item;
+        throw new Exceptions.NotFoundException($"Basket item with id {id} was not found");
     }
 
     public async Task<List<BaseProduct>> GetBasketItemsAsync(string username)

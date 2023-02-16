@@ -17,7 +17,6 @@ public interface IBasketService
     Task<Basket> GetBasketAsync(string username);
     Task<List<BaseProduct>> GetBasketItemsAsync(string username);
     Task<List<BaseProduct>> GetBasketItemsAsync(int basketId);
+    Task<BasketItem> GetBasketItemAsync(int id);
     Task<bool> CheckIfEmpty(int basketId);
-
-
 }

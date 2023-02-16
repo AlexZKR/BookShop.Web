@@ -71,7 +71,7 @@ namespace BookShop.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
-            var count = await basketQueryService.CountTotalBasketItems(Input?.Email);
+            var count = await basketQueryService.CountTotalBasketItemsAsync(Input?.Email);
             BasketCount = count.ToString();
         }
 

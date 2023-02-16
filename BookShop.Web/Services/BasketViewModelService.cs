@@ -85,7 +85,7 @@ public class BasketViewModelService : IBasketViewModelService
 
     public async Task<int> CountTotalBasketItems(string username)
     {
-        var counter = await basketQueryService.CountTotalBasketItems(username);
+        var counter = await basketQueryService.CountTotalBasketItemsAsync(username);
 
         return counter;
     }

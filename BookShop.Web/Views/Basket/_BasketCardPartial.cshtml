@@ -36,8 +36,8 @@
                 }
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end mx-4">
-                <a asp-controller="Basket" asp-action="Remove" asp-route-id="@Model.Id" class="text-danger"><i
-                        class="fas fa-trash fa-lg"></i></a>
+                <button onclick="removeListItem('@Model.Id', '@Model.BasketId')"  class="btn h3 text-danger"><i
+                        class="fas fa-trash fa-lg"></i></button>
             </div>
         </div>
     </div>

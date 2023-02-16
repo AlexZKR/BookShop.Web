@@ -9,8 +9,11 @@
           <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-normal mb-0 text-black">Корзина</h3>
             <div>
-              <p class="mb-0"><span class="text-muted">Количество товара:</span>
-                @Model.TotalItems
+              <p class="mb-0">
+                Количество товара:
+                <span id="basketCount" class="text-muted">
+                  @Model.TotalItems
+                </span>
               </p>
             </div>
           </div>
@@ -63,20 +66,79 @@
           itemId:itemId,
           mode:mode,
         },
-        success: function (result)
+        success: function (data, textStatus, jqXHR)
         {
-          if(result == 0)
+          console.log(textStatus + ": " + jqXHR.status);
+          if(jqXHR.status == 204)
+          {
+            console.log("refreshing")
+            window.location.reload()
+          }
+          if(data == 0)
           {
             $(divId).remove();
-            if( $("#list").is(':empty') == true)
-            {
-              window.location.reload()
-            }
+            getBasketCount();
           }
           else
           {
-            $(divId).html(result);
+            $(divId).html(data);
+            getBasketCount();
           }
+        }
+      });
+    }
+    function removeListItem(itemId, basketId)
+    {
+      var divId = `#li-${itemId}`;
+      $.ajax(
+      {
+        url: "Basket/Remove",
+        type: "delete",
+        data:
+        {
+          itemId:itemId,
+          basketId:basketId,
+        },
+        success: function (data, textStatus, jqXHR)
+        {
+          console.log(textStatus + ": " + jqXHR.status);
+          if(jqXHR.status == 204)
+          {
+              data = 0;
+              console.log("setting basket count to 0");
+              setBasketCount(data)
+              window.location.reload()
+          }
+          else
+          {
+            console.log("removing itemId" + itemId)
+            setBasketCount(data.result)
+            $(divId).remove();
+          }
+        }
+      }
+      );
+    }
+
+    function setBasketCount(count)
+    {
+      $("#basketCountPill").html(count);
+      $("#basketCount").html(count);
+      console.log("Set basket count to " + count);
+    }
+
+    function getBasketCount()
+    {
+      $.ajax(
+      {
+        url: "GetBasketItemsCountAsync",
+        type: "get",
+
+        success: function (data, textStatus, jqXHR)
+        {
+          console.log(textStatus + ": " + jqXHR.status);
+          console.log("Got basket count: " + data);
+          setBasketCount(data);
         }
       });
     }
