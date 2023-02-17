@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using BookShop.BLL.Interfaces;
-//using Microsoft.AspNetCore.Http;
 
 namespace BookShop.BLL.Entities.Products
 {
@@ -18,10 +17,9 @@ namespace BookShop.BLL.Entities.Products
         [Display(Name = "Описание")]
         public string? Description { get; set; }
         [Display(Name = "Изображение")]
-        public string ImagePath { get; set; } = SD.NO_PHOTO;
+        public string PictureUri { get; set; } = SD.NO_PHOTO;
         [NotMapped]
         [Display(Name = "Изображение")]
-        //public IFormFile ImageFile { get; set; } = null!;
 
         //nav
         public List<Book> Books { get; set; } = new List<Book>();
