@@ -19,6 +19,6 @@ public class ImageService : IImageService
     {
         var product = await productRepository.FirstOrDefaultAsync(new BaseProductSpecification(id));
         if(product == null) throw new NotFoundException($"Product with id {id} was not found");
-        return product.ImagePath;
+        return product.PictureUri;
     }
 }

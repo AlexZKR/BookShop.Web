@@ -6,6 +6,7 @@ public interface IFavouriteService<T> where T : BaseProduct, IAggregateRoot
 {
     // public Task<bool> CheckIfFavourite(string username, T entity);
     public bool CheckIfFavourite(string username, T entity);
+    public bool CheckIfFavourite(string username, int id);
     Task<bool> RemoveFromFavourites(string username, string Id);
     Task<bool> RemoveFromFavourites(string username, T entity);
     public Task<List<T>> GetFavouritesForUser(string username);

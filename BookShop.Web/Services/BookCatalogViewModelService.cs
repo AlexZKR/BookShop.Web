@@ -1,3 +1,4 @@
+using AutoMapper;
 using BookShop.BLL;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Products;
@@ -13,21 +14,21 @@ public class BookCatalogViewModelService : ICatalogViewModelService
 {
     private readonly ILogger<BookCatalogViewModelService> logger;
     private readonly IBookCatalogService bookCatalogService;
-    private readonly IImageService uriComposer;
     private readonly IFavouriteService<Book> favouriteService;
     private readonly IRatingService ratingService;
+    private readonly IMapper mapper;
 
     public BookCatalogViewModelService(ILoggerFactory loggerFactory,
     IBookCatalogService bookCatalogService,
-    IImageService uriComposer,
     IFavouriteService<Book> favouriteService,
-    IRatingService ratingService)
+    IRatingService ratingService,
+    IMapper mapper)
     {
         logger = loggerFactory.CreateLogger<BookCatalogViewModelService>();
         this.bookCatalogService = bookCatalogService;
-        this.uriComposer = uriComposer;
         this.favouriteService = favouriteService;
         this.ratingService = ratingService;
+        this.mapper = mapper;
     }
 
     public async Task<CatalogViewModel> GetCatalogViewModel(string username,string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE,  int AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
@@ -43,7 +44,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
                 Id = b.Id,
                 Name = b.Name,
                 AuthorName = b.Author.Name,
-                PictureUri = b.ImagePath,
+                PictureUri = b.PictureUri,
                 Price = b.FullPrice,
                 DiscountedPrice = b.DiscountedPrice,
                 IsOnDiscount = b.Discount != 0,
@@ -88,7 +89,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
             {
                  Id = p.Id,
                  Name = p.Name,
-                 PictureUri = p.ImagePath,
+                 PictureUri = p.PictureUri,
                  Price = p.FullPrice,
                  DiscountedPrice = p.DiscountedPrice,
                  IsFavourite = favouriteService.CheckIfFavourite(username, p),
@@ -96,6 +97,12 @@ public class BookCatalogViewModelService : ICatalogViewModelService
 
             }).ToList(),
         };
+        return vm;
+    }
+    public async Task<CatalogItemViewModel> GetCatalogItemViewModelAsync(int prodId)
+    {
+        var book = await bookCatalogService.GetBookAsync(prodId);
+        var vm = mapper.Map<CatalogItemViewModel>(book);
         return vm;
     }
 

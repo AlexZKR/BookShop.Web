@@ -36,16 +36,15 @@ public class CatalogController : Controller
     }
 
     [Authorize]
-    [Route("UpdateFav/{prodId:int}/{returnUrl}")]
-    [Route("UpdateFav/{returnUrl}")]
-    [Route("UpdateFav")]
-    public async Task<IActionResult> UpdateFav(int prodId, string returnUrl)
+    [HttpGet]
+    public async Task<IActionResult> UpdateFav([FromQuery]int itemId)
     {
-        await favouriteService.UpdateFavourite(HttpContext.GetUsername(), prodId.ToString());
-        // if (returnUrl.Contains("Product"))
-        //     return Redirect($"http://localhost:5092/{returnUrl}");
-        return RedirectToAction(nameof(Index));
-        // return NoContent();
+        await favouriteService.UpdateFavourite(HttpContext.GetUsername(), itemId.ToString());
+        //var vm = await catalogViewModelService.GetCatalogItemViewModelAsync(itemId);
+        return Json(new
+        {
+            isFavourite = favouriteService.CheckIfFavourite(HttpContext.GetUsername(), itemId),
+        });
     }
 
     [Authorize]

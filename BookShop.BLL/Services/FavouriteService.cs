@@ -23,6 +23,13 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
         var favs = GetFavouritesObject(username).Result;
         return favs.Favourites.Split(',').Contains(entity.Id.ToString());
     }
+    public bool CheckIfFavourite(string username, int id)
+    {
+        //if username == null than user is not authenticated
+        if (username == null) return false;
+        var favs = GetFavouritesObject(username).Result;
+        return favs.Favourites.Split(',').Contains(id.ToString());
+    }
 
     public async Task<bool> RemoveFromFavourites(string username, string Id)
     {

@@ -36,7 +36,7 @@ public class ProductDetailsViewModelService : IProductDetailsViewModelService
             Description = item.Description,
             PagesCount = item.PagesCount,
             AuthorName = item.Author.Name,
-            PictureUrl = item.ImagePath,
+            PictureUrl = item.PictureUri,
             Price = item.FullPrice,
             DiscountedPrice = item.DiscountedPrice,
             Discount = item.Discount,

@@ -55,6 +55,14 @@ public class BookCatalogService : IBookCatalogService
         return authors;
     }
 
+    public async Task<Book> GetBookAsync(int id)
+    {
+        var spec = new BookWithAuthorSpecification(id);
+        var book = await bookRepository.FirstOrDefaultAsync(spec);
+        if(book == null) throw new NotFoundException($"Book with id {id} was not found");
+        return book;
+    }
+
     public async Task<int> TotalItemsCountAsync(string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE)
     {
 

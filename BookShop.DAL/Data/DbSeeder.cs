@@ -122,7 +122,7 @@ public class DbSeeder
 
                         Sold = 453,
 
-                        ImagePath = "b_01.jpg",
+                        PictureUri = "b_01.jpg",
 
                         AuthorId = 1,
                     },
@@ -144,7 +144,7 @@ public class DbSeeder
 
                         Sold = 34,
 
-                        ImagePath = "b_02.jpg",
+                        PictureUri = "b_02.jpg",
 
                         AuthorId = 1
                     },
@@ -167,7 +167,7 @@ public class DbSeeder
 
                         Sold = 200,
 
-                        ImagePath = "b_03.jpg",
+                        PictureUri = "b_03.jpg",
                         AuthorId = 2
                     },
                     new Book
@@ -189,7 +189,7 @@ public class DbSeeder
 
                         Sold = 145,
 
-                        ImagePath = "b_04.jpg",
+                        PictureUri = "b_04.jpg",
                         AuthorId = 2
                     },
                     new Book
@@ -211,7 +211,7 @@ public class DbSeeder
 
                         Sold = 950,
 
-                        ImagePath = "b_05.jpg",
+                        PictureUri = "b_05.jpg",
                         AuthorId = 3
                     },
                     new Book
@@ -233,7 +233,7 @@ public class DbSeeder
 
                         Sold = 120,
 
-                        ImagePath = "b_06.jpg",
+                        PictureUri = "b_06.jpg",
                         AuthorId = 4
                     }
         };

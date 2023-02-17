@@ -2,24 +2,23 @@
 
 @{
     string iconType = Model.IsFavourite ? "fa-solid fa-heart" : "fa-regular fa-heart";
-    var request = ViewContext.HttpContext.Request;
-    string returnUrl = request.Path + request.QueryString.ToUriComponent();
+    @* var request = ViewContext.HttpContext.Request;
+    string returnUrl = request.Path + request.QueryString.ToUriComponent(); *@
 }
 
 
-<div class="col-md-4">
+<div  class="col-md-4 d-flex">
     <div class="card mb-4 product-wap rounded-0">
         <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="~/img/books/@Model.PictureUri">
             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                 <ul class="list-unstyled">
                     <li>
-                        <form asp-controller="Catalog" asp-action="UpdateFav" method="post"
-                            enctype="multipart/form-data">
-                            <a class="btn btn-success text-white" asp-controller="Catalog" asp-action="UpdateFav"
-                                asp-route-prodId="@Model.Id" asp-route-returnUrl="@returnUrl"><i
-                                    class="@iconType"></i></a>
-                        </form>
+                        <button onclick="updateCatalogCard('@Model.Id')" class="btn btn-success text-white">
+                            <div id="favIcon-@Model.Id">
+                                <i class="@iconType "></i>
+                            </div>
+                        </button>
                     </li>
                     <li>
                         <a class="btn btn-success text-white mt-2" asp-controller="Product" asp-action="Index"

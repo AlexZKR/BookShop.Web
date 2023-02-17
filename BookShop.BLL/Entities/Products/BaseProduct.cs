@@ -38,7 +38,7 @@ public abstract class BaseProduct : BaseEntity, IAggregateRoot
     public int Sold { get; set; }
 
     [Display(Name = "Изображение")]
-    public string ImagePath { get; set; } = SD.NO_PHOTO;
+    public string PictureUri { get; set; } = SD.NO_PHOTO;
 
     //av. rating for sorting and displaying
     [Display(Name = "Средний рейтинг")]
