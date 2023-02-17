@@ -83,12 +83,16 @@ public class BasketController : Controller
     }
 
     [HttpGet]
-    [Route("GetBasketItemsCountAsync")]
-    public async Task<IActionResult> GetBasketItemsCountAsync()
+    [Route("GetBasketInfo")]
+    public async Task<IActionResult> GetBasketInfo([FromQuery]int basketId)
     {
-        string username = ControllerBaseExtensions.GetOrSetBasketCookieAndUserName(this);
-        var basketCount = await basketQueryService.CountTotalBasketItemsAsync(username);
-        return Ok(basketCount);
+        var basket = await basketService.GetBasketAsync(basketId);
+        return Json(new
+        {
+            basketCount = basket.TotalItems,
+            basketPrice = basket.Items.Sum(i => (i.Quantity * i.DiscountedPrice)),
+            basketDiscount = basket.Items.Sum(i => (i.Quantity * (i.FullPrice - i.DiscountedPrice))),
+        });
     }
 
 }

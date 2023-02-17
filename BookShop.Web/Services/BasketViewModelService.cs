@@ -79,6 +79,8 @@ public class BasketViewModelService : IBasketViewModelService
         {
             BuyerId = basket.BuyerId,
             Id = basket.Id,
+            TotalDiscount = basket.TotalDiscount,
+            TotalPrice = basket.TotalPrice,
             Items = await GetBasketItems(basket.Items)
         };
     }

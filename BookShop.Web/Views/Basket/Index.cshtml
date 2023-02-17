@@ -20,7 +20,7 @@
           <div id="list">
             <partial name="_BasketListPartial" model="@Model" />
           </div>
-          <div class="card mb-4">
+          @* <div class="card mb-4">
             <div class="card-body p-4 d-flex flex-row">
               <div class="form-outline flex-fill">
                 <input type="text" id="form1" class="form-control form-control-lg" />
@@ -28,15 +28,18 @@
               </div>
               <button type="button" class="btn btn-outline-warning btn-lg ms-3">Принять</button>
             </div>
-          </div>
+          </div> *@
 
           <div class="card">
             <div class="card-body">
-              <div class="row">
+              <div class="row text-center">
                 <a asp-controller="Order" asp-action="Index" class="btn btn-warning btn-block btn-lg col">Оформить
                   заказ</a>
-                <div class="col fw-bold">
-                  Сумма: @Model.Total() руб.
+                <div id="basketSum" class="col fw-bold">
+                  Сумма: @Model.TotalPrice.ToString("N2") руб.
+                </div>
+                <div id="basketDiscount" class="col fw-bold">
+                  Скидка: @Model.TotalDiscount.ToString("N2") руб.
                 </div>
               </div>
             </div>
@@ -54,7 +57,7 @@
 @section Scripts
 {
   <script>
-    function updateListItem(itemId, mode)
+    function updateListItem(itemId, mode, basketId)
     {
       var divId = `#li-${itemId}`;
       $.ajax(
@@ -77,12 +80,12 @@
           if(data == 0)
           {
             $(divId).remove();
-            getBasketCount();
+            getBasketInfo(basketId);
           }
           else
           {
             $(divId).html(data);
-            getBasketCount();
+            getBasketInfo(basketId);
           }
         }
       });
@@ -106,13 +109,13 @@
           {
               data = 0;
               console.log("setting basket count to 0");
-              setBasketCount(data)
+              getBasketInfo(basketId)
               window.location.reload()
           }
           else
           {
             console.log("removing itemId" + itemId)
-            setBasketCount(data.result)
+            getBasketInfo(basketId)
             $(divId).remove();
           }
         }
@@ -120,25 +123,31 @@
       );
     }
 
-    function setBasketCount(count)
+    function setBasketInfo(data)
     {
-      $("#basketCountPill").html(count);
-      $("#basketCount").html(count);
-      console.log("Set basket count to " + count);
+      $("#basketCountPill").html(data.basketCount);
+      $("#basketCount").html(data.basketCount);
+      $("#basketSum").html("Сумма: " + data.basketPrice.toFixed(2) + " руб.");
+      $("#basketDiscount").html("Скидка: " + data.basketDiscount.toFixed(2) + " руб.");
     }
 
-    function getBasketCount()
+    function getBasketInfo(basketId)
     {
       $.ajax(
       {
-        url: "GetBasketItemsCountAsync",
+        url: "GetBasketInfo",
         type: "get",
-
+        data:
+        {
+          basketId: basketId,
+        },
         success: function (data, textStatus, jqXHR)
         {
           console.log(textStatus + ": " + jqXHR.status);
-          console.log("Got basket count: " + data);
-          setBasketCount(data);
+          console.log("Got basketCount: " + data.basketCount);
+          console.log("Got basketPrice: " + data.basketPrice);
+          console.log("Got basketDiscount: " + data.basketDiscount);
+          setBasketInfo(data);
         }
       });
     }

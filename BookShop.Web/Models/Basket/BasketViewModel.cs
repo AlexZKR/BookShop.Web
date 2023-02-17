@@ -7,9 +7,11 @@ public class BasketViewModel
     public string? BuyerId { get; set; }
 
     public int TotalItems { get; set; }
+    public double TotalDiscount { get; set; }
+    public double TotalPrice { get; set; }
 
-    public double Total()
-    {
-        return Math.Round(Items.Sum(x => x.DiscountedPrice * x.Quantity), 2);
-    }
+    // public double Total()
+    // {
+    //     return Math.Round(Items.Sum(x => x.DiscountedPrice * x.Quantity), 2);
+    // }
 }

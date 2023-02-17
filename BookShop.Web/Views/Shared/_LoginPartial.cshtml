@@ -8,7 +8,6 @@
     {
         <li class="nav-item">
             @await Component.InvokeAsync("Cart", User.Identity!.Name)
-           
         </li>
         <li class="nav-item dropdown">
             <a asp-area="Identity" aria-current="page" aria-haspopup="true" asp-page="/Account/Manage/Index" title="Меню"

@@ -15,6 +15,7 @@ public class CartViewComponent : ViewComponent
     public async Task<IViewComponentResult> InvokeAsync(string username)
     {
         if (username == null) username = new Guid().ToString();
+
         ViewData["basketCount"] = await basketQueryService.CountTotalBasketItemsAsync(username);
         return View();
     }

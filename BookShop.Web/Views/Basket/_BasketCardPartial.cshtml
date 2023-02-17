@@ -13,13 +13,13 @@
             <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
 
                 <div class="row-1 mx-4">
-                    <button class="btn" onclick="updateListItem('@Model.Id','add')">
+                    <button class="btn" onclick="updateListItem('@Model.Id','add', '@Model.BasketId')">
                         <i class="fas fa-plus"></i>
                     </button>
                     <div class="mx-2 my-2">
                         @Model.Quantity
                     </div>
-                    <button class="btn" onclick="updateListItem('@Model.Id','sub')">
+                    <button class="btn" onclick="updateListItem('@Model.Id','sub', '@Model.BasketId')">
                         <i class="fas fa-minus"></i>
                     </button>
                 </div>
