@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BookShop.Web.Models.Basket.BasketItemViewModel">
+    <Position X="2.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>FAgCAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAggAAIAAA=</HashCode>
+      <FileName>Models\Basket\BasketItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Web.Models.Basket.BasketViewModel">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACAAAAAAAAAAAAQQAQAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Models\Basket\BasketViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Web.Models.Order.CheckOutViewModel">
+    <Position X="6.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAUQAgCEABAAIAAAQQAAAASQASAAAAAIAgAAAAAg=</HashCode>
+      <FileName>Models\Order\CheckOutViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Web.Models.Order.OrderItemViewModel">
+    <Position X="8.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ECgAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEgAgAAAIAAA=</HashCode>
+      <FileName>Models\Order\OrderItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Web.Models.Order.OrderViewModel">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAAAAgQAkCEACAAIAAAQQAAAASAAQAAAEAIAgAQAAAA=</HashCode>
+      <FileName>Models\Order\OrderViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

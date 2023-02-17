@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Catalog Entities Diagram&#xD;&#xA;">
+    <Position X="7.54" Y="0.542" Height="0.427" Width="1.832" />
+  </Comment>
+  <Class Name="BookShop.BLL.Entities.Products.Author" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAgAAAAAAAAQAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Products\Author.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Books" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BookShop.BLL.Entities.Products.BaseProduct">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAgAgAAAAAAABQAAAAAAAEAAgAggAAAAAA=</HashCode>
+      <FileName>Entities\Products\BaseProduct.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Entities.Products.Book">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <AssociationLine Name="Author" Type="BookShop.BLL.Entities.Products.Author">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.763" Y="0.131" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAgAAAAgAIAAAAAAAAAACAAABAAACAAAAA=</HashCode>
+      <FileName>Entities\Products\Book.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Author" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Entities.Products.ProductRating" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <AssociationLine Name="Product" Type="BookShop.BLL.Entities.Products.BaseProduct" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.938" Y="3.5" />
+        <Point X="3.938" Y="2.875" />
+        <Point X="5" Y="2.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Products\ProductRating.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Product" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BookShop.BLL.Entities.Products.UserFavourites" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Entities\Products\UserFavourites.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BookShop.BLL.Entities.BaseEntity">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="BookShop.BLL.Interfaces.IAggregateRoot" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Aggregates\IBaseAggregateRoot.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

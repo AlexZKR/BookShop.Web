@@ -7,6 +7,7 @@ namespace BookShop.BLL.Entities.Order;
 
 public class OrderInfo //Value object
 {
+
     public OrderInfo()
     {
     }

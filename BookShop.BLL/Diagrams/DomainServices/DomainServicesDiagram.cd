@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BookShop.BLL.Services.BasketService" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="3.25" Width="2" />
+    <AssociationLine Name="basketItemRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.173" Y="1.999" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="basketRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.202" Y="1.457" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="productRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.194" Y="1.559" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAQAAQIBAEAAAEAGAAAQAAAAAAAEAAAAAAAAAACAACA=</HashCode>
+      <FileName>Services\BasketService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="basketItemRepository" />
+      <Field Name="basketRepository" />
+      <Field Name="logger" />
+      <Field Name="productRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Services.BookCatalogService" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="10.75" Width="1.5" />
+    <AssociationLine Name="authorRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.065" Y="0.785" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="bookRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.234" Y="0.945" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="logger" Type="BookShop.BLL.Interfaces.IAppLogger&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.757" Y="6.066" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAABAgCFAAAAEAAAAAACAAAA=</HashCode>
+      <FileName>Services\BookCatalogService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="authorRepository" />
+      <Field Name="bookRepository" />
+      <Field Name="logger" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Services.FavouriteService&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="10" Y="7.75" Width="2.25" />
+    <AssociationLine Name="favouritesRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.977" Y="0.336" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="productRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.991" Y="-0.572" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgQAAAAAACEAAAAAAAAAAAAAgAAAEAQAAAAAAAAA=</HashCode>
+      <FileName>Services\FavouriteService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="favouritesRepository" />
+      <Field Name="productRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Services.ImageService" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="5" Width="1.5" />
+    <AssociationLine Name="productRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.25" Y="5.344" />
+        <Point X="13.5" Y="5.344" />
+        <Point X="13.5" Y="8.75" />
+        <Point X="14.75" Y="8.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.255" Y="1.649" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ImageService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="productRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Services.OrderService" BaseTypeListCollapsed="true">
+    <Position X="19" Y="7.25" Width="1.5" />
+    <AssociationLine Name="logger" Type="BookShop.BLL.Interfaces.IAppLogger&lt;T&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19" Y="8.118" />
+        <Point X="17.458" Y="8.118" Type="JumpStart" />
+        <Point X="17.292" Y="8.118" Type="JumpEnd" />
+        <Point X="16.615" Y="8.118" Type="JumpStart" />
+        <Point X="16.448" Y="8.118" Type="JumpEnd" />
+        <Point X="16.188" Y="8.118" />
+        <Point X="16.188" Y="4.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.457" Y="3.059" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="orderItemsRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-3.468" Y="0.795" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="orderRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.685" Y="0.382" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="productRepository" Type="BookShop.BLL.Interfaces.IRepository&lt;T&gt;">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-3.192" Y="0.092" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAACAAwCACAACBAAAAAQAAQEAAAAACAhAAA=</HashCode>
+      <FileName>Services\OrderService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="basketService" />
+      <Field Name="logger" />
+      <Field Name="orderItemsRepository" />
+      <Field Name="orderRepository" />
+      <Field Name="productRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.BLL.Services.RatingService" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgARAAAAAAAAACAAAAAAAAAAAAAAAAAAAACAAACAA=</HashCode>
+      <FileName>Services\RatingService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="logger" />
+      <Field Name="productRepository" />
+      <Field Name="ratingRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="BookShop.BLL.Interfaces.IRepository&lt;T&gt;" Collapsed="true">
+    <Position X="14.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BookShop.BLL.Interfaces.IAppLogger&lt;T&gt;" Collapsed="true">
+    <Position X="15.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IAppLogger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BookShop.BLL.Interfaces.IBasketService" Collapsed="true">
+    <Position X="20.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIBAEAAAEAEAAAAAAAAAAAEAAAAAAAAAACAACA=</HashCode>
+      <FileName>Interfaces\IBasketService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
