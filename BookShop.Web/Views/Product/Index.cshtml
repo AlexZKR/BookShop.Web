@@ -3,8 +3,6 @@
 @{
     string iconType = Model.IsFavourite ? "fa-regular fa-heart" : "fa-solid fa-heart";
     string labelType = Model.IsFavourite ? "Убрать из любимых" : "Добавить в любимые";
-    var request = ViewContext.HttpContext.Request;
-    string returnUrl = request.Path + request.QueryString.ToUriComponent();
 }
 <!-- Open Content -->
 <section class="bg-light">
@@ -124,16 +122,11 @@
             <div class="col-lg-7 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        @if (Model.IsFavourite)
-                        {
-                            <h1 class="h2">@Model.Name <i title="В любимых" class="fa-solid fa-heart text-danger"></i></h1>
-                        }
-                        else
-                        {
-                            <h1 class="h2">@Model.Name </h1>
-
-                        }
-
+                        <div id="favIconTop-@Model.Id">
+                            <h1 class="h2 col-6"> @Model.Name
+                                <i title="В любимых" class="fa-solid fa-heart text-danger"></i>
+                            </h1>
+                        </div>
                         @if (Model.DiscountedPrice > 0)
                         {
                             <p class="h3 py-2"><small class="text-danger"
@@ -224,47 +217,82 @@
                             </tbody>
                         </table>
 
-                        <form action="" method="GET">
-                            @* <input type="hidden" name="product-title" value="Activewear">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <ul class="list-inline pb-3">
-                                        <li class="list-inline-item text-right">
-                                            Количество
-                                            <input type="hidden" name="product-quanity" id="product-quanity" value="1">
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success"
-                                                id="btn-minus">-</span></li>
-                                        <li class="list-inline-item"><span class="badge bg-secondary"
-                                                id="var-value">1</span></li>
-                                        <li class="list-inline-item"><span class="btn btn-success"
-                                                id="btn-plus">+</span></li>
-                                    </ul>
-                                </div>
-                            </div> *@
 
                             <div class="row pb-3">
                                 <div class="container text-center">
-                                    <form asp-controller="Product" asp-action="UpdFav" method="post"
-                                        enctype="multipart/form-data">
-                                        <a class="btn btn-success btn-lg mx-4 w-45" asp-controller="Catalog"
-                                            asp-action="UpdateFav" asp-route-prodId="@Model.Id"
-                                            asp-route-returnUrl="@returnUrl">
-                                            <i class="@iconType"></i>@labelType</a>
-                                    </form>
+                                    <button onclick="updateFavourite('@Model.Id')" class="btn btn-success text-white">
+
+                                        <div id="favIcon-@Model.Id">
+                                            <i class="@iconType ">
+                                                @if(Model.IsFavourite)
+                                                {
+                                                    <span>Убрать из любимых</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Добавить в любимые</span>
+                                                }
+                                            </i>
+                                        </div>
+                                    </button>
 
                                     <a asp-controller="Basket" asp-action="AddToCart" asp-route-id="@Model.Id"
                                         class="btn btn-success btn-lg mx-4 w-45">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                        Добавить в корзину
+                                        <i class="fa-solid fa-cart-shopping"> Добавить в корзину</i>
+
                                     </a>
                                 </div>
                             </div>
-                        </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts
+{
+    <script>
+        function updateFavourite(itemId)
+    {
+      var divId = `#product-${itemId}`;
+        console.log("Sending book id " + itemId);
+      $.ajax(
+      {
+        url: "/Catalog/UpdateFav",
+        type: "get",
+        data:
+        {
+          itemId:itemId,
+        },
+        success: function (data, textStatus, jqXHR)
+        {
+          console.log(textStatus + ": " + jqXHR.status);
+
+          console.log("Item id " + itemId + "; isFavourite: " + data.isFavourite);
+          console.log("Updating page of product id " + itemId);
+          if(data.isFavourite == true)
+          {
+            $("#favIcon-" + itemId).find('i').removeClass('fa-regular fa-heart');
+            $("#favIcon-" + itemId).find('i').addClass('fa-solid fa-heart');
+            $("#favIcon-" + itemId).find('i').text(' Убрать из любимых');
+
+
+            $("#favIconTop-" + itemId).find('i').removeClass('fa-regular fa-heart');
+            $("#favIconTop-" + itemId).find('i').addClass('fa-solid fa-heart');
+            }
+          else
+          {
+            $("#favIcon-" + itemId).find('i').removeClass('fa-solid fa-heart');
+            $("#favIcon-" + itemId).find('i').addClass('fa-regular fa-heart');
+            $("#favIcon-" + itemId).find('i').text(' Добавить в любимые');
+
+
+            $("#favIconTop-" + itemId).find('i').removeClass('fa-solid fa-heart');
+            $("#favIconTop-" + itemId).find('i').addClass('fa-regular fa-heart');
+          }
+        }
+      });
+    }
+    </script>
+}
