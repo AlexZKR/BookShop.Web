@@ -1,6 +1,6 @@
-
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Interfaces;
+using BookShop.Web.Extensions;
 using BookShop.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ public class ProductController : Controller
     }
     public async Task<IActionResult> Index(int id)
     {
-        var username = GetUserName();
+        string username = HttpContext.GetUsername();
         var vm = await productDetailsViewModelService.CreateViewModel(id, username);
         return View(vm);
     }
@@ -31,25 +31,25 @@ public class ProductController : Controller
     [Route("UpdFav/{prodId:int}/{returnUrl}")]
     public async Task<IActionResult> UpdFav(int prodId, string returnUrl)
     {
-        string username = GetUserName();
+        string username = HttpContext.GetUsername();
         await favouriteService.UpdateFavourite(username, prodId.ToString());
         return RedirectToAction(nameof(Index));
     }
 
-    //todo refactor repeating code in all controllers
-    private string GetUserName()
-    {
-        var user = Request.HttpContext.User;
-        if (user.Identity == null) throw new NullReferenceException();
-        string? userName = null;
+    // //todo refactor repeating code in all controllers
+    // private string GetUserName()
+    // {
+    //     var user = Request.HttpContext.User;
+    //     if (user.Identity == null) throw new NullReferenceException();
+    //     string? userName = null;
 
-        if (user.Identity.IsAuthenticated)
-        {
-            if (user.Identity.Name != null)
-                return user.Identity.Name!;
-        }
+    //     if (user.Identity.IsAuthenticated)
+    //     {
+    //         if (user.Identity.Name != null)
+    //             return user.Identity.Name!;
+    //     }
 
-        return userName!;
-    }
+    //     return userName!;
+    // }
 
 }

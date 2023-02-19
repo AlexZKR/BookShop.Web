@@ -51,7 +51,8 @@ public class OrdersController : Controller
 
         if(response != null && response.IsSuccess)
         {
-            var ordersDTOs = JsonConvert.DeserializeObject<List<OrderDTO>>(Convert.ToString(response.Result)!);
+            var stringRes = Convert.ToString(response.Result)!;
+            var ordersDTOs = JsonConvert.DeserializeObject<List<OrderDTO>>(stringRes);
             var orders = ordersDTOs!.Select(o => mapper.Map<OrderViewModel>(o)).ToList();
 
             vm.ProccessedOrders.AddRange(orders.Where(o => o.IsInProcess == false));

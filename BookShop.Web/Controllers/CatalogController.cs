@@ -40,7 +40,6 @@ public class CatalogController : Controller
     public async Task<IActionResult> UpdateFav([FromQuery]int itemId)
     {
         await favouriteService.UpdateFavourite(HttpContext.GetUsername(), itemId.ToString());
-        //var vm = await catalogViewModelService.GetCatalogItemViewModelAsync(itemId);
         return Json(new
         {
             isFavourite = favouriteService.CheckIfFavourite(HttpContext.GetUsername(), itemId),

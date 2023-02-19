@@ -4,6 +4,12 @@ using BookShop.Web.Configuration;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// if (!builder.Environment.IsDevelopment())
+// {
+//     builder.Configuration["UseSqlite"] = "false";
+// }
+
 DbConfiguration.ConfigureServices(builder.Configuration, builder.Services);
 
 //configure db provider

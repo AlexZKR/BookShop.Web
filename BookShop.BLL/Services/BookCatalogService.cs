@@ -13,14 +13,21 @@ public class BookCatalogService : IBookCatalogService
     private readonly IRepository<Author> authorRepository;
 
     public BookCatalogService(IAppLogger<BookCatalogService> logger,
-    IRepository<Book> bookRepository,
-    IRepository<Author> authorRepository)
+                              IRepository<Book> bookRepository,
+                              IRepository<Author> authorRepository)
     {
         this.logger = logger;
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
     }
-    public async Task<List<Book>> GetCatalogItems(string username, string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE, int? AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
+    public async Task<List<Book>> GetCatalogItems(string username,
+                                                  string? searchQuery,
+                                                  int pageIndex = 0,
+                                                  int itemsPage = SD.ITEMS_PER_PAGE,
+                                                  int? AuthorId = 0,
+                                                  int? cover = null,
+                                                  int? genre = null,
+                                                  int? lang = null)
     {
         logger.LogInformation("GetCatalogItems called");
 
@@ -63,7 +70,13 @@ public class BookCatalogService : IBookCatalogService
         return book;
     }
 
-    public async Task<int> TotalItemsCountAsync(string? searchQuery, int? AuthorId, int? cover, int? genre, int? lang, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE)
+    public async Task<int> TotalItemsCountAsync(string? searchQuery,
+                                                int? AuthorId,
+                                                int? cover,
+                                                int? genre,
+                                                int? lang,
+                                                int pageIndex = 0,
+                                                int itemsPage = SD.ITEMS_PER_PAGE)
     {
 
         if (searchQuery == null)

@@ -1,0 +1,32 @@
+General:
+- imp AJAX calls; partially
+- ref about and contacts pages; DONE
+- imp data fields validation;
+
+Basket:
+- back to basket after not logged in checkout prices mess up;
+
+Orders:
+- fix crash when pressing button to go to prev page;
+
+Checkout:
+- fix basket items quamtity; DONE
+
+Product details page:
+- fix redirect to catalog page on favadd and remove; DONE
+- ref method GetNames in Product and Catalog controllers; DONE
+- fix not adding to favs after not signed in try and redirect;
+
+Search feature:
+- fix poor search results;
+
+Catalog:
+- fix page numbers max and min; DONE
+- imp add tag links on the top of cards list;
+- imp sorting list;
+
+Identity profile:
+- imp translate and decor log/reg pages; DONE
+- fix adding to cart from favpage in profile; DONE
+- imp appUser custom props in register and profile editor; DONE
+- imp basket transfer from anonym to registered user; DONE

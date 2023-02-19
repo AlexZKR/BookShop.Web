@@ -41,7 +41,10 @@ public class OrderService : IOrderService
 
         //deleting basket
         //items in basket sold++
-        IncSoldOnItems(basket.Items);
+
+        //This should be done only after the order is proccessed!!!!!
+        //IncSoldOnItems(basket.Items);
+
         await basketService.DeleteBasketAsync(buyer.BuyerId);
 
         return order;
@@ -49,6 +52,7 @@ public class OrderService : IOrderService
 
     public async Task<List<Order>> GetBuyersOrdersAsync(string username)
     {
+        if (username == null) throw new NotFoundException($"User was not found");
         var spec = new UserOrdersWithItemsByUsernameSpecification(username);
         var orderList = await orderRepository.ListAsync(spec);
         return orderList;

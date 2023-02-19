@@ -8,12 +8,10 @@ public abstract class BaseProduct : BaseEntity, IAggregateRoot
 {
     [Required]
     [DataType(DataType.Text)]
-    [StringLength(30)]
     [Display(Name = "Наименование товара")]
     public string Name { get; set; } = "";
 
     [DataType(DataType.MultilineText)]
-    [StringLength(1500)]
     [Display(Name = "Описание товара")]
     public string Description { get; set; } = "";
     [NotMapped]

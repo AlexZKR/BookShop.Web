@@ -1,6 +1,6 @@
 @model BasketViewModel
 
-<section class="h-100" style="background-color: #eee;">
+<section class="h-100" style="background-color: #C7E1D4;">
   <div class="container h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-10">
@@ -24,7 +24,7 @@
           <div class="card">
             <div class="card-body">
               <div class="row text-center">
-                <a asp-controller="Order" asp-action="Index" class="btn btn-warning btn-block btn-lg col">Оформить
+                <a asp-controller="Order" asp-action="Index" class="btn btn-success btn-block btn-lg col mx-4">Оформить
                   заказ</a>
                 <div id="basketSum" class="col fw-bold">
                   Сумма: @Model.TotalPrice.ToString("N2") руб.

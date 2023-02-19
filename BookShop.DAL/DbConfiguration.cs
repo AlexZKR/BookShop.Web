@@ -1,5 +1,6 @@
 using BookShop.DAL.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,7 +25,11 @@ public static class DbConfiguration
         }
         else
         {
-            //implement real db
+           services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("sqlAppDbContext")));
+
+            services.AddDbContext<appIdentityDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("sqlIdentityDbContext")));
         }
     }
 }

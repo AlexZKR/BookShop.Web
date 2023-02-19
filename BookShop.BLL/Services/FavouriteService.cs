@@ -56,10 +56,10 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
 
     public async Task<bool> UpdateFavourite(string username, string Id)
     {
+        var favs = await GetFavouritesObject(username);
+
         string postIdComplate = ',' + Id;
         bool isExisted = false;
-
-        var favs = await GetFavouritesObject(username);
 
         if (favs.Favourites.IndexOf(Id) > -1)
         {
@@ -101,6 +101,5 @@ public class FavouriteService<T> : IFavouriteService<T> where T : BaseProduct, I
             await favouritesRepository.AddAsync(favs);
         }
         return favs;
-
     }
 }
