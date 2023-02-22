@@ -78,7 +78,6 @@ public class OrderService : IOrderService
             var orderItem = new OrderItem(item.Id,
                                           product.Name,
                                           item.FullPrice,
-                                          item.DiscountedPrice,
                                           item.Discount,
                                           item.Quantity);
             list.Add(orderItem);

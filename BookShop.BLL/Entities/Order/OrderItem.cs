@@ -14,7 +14,6 @@ public class OrderItem : BaseEntity, IAggregateRoot
         int ProductId,
         string? ProductName,
         double FullPrice,
-        double DiscountedPrice,
         double Discount,
         int Units)
     {
@@ -22,7 +21,6 @@ public class OrderItem : BaseEntity, IAggregateRoot
         this.ProductId = ProductId;
         this.ProductName = ProductName;
         this.FullPrice = FullPrice;
-        this.DiscountedPrice = DiscountedPrice;
         this.Discount = Discount;
         this.Units = Units;
     }
@@ -30,7 +28,8 @@ public class OrderItem : BaseEntity, IAggregateRoot
     public int ProductId { get; set; }
     public string? ProductName { get; set; }
     public double FullPrice { get; set; }
-    public double DiscountedPrice { get; set; }
+    public double TotalPrice => FullPrice * Units;
+    public double DiscountedPrice => (FullPrice * Units) - ((FullPrice - (FullPrice - Discount)) * Units);
     public double Discount { get; set; }
     public int Units { get; set; }
     public string? AddInfo { get; set; }

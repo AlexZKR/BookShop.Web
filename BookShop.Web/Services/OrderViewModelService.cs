@@ -37,6 +37,8 @@ public class OrderViewModelService : IOrderViewModelService
     {
         return new OrderViewModel
         {
+            IsInProcess = order.IsInProcess,
+
             OrderId = order.Id,
             BuyerId = order.Buyer.BuyerId,
             TotalPrice = order.TotalPrice,

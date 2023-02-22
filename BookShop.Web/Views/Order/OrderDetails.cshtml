@@ -57,7 +57,7 @@
                 <p class="text-muted mb-0 fw-bold">ИТОГО :</p>
             </div>
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <p class="text-muted mb-0">@Model.Items.Count шт.</p>
+                <p class="text-muted mb-0">@Model.Units шт.</p>
             </div>
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                 <p class="text-muted mb-0">@Model.TotalDiscount.ToString("N2") руб.</p>
@@ -110,7 +110,7 @@
                     <div class="card-footer border-0 px-4 py-5"
                         style="background-color: #59ab6e; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
                         <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">ИТОГО:
-                            <span class="h2 mb-0 ms-2">@Model.TotalPrice</span>
+                            <span class="h2 mb-0 ms-2">@Model.TotalPrice.ToString("N2")  </span>
                         </h5>
                     </div>
                 </div>

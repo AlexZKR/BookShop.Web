@@ -22,5 +22,6 @@ public class OrderViewModel
 
     public List<OrderItemViewModel> Items { get; set; } = new List<OrderItemViewModel>();
 
+    //public int TotalItems => Items.Count
     public int Units {get; set;}
 }

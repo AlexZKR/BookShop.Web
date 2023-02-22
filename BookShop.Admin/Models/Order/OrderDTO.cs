@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 
 namespace BookShop.Admin.Models.Order;
 
@@ -10,7 +9,7 @@ public class OrderDTO
     public int TotalItems { get; set; }
     public double TotalDiscount { get; set; }
     public double TotalPrice { get; set; }
-
+    
     public string? BuyerId { get; set; }
     public string? BuyerName { get; set; }
     public string? PhoneNumber { get; set; }
