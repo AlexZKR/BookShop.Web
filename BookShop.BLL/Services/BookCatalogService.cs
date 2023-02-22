@@ -95,6 +95,14 @@ public class BookCatalogService : IBookCatalogService
         return book;
     }
 
+    public async Task<List<Book>> GetBooksPaged(int pageNo, int pageSize)
+    {
+        var spec = new BookPaginatedSpecification(pageNo * pageSize, pageSize);
+        var books = await bookRepository.ListAsync(spec);
+
+        return books;
+    }
+
     public async Task<Book> AddBookAsync(Book book)
     {
         return book = await bookRepository.AddAsync(book);
@@ -104,8 +112,9 @@ public class BookCatalogService : IBookCatalogService
         await bookRepository.UpdateAsync(book);
         return book;
     }
-    public async void DeleteBookAsync(Book book)
+    public async void DeleteBookAsync(int id)
     {
+        var book = await GetBookAsync(id);
         await bookRepository.DeleteAsync(book);
     }
 

@@ -12,7 +12,8 @@ public class BookDTO
     public string? Cover { get; set; }
     public string? Language { get; set; }
     public string? Tag { get; set; } = "none";
-    public AuthorDTO? AuthorDTO { get; set; }
+    public int AuthorId { get; set; }
+    //public AuthorDTO? AuthorDTO { get; set; }
 
     //$$
     public double FullPrice { get; set; } = 0;
