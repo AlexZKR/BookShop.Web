@@ -1,4 +1,4 @@
-using BookShop.BLL.Entities.Basket;
+using BookShop.BLL.Entities.BasketAggregate;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Interfaces;
 using BookShop.Web.Interfaces;
@@ -79,8 +79,8 @@ public class BasketViewModelService : IBasketViewModelService
         {
             BuyerId = basket.BuyerId,
             Id = basket.Id,
-            TotalDiscount = basket.TotalDiscount,
-            TotalPrice = basket.TotalPrice,
+            TotalDiscount = basket.TotalDiscountSize,
+            TotalPrice = basket.TotalDiscountedPrice,
             Items = await GetBasketItems(basket.Items)
         };
     }

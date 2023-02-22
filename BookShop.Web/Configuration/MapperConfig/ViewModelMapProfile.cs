@@ -1,5 +1,5 @@
 using AutoMapper;
-using BookShop.BLL.Entities.Basket;
+using BookShop.BLL.Entities.BasketAggregate;
 using BookShop.BLL.Entities.Products;
 using BookShop.Web.Models.Basket;
 using BookShop.Web.Models.Catalog;

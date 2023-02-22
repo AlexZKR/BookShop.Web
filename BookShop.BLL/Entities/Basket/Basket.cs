@@ -1,16 +1,17 @@
 using BookShop.BLL.Interfaces;
 
-namespace BookShop.BLL.Entities.Basket;
+namespace BookShop.BLL.Entities.BasketAggregate;
 
 public class Basket : BaseEntity, IAggregateRoot
 {
     public string BuyerId { get; private set; }
     private readonly List<BasketItem> items = new List<BasketItem>();
     public IReadOnlyCollection<BasketItem> Items => items.AsReadOnly();
-    
+
     public int TotalItems => items.Sum(i => i.Quantity);
-    public double TotalDiscount => items.Sum(i => (i.FullPrice - i.DiscountedPrice));
-    public double TotalPrice => items.Sum(i => i.DiscountedPrice);
+    public double TotalDiscountSize => items.Sum(i => i.DiscountSize);
+    public double TotalDiscountedPrice => items.Sum(i => i.DiscountedPrice);
+    
 
     public Basket(string buyerId)
     {

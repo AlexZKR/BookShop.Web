@@ -28,7 +28,7 @@
                 @if (Model.Discount > 0)
                 {
                     <small class="fw-bold" style="text-decoration: line-through;">@Model.FullPrice</small>
-                    <small class="fw-bold">@Model.DiscountedPrice руб.</small>
+                    <small class="fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</small>
                 }
                 else
                 {

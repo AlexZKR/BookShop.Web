@@ -1,5 +1,5 @@
 using Ardalis.GuardClauses;
-using BookShop.BLL.Entities.Basket;
+using BookShop.BLL.Entities.BasketAggregate;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Order;
 using BookShop.BLL.Entities.Products;

@@ -1,6 +1,6 @@
 using Ardalis.GuardClauses;
 using Ardalis.Result;
-using BookShop.BLL.Entities.Basket;
+using BookShop.BLL.Entities.BasketAggregate;
 using BookShop.BLL.Entities.Products;
 using BookShop.BLL.Exceptions;
 using BookShop.BLL.Interfaces;

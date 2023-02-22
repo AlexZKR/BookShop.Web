@@ -1,5 +1,5 @@
 ﻿using Ardalis.Specification;
-using BookShop.BLL.Entities.Basket;
+using BookShop.BLL.Entities.BasketAggregate;
 
 namespace BookShop.BLL.Specifications;
 

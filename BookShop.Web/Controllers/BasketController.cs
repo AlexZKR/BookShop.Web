@@ -90,8 +90,8 @@ public class BasketController : Controller
         return Json(new
         {
             basketCount = basket.TotalItems,
-            basketPrice = basket.Items.Sum(i => (i.Quantity * i.DiscountedPrice)),
-            basketDiscount = basket.Items.Sum(i => (i.Quantity * (i.FullPrice - i.DiscountedPrice))),
+            basketPrice = basket.TotalDiscountedPrice,
+            basketDiscount = basket.TotalDiscountSize,
         });
     }
 
