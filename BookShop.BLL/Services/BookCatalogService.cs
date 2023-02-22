@@ -3,7 +3,6 @@ using BookShop.BLL.Exceptions;
 using BookShop.BLL.Interfaces;
 using BookShop.BLL.Specifications.CatalogSpecifications;
 
-
 namespace BookShop.BLL.Services;
 
 public class BookCatalogService : IBookCatalogService
@@ -62,13 +61,7 @@ public class BookCatalogService : IBookCatalogService
         return authors;
     }
 
-    public async Task<Book> GetBookAsync(int id)
-    {
-        var spec = new BookWithAuthorSpecification(id);
-        var book = await bookRepository.FirstOrDefaultAsync(spec);
-        if(book == null) throw new NotFoundException($"Book with id {id} was not found");
-        return book;
-    }
+
 
     public async Task<int> TotalItemsCountAsync(string? searchQuery,
                                                 int? AuthorId,
@@ -93,5 +86,27 @@ public class BookCatalogService : IBookCatalogService
         throw new NotFoundException("Error when counting total items");
     }
 
+
+    public async Task<Book> GetBookAsync(int id)
+    {
+        var spec = new BookWithAuthorSpecification(id);
+        var book = await bookRepository.FirstOrDefaultAsync(spec);
+        if(book == null) throw new NotFoundException($"Book with id {id} was not found");
+        return book;
+    }
+
+    public async Task<Book> AddBookAsync(Book book)
+    {
+        return book = await bookRepository.AddAsync(book);
+    }
+    public async Task<Book> UpdateBookAsync(Book book)
+    {
+        await bookRepository.UpdateAsync(book);
+        return book;
+    }
+    public async void DeleteBookAsync(Book book)
+    {
+        await bookRepository.DeleteAsync(book);
+    }
 
 }
