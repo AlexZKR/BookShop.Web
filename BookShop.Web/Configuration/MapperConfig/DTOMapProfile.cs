@@ -1,7 +1,9 @@
 using AutoMapper;
 using BookShop.BLL.Entities.Enums;
 using BookShop.BLL.Entities.Order;
+using BookShop.BLL.Entities.Products;
 using BookShop.Web.Infrastructure;
+using BookShop.Web.Models.Book;
 using BookShop.Web.Models.DTOs.Order;
 
 namespace BookShop.Web.Configuration.MapperConfig;
@@ -27,6 +29,13 @@ public class DTOMapProfile : Profile
         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BuyerId))
         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => (src.FirstName + " " + src.LastName)));
 
-        
+        CreateMap<AuthorDTO, Author>().ReverseMap();
+
+        CreateMap<BookDTO, Book>().ReverseMap()
+            .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => (EnumHelper<Cover>.GetName(src.Cover))))
+            .ForMember(dest => dest.Language, opt => opt.MapFrom(src => (EnumHelper<Language>.GetName(src.Language))))
+            .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => (EnumHelper<Genre>.GetName(src.Genre))))
+            .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => (EnumHelper<Tag>.GetName(src.Tag))));
+
     }
 }
