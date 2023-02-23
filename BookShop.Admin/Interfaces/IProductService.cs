@@ -1,7 +1,7 @@
 using BookShop.Admin.Models.Product;
 
 namespace BookShop.Admin.Interfaces;
-interface IProductService : IBaseService
+public interface IProductService : IBaseService
 {
 
     Task<T> GetBookById<T>(int id);

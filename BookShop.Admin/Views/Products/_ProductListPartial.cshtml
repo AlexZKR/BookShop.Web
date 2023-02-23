@@ -1,0 +1,28 @@
+@model List<ProductViewModel>
+<div class="row my-3 ">
+    <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
+        <p class="text-muted mb-0 fw-bold">Название</p>
+    </div>
+    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+        <p class="text-muted mb-0 fw-bold">Жанр</p>
+    </div>
+    <div class="col-md-1 mx-4 text-center d-flex justify-content-center align-items-center">
+        <p class="text-muted mb-0 fw-bold">Обложка</p>
+    </div>
+    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+        <p class="text-muted mb-0 fw-bold">Язык</p>
+    </div>
+    <div class="col-md-1 mx-4 text-center d-flex justify-content-center align-items-center">
+        <p class="text-muted mb-0 fw-bold">Скидка </p>
+    </div>
+
+    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+        <p class="text-muted mb-0 fw-bold">Продано </p>
+    </div>
+</div>
+@foreach (var item in Model)
+{
+    <div class="list-group">
+        <partial name="_ProdListItemPartial" model="@item"/>
+    </div>
+}

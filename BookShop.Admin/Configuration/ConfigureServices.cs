@@ -11,6 +11,8 @@ public static class ConfigureServices
     {
         services.AddHttpClient<IOrderService, OrderService>();
         services.AddScoped<IOrderService, OrderService>();
+        services.AddHttpClient<IProductService, ProductService>();
+        services.AddScoped<IProductService, ProductService>();
 
         //automapper config
         var mapperConfig = new MapperConfiguration(mc => {
