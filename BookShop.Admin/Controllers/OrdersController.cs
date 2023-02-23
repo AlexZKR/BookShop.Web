@@ -7,7 +7,7 @@ using BookShop.Admin.ViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace BookShop.Web.Controllers;
+namespace BookShop.Admin.Controllers;
 
 public class OrdersController : Controller
 {

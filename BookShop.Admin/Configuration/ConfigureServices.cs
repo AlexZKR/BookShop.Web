@@ -1,7 +1,7 @@
 using AutoMapper;
+using BookShop.Admin.Configuration.MapperConfig;
 using BookShop.Admin.Interfaces;
 using BookShop.Admin.Services;
-using BookShop.Web.Configuration.MapperConfig;
 
 namespace BookShop.Admin.Configuration;
 

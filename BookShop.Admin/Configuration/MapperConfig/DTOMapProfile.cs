@@ -2,7 +2,7 @@ using AutoMapper;
 using BookShop.Admin.Models.Order;
 using BookShop.Admin.ViewModels.Order;
 
-namespace BookShop.Web.Configuration.MapperConfig;
+namespace BookShop.Admin.Configuration.MapperConfig;
 
 public class DTOMapProfile : Profile
 {
