@@ -35,6 +35,7 @@ public class OrdersController : Controller
         else
         {
             vm.StatusMessage = "Error loading data. Try later.";
+            vm.IsSuccess = false;
             return View(vm);
         }
 
@@ -65,6 +66,7 @@ public class OrdersController : Controller
         else
         {
             vm.StatusMessage = "Error loading data. Try later.";
+            vm.IsSuccess = false;
             //return PartialView("_OrdersMenuPartial",vm);
         }
 
@@ -111,6 +113,7 @@ public class OrdersController : Controller
         }
         else
         {
+            order.IsSuccess = false;
             order.StatusMessage = "Error loading data. Try later.";
             return View(order);
         }
@@ -157,6 +160,7 @@ public class OrdersController : Controller
         }
         else
         {
+            vm.IsSuccess = false;
             vm.StatusMessage = "Error loading data. Try later.";
             return View("Index", vm);
         }
