@@ -77,7 +77,6 @@ public static class EnumHelper<T> where T : struct, Enum
 
     public static IEnumerable<SelectListItem> GetStaticDataFromEnum(Enum value)
     {
-
         var allValues = Enum.GetValues(value.GetType());
         List<SelectListItem> selects = new List<SelectListItem>();
         Type genericType = typeof(T);

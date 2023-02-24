@@ -9,19 +9,19 @@ namespace BookShop.Web.Controllers;
 public class BasketController : Controller
 {
     private readonly IBasketViewModelService basketViewModelService;
-    private readonly IRepository<BaseProduct> productRepository;
+    private readonly IBookCatalogService bookCatalogService;
     private readonly BLL.Interfaces.IFavouriteService<BaseProduct> favouriteService;
     private readonly IBasketService basketService;
     private readonly IBasketQueryService basketQueryService;
 
     public BasketController(IBasketViewModelService basketViewModelService,
-    IRepository<BaseProduct> productRepository,
+    IBookCatalogService bookCatalogService,
     IBasketService basketService,
     IBasketQueryService basketQueryService,
     IFavouriteService<BaseProduct> favouriteService)
     {
         this.basketViewModelService = basketViewModelService;
-        this.productRepository = productRepository;
+        this.bookCatalogService = bookCatalogService;
         this.basketService = basketService;
         this.basketQueryService = basketQueryService;
         this.favouriteService = favouriteService;
@@ -35,7 +35,7 @@ public class BasketController : Controller
     [Route("AddToCart/{id:int}")]
     public async Task<IActionResult> AddToCart(int id)
     {
-        var item = await productRepository.GetByIdAsync(id);
+        var item = await bookCatalogService.GetBookAsync(id);
         if (item == null)
         {
             return RedirectToPage("/Index");
