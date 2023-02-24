@@ -29,7 +29,7 @@ public class OrderItem : BaseEntity, IAggregateRoot
     public string? ProductName { get; set; }
     public double FullPrice { get; set; }
     public double TotalPrice => FullPrice * Units;
-    public double DiscountedPrice => TotalPrice - ((FullPrice - (FullPrice * Discount)) * Units);
+    public double DiscountedPrice => (FullPrice - (FullPrice * Discount)) * Units;
     public double Discount { get; set; }
     public int Units { get; set; }
     public string? AddInfo { get; set; }

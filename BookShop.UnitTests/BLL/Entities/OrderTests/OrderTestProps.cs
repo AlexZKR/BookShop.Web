@@ -74,9 +74,11 @@ public class OrderTestProps
         OrderItem item = new OrderItem(testCatalogItemId, testProdName, testUnitPrice, testDiscount, testQuantity);
         order.OrderItems.Add(item);
 
+        var totalTestQuantity = testQuantity * order.OrderItems.Count;
         var result = order.TotalDiscount;
-        Assert.Equal((testUnitPrice - (testUnitPrice * testDiscount)) * testQuantity, result);
+        Assert.Equal(((testUnitPrice*testQuantity)-(testUnitPrice*testQuantity-(testUnitPrice*testDiscount)))*totalTestQuantity, result);
     }
+
     [Fact]
     public void ReturnsTotalDiscountWithMultipleItems()
     {
@@ -89,8 +91,50 @@ public class OrderTestProps
         order.OrderItems.Add(item1);
         order.OrderItems.Add(item2);
 
+        var totalTestQuantity = testQuantity * order.OrderItems.Count();
         var result = order.TotalDiscount;
-        Assert.Equal((testUnitPrice - (testUnitPrice * testDiscount)) * 6, result);
+        Assert.Equal(((testUnitPrice*testQuantity)-(testUnitPrice*testQuantity-(testUnitPrice*testDiscount)))*totalTestQuantity, result);
+    }
+
+    #endregion
+
+
+    #region TotalPrice
+
+    [Fact]
+    public void ReturnsTotalPriceWithNoItems()
+    {
+        Order order = new Order(testAddress!, testBuyer!, testOrderInfo!);
+
+        var result = order.TotalPrice;
+        Assert.Equal(0, result);
+    }
+
+    [Fact]
+    public void ReturnsTotalPriceWithOneItem()
+    {
+        Order order = new Order(testAddress!, testBuyer!, testOrderInfo!);
+
+        OrderItem item = new OrderItem(testCatalogItemId, testProdName, testUnitPrice, testDiscount, testQuantity);
+        order.OrderItems.Add(item);
+
+        var result = order.TotalPrice;
+        Assert.Equal((testUnitPrice - (testUnitPrice * testDiscount)) * testQuantity * order.OrderItems.Count, result);
+    }
+    [Fact]
+    public void ReturnsTotalPriceWithMultipleItems()
+    {
+        Order order = new Order(testAddress!, testBuyer!, testOrderInfo!);
+
+        OrderItem item = new OrderItem(testCatalogItemId, testProdName, testUnitPrice, testDiscount, testQuantity);
+        OrderItem item1 = new OrderItem(testCatalogItemId + 1, testProdName, testUnitPrice, testDiscount, testQuantity);
+        OrderItem item2 = new OrderItem(testCatalogItemId + 1, testProdName, testUnitPrice, testDiscount, testQuantity);
+        order.OrderItems.Add(item);
+        order.OrderItems.Add(item1);
+        order.OrderItems.Add(item2);
+
+        var result = order.TotalPrice;
+        Assert.Equal((testUnitPrice - (testUnitPrice * testDiscount)) * testQuantity * order.OrderItems.Count, result);
     }
 
     #endregion
