@@ -1,13 +1,12 @@
 using BookShop.BLL.Entities.BasketAggregate;
 
-namespace BookShop.BLL.Entities.BasketTests;
+namespace BookShop.UnitTests.BLL.Entities.BasketTests;
 
 public class BasketRemoveEmptyItems
 {
     private readonly int testCatalogItemId = 123;
     private readonly double testUnitPrice = 10;
     private readonly double testDiscount = 0.1;
-    private readonly int testQuantity = 2;
     private readonly string buyerId = "Test buyerId";
 
     [Fact]

@@ -1,6 +1,6 @@
 using BookShop.BLL.Entities.BasketAggregate;
 
-namespace BookShop.BLL.Entities.BasketTests;
+namespace BookShop.UnitTests.BLL.Entities.BasketTests;
 
 public class BasketAddItem
 {

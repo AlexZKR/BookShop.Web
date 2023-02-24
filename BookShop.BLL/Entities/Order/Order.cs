@@ -8,7 +8,7 @@ public class Order : BaseEntity, IAggregateRoot
 {
     public bool IsInProcess { get; set; } = true;
     public int TotalItems => OrderItems.Sum(i => i.Units);
-    public double TotalDiscount => OrderItems.Sum(i => (i.FullPrice * i.Discount) * i.Units);
+    public double TotalDiscount => OrderItems.Sum(i => i.TotalPrice - i.DiscountedPrice);
     public double TotalPrice => OrderItems.Sum(i => i.DiscountedPrice);
     public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
