@@ -36,14 +36,16 @@
     </div>
     <div class="col mt-4">
         <button class="btn btn-large btn-warning h3">
-            <i class="fa-solid fa-pen-to-square"></i>
+             <i class="fa-solid fa-pen-to-square"></i>
         </button>
         <button class="btn btn-large btn-danger h3">
             <i class="fa-solid fa-trash"></i>
         </button>
-        <button class="btn btn-large btn-primary h3">
+
+        <button onclick="displayInfo('@Model.Id')" class="btn btn-large btn-primary h3">
             <i class="fa-solid fa-circle-info"></i>
         </button>
     </div>
 </div>
   </a>
+

@@ -1,4 +1,5 @@
 using AutoMapper;
+using BookShop.Admin.Extensions;
 using BookShop.Admin.Interfaces;
 using BookShop.Admin.Models;
 using BookShop.Admin.Models.Product;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace BookShop.Admin.Controllers;
-
 public class ProductsController : Controller
 {
     private readonly IProductService productService;
@@ -42,5 +42,29 @@ public class ProductsController : Controller
         if (vm.Products.Count == 0) vm.StatusMessage = "Nothing found";
 
         return View(vm);
+    }
+    [HttpGet]
+    public async Task<IActionResult> BookInfo([FromQuery] int itemId)
+    {
+        var vm = new ProductViewModel();
+
+        var response = await productService.GetBookById<ResponseDTO>(itemId);
+        if (response != null && response.IsSuccess)
+        {
+            var book = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(response.Result)!);
+            vm = mapper.Map<ProductViewModel>(book);
+
+        }
+        else
+        {
+            vm.StatusMessage = "Error loading data. Try later.";
+            vm.IsSuccess = false;
+            return View(vm);
+        }
+
+        if(this.Request.IsAjaxRequest())
+            return PartialView("_ProductInfoPartial",vm);
+        else
+            return View("_ProductInfoPartial", vm);
     }
 }

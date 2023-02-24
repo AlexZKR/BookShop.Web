@@ -2,7 +2,7 @@ using BookShop.Admin.Models.Product;
 
 namespace BookShop.Admin.ViewModels.Catalog
 {
-    public class ProductViewModel
+    public class ProductViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public string? Name { get; set; }

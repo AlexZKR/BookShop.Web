@@ -20,7 +20,7 @@ else
 
     <partial name="_ProdPaginationPartial" model="@Model.Pagination"/>
 
-    <div id="catalogList">
+    <div id="catalogView">
         <partial name="_ProductListPartial" model="@Model.Products"/>
     </div>
 
@@ -28,4 +28,23 @@ else
 
     </div>
 </div>
+}
+
+@section Scripts
+{
+  <script>
+    function displayInfo(itemId)
+    {
+        console.log("got id " + itemId)
+      $.ajax(
+      {
+        url: "Products?id=" + itemId,
+        type: "get",
+        success: function (result)
+        {
+          $("#catalogView").html(result);
+        }
+      });
+    }
+  </script>
 }
