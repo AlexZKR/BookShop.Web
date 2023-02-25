@@ -1,29 +1,35 @@
 @model CheckOutViewModel
 
-
 <form class="row g-3" asp-controller="Order" asp-action="PlaceOrder" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
     <input type="hidden" asp-for="@Model.BuyerId" />
     <input type="hidden" asp-for="@Model.OrderItems" />
     <div class="col-md-6">
         <label for="inputname" class="form-label">Имя</label>
         <input type="text" asp-for="@Model.FirstName" class="form-control" placeholder="Иван" id="inputname">
+        <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
     </div>
     <div class="col-md-6">
         <label for="inputlastname" class="form-label">Фамилия</label>
         <input type="text" asp-for="@Model.LastName" placeholder="Иванов" class="form-control" id="inputlastname">
+        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
     </div>
     <div class="col-md-6">
         <label for="inputEmail" class="form-label">Эл. почта</label>
         <input type="email" placeholder="ivanov@example.com" asp-for="@Model.Email" class="form-control"
             id="inputEmail">
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
     </div>
     <div class="col-md-6">
         <label for="inputNumber" class="form-label">Номер телефона</label>
         <input type="tel" asp-for="@Model.PhoneNumber" placeholder="80297846598" class="form-control" id="inputNumber">
+        <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
     </div>
     <div class="col-md-4">
         <label for="inputCity" class="form-label">Город</label>
         <input type="text" asp-for="@Model.City" placeholder="Минск" class="form-control" id="inputCity">
+        <span asp-validation-for="@Model.City" class="text-danger"></span>
     </div>
     <div class="col-md-4">
         <label for="inputState" class="form-label">Область</label>
@@ -33,11 +39,13 @@
     <div class="col-md-4">
         <label for="inputZip" class="form-label">Почтовый индекс</label>
         <input type="text" asp-for="@Model.PostCode" class="form-control" id="inputZip">
+        <span asp-validation-for="@Model.PostCode" class="text-danger"></span>
     </div>
     <div class="col-12">
         <label for="inputAddress" class="form-label">Адрес</label>
         <input type="text" asp-for="@Model.Street" class="form-control" id="inputAddress"
             placeholder="ул. Советская, д. 1, к.3, кв. 34">
+        <span asp-validation-for="@Model.Street" class="text-danger"></span>
     </div>
     <div class="col-6">
         <label for="inputPayment" class="form-label">Оплата</label>
@@ -56,5 +64,4 @@
     </div>
 
     <input type="submit" value="Оформить заказ" class="btn btn-success btn-block mt-4" />
-
 </form>

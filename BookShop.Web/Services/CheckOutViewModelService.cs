@@ -60,7 +60,6 @@ public class CheckOutViewModelService : ICheckOutViewModelService
                 Discount = i.Discount,
                 Units = basket.Items.FirstOrDefault(bi => bi.ProductId == i.Id)!.Quantity,
                 PictureUrl = i.PictureUri,
-                //AddInfo = i.Author.Name
 
             }).ToList(),
         };

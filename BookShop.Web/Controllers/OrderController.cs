@@ -69,11 +69,11 @@ public class OrderController : Controller
         Order order = await orderService.CreateOrderAsync(address, buyer, orderInfo);
         var orderVm = await orderViewModelService.CreateOrderViewModelAsync(order.Id);
         return View("OrderDetails",orderVm);
+        //return RedirectToAction("OrderDetails", order.Id);
     }
 
     // [HttpGet("{orderId:int}")]
     [Route("[action]/{orderId:int}")]
-
     public async Task<IActionResult> OrderDetails(int orderId)
     {
         var orderVm = await orderViewModelService.CreateOrderViewModelAsync(orderId);

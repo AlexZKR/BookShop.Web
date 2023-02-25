@@ -53,18 +53,12 @@ namespace BookShop.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
 
-            [Required]
+            [Required (ErrorMessage = "Обязательное поле")]
             [EmailAddress]
             [Display(Name = "Эл. почта")]
             public string Email { get; set; }
-            // [Required]
-            // [Display(Name = "Имя")]
-            // public string FirstName { get; set; }
-            // [Required]
-            // [Display(Name = "Фамилия")]
-            // public string LastName { get; set; }
 
-            [Required]
+            [Required (ErrorMessage = "Обязательное поле")]
             [StringLength(100, ErrorMessage = "{0} должен быть длиной от {2} до {1} знаков", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]

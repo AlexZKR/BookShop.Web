@@ -40,12 +40,16 @@ namespace BookShop.Web.Areas.Identity.Pages.Account.Manage
         {
             [Phone]
             [Display(Name = "Номер телефона")]
+            [RegularExpression(@"^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$", ErrorMessage = "Некорректный номер")]
             public string PhoneNumber { get; set; }
-
             [Display(Name = "Имя")]
+            [MinLength (3, ErrorMessage = "Мин. длина 3 символа")]
+            [MaxLength (30, ErrorMessage = "Макс. длина 30 символов")]
             public string FirstName { get; set; }
-
             [Display(Name = "Фамилия")]
+            [Required (ErrorMessage = "Обязательное поле")]
+            [MinLength (3, ErrorMessage = "Мин. длина 3 символа")]
+            [MaxLength (30, ErrorMessage = "Макс. длина 30 символов")]
             public string LastName { get; set; }
         }
 
