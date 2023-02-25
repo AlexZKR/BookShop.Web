@@ -14,7 +14,7 @@ else
 {
 <div class="container-1 py-5 mx-5">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
     <h1>Управление каталогом</h1>
 </div>
 
@@ -33,7 +33,7 @@ else
 @section Scripts
 {
   <script>
-    function displayInfo(itemId)
+    @* function displayInfo(itemId)
     {
         console.log("got id " + itemId)
       $.ajax(
@@ -45,6 +45,7 @@ else
           $("#catalogView").html(result);
         }
       });
-    }
+    } *@
+
   </script>
 }

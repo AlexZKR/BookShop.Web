@@ -1,5 +1,7 @@
 using BookShop.Admin;
 using BookShop.Admin.Configuration;
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
@@ -9,7 +11,11 @@ builder.Services.AddServices();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(@"E:\BSUIR\Diploma\Zakrevsky Diploma\BookShop.Web\wwwroot","img","books")),
+    RequestPath = "/Books"
+});
 
 app.UseRouting();
 app.MapControllerRoute(

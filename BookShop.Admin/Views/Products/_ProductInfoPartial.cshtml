@@ -1,3 +1,124 @@
 @model ProductViewModel
 
-<div class="h3">@Model.Name</div>
+@{
+    ViewData["Title"] = $"Информация о товаре";
+    var discount = Model.Discount.ToString("p0");
+
+}
+<div class="container-1 my-4 mx-5">
+    <h1>Информация о товаре</h1>
+
+    <a asp-controller="Products" asp-action="Index" class="btn btn-primary">Обратно к списку</a>
+    <hr>
+    <form asp-route-id="@Model.Id" enctype="multipart/form-data" method="post">
+        <div class="row">
+            <div class="col-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input disabled asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea disabled asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input disabled asp-for="Quantity" class="form-control"></input>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sold" class="control-label"></label>
+                    <input disabled asp-for="Sold" class="form-control"></input>
+                    <span asp-validation-for="Sold" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FullPrice" class="control-label"></label>
+                    <input disabled asp-for="FullPrice" class="form-control"></input>
+                    <span asp-validation-for="FullPrice" class="text-danger"></span>
+                </div>
+                <div class="row my-2 ">
+                    <div class="control-label col-4 fw-bold">Цена со скидкой:</div>
+                    <div class="col">@Model.DiscountedPrice руб.</div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Discount" class="control-label"></label>
+                    <input disabled value="@discount" class="form-control"></input>
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+                <div class="row my-2 ">
+                    <div class="control-label col-4 fw-bold">Рейтинг:</div>
+                    <div class="col">@Model.Rating </div>
+                </div>
+                <hr>
+                <table class="table table-hover table-striped">
+                            <thead>
+                                <th colspan="2">
+                                    <h5>Характеристики:</h5>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(m => m.Genre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.Genre)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(m => m.Tag)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.Tag)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(m => m.Language)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.Language)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(m => m.Cover)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.Cover)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayNameFor(m => m.PagesCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.PagesCount)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="fw-bold h3 mx-5" asp-for="PictureUri" class="control-label"></label>
+                    <img style="height: 700px; width: 550px;" src="Books/@Model.PictureUri" alt="">
+                </div>
+            </div>
+        </div>
+    </form>
+    <a class="btn btn-primary" asp-controller="Product" asp-action="Edit"
+        asp-route-id="@Model.Id">Редактировать</a>
+    <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@Model.Id">Удалить</a>
+
+</div>
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

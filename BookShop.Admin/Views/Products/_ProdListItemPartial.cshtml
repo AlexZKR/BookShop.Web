@@ -1,51 +1,50 @@
 @model ProductViewModel
-
-<a href="#" class="list-group-item list-group-item-action my-1" aria-current="true">
-<div class="d-flex row " >
-    <div class="col">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1"><span class="text-muted">ID: @Model.Id</span> "@Model.Name" </h5>
+<div class="row">
+    <div class="col-11">
+        <a href="#" class="list-group-item list-group-item-action my-1" aria-current="true">
+            <div class="d-flex row " >
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><span class="text-muted">ID: @Model.Id</span> "@Model.Name" </h5>
+                    </div>
+                    <p class="mb-1">Автор: </p>
+                    @if(Model.Discount > 0)
+                    {
+                        <small class="fw-bold" style="text-decoration: line-through;">@Model.FullPrice</small>
+                        <small class="fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</small>
+                    }
+                    else
+                    {
+                        <small class="fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</small>
+                    }
+                    </div>
+                    <div class="col mt-4">
+                        @Model.Genre
+                    </div>
+                    <div class="col mt-4">
+                        @Model.Cover
+                    </div>
+                    <div class="col mt-4">
+                        @Model.Language
+                    </div>
+                    <div class="col mt-4">
+                        @Model.Discount.ToString("p0")
+                    </div>
+                    <div class="col mt-4">
+                        @Model.Sold
+                    </div>
+                </div>
+        </a>
     </div>
-    <p class="mb-1">Автор: </p>
-    @if(Model.Discount > 0)
-    {
-
-        <small class="fw-bold" style="text-decoration: line-through;">@Model.FullPrice</small>
-        <small class="fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</small>
-
-    }
-    else
-    {
-        <small class="fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</small>
-    }
-    </div>
-    <div class="col mt-4">
-        @Model.Genre
-    </div>
-    <div class="col mt-4">
-        @Model.Cover
-    </div>
-    <div class="col mt-4">
-        @Model.Language
-    </div>
-    <div class="col mt-4">
-        @Model.Discount.ToString("p0")
-    </div>
-    <div class="col mt-4">
-        @Model.Sold
-    </div>
-    <div class="col mt-4">
-        <button class="btn btn-large btn-warning h3">
-             <i class="fa-solid fa-pen-to-square"></i>
-        </button>
-        <button class="btn btn-large btn-danger h3">
-            <i class="fa-solid fa-trash"></i>
-        </button>
-
-        <button onclick="displayInfo('@Model.Id')" class="btn btn-large btn-primary h3">
-            <i class="fa-solid fa-circle-info"></i>
-        </button>
+    <div class="col-1 mt-4">
+            <a class="btn btn-warning" asp-controller="Products" asp-action="BookEditView" asp-route-itemid="@Model.Id">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a class="btn btn-danger" asp-controller="Products" asp-action="BookDeleteView" asp-route-itemid="@Model.Id">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+            <a class="btn btn-primary" asp-controller="Products" asp-action="BookInfo" asp-route-itemid="@Model.Id">
+                <i class="fa-solid fa-circle-info"></i>
+            </a>
     </div>
 </div>
-  </a>
-

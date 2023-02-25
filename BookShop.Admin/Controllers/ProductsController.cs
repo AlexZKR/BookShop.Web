@@ -43,7 +43,7 @@ public class ProductsController : Controller
 
         return View(vm);
     }
-    [HttpGet]
+    [HttpGet("BookInfo")]
     public async Task<IActionResult> BookInfo([FromQuery] int itemId)
     {
         var vm = new ProductViewModel();

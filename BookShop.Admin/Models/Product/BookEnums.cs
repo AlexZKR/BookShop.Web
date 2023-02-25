@@ -52,7 +52,10 @@ public enum Language
 
 public enum Tag
 {
+    [Display(Name = "Нет")]
     None,
+    [Display(Name = "Классика")]
     Classic,
+    [Display(Name = "Бестселлер")]
     Bestseller
 };
