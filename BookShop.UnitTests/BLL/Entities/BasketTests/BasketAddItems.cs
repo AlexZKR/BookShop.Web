@@ -19,6 +19,7 @@ public class BasketAddItem
 
         Assert.Equal(testQuantity, basket.TotalItems);
     }
+    
     [Fact]
     public void AddEqualItem()
     {
@@ -30,5 +31,4 @@ public class BasketAddItem
 
         Assert.Equal(testQuantity*2, result);
     }
-
 }
