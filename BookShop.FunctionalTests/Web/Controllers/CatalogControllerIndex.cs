@@ -1,5 +1,5 @@
 namespace BookShop.FunctionalTests.Web.Controllers;
-
+[Collection("Sequential")]
 public class CatalogControllerIndex : IClassFixture<TestApplication>
 {
     public CatalogControllerIndex(TestApplication factory)
