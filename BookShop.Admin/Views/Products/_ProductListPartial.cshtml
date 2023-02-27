@@ -22,7 +22,7 @@
 </div>
 @foreach (var item in Model)
 {
-    <div class="list-group">
+    <div id="item-@item.Id" class="list-group">
         <partial name="_ProdListItemPartial" model="@item"/>
     </div>
 }

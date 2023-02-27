@@ -16,6 +16,11 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(@"E:\BSUIR\Diploma\Zakrevsky Diploma\BookShop.Web\wwwroot","img","books")),
     RequestPath = "/Books"
 });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(@"E:\BSUIR\Diploma\Zakrevsky Diploma\BookShop.Admin\wwwroot","img")),
+    RequestPath = "/img"
+});
 
 app.UseRouting();
 app.MapControllerRoute(

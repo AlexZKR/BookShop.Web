@@ -33,19 +33,28 @@ else
 @section Scripts
 {
   <script>
-    @* function displayInfo(itemId)
+    function deleteItem(itemId)
     {
-        console.log("got id " + itemId)
-      $.ajax(
-      {
-        url: "Products?id=" + itemId,
-        type: "get",
-        success: function (result)
-        {
-          $("#catalogView").html(result);
-        }
-      });
-    } *@
 
+      let confirmDelete = confirm("Вы уверены, что хотите удалить книгу № " + itemId + "?");
+      if (confirmDelete == true)
+      {
+        $.ajax(
+        {
+          url: "Products/BookDelete?itemId="+itemId,
+          type: "delete",
+          data:
+          {
+            itemId: itemId,
+          },
+          success: function (data, textStatus, jqXHR)
+          {
+            console.log(textStatus + ": " + jqXHR.status);
+            alert("Книга № " + data.itemId + " удалена.")
+            $("#item-"+itemId).empty();
+          }
+        });
+      }
+    }
   </script>
 }

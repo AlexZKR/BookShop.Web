@@ -8,14 +8,14 @@ namespace BookShop.Admin.ViewModels.Catalog
         public int Id { get; set; }
         [Display(Name = "Наименование")]
         [Required(ErrorMessage = "Обязательное поле")]
-        [Range(2, 50)]
+        [MaxLength(100, ErrorMessage = "До 100 символов")]
         public string? Name { get; set; }
         [Display(Name = "Описание")]
-        [Range(2, 1500)]
+        [MaxLength(1500, ErrorMessage = "До 1500 символов")]
         public string? Description { get; set; }
         [Display(Name = "Количество страниц")]
         [Required(ErrorMessage = "Обязательное поле")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Не меньше нуля")]
         public int PagesCount { get; set; }
         [Display(Name = "Жанр")]
         public Genre Genre { get; set; }
@@ -27,11 +27,11 @@ namespace BookShop.Admin.ViewModels.Catalog
         public Tag Tag { get; set; }
         [Display(Name = "Полная цена, руб.")]
         [Required(ErrorMessage = "Обязательное поле")]
-        [Range(0, double.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Не меньше нуля")]
         public double FullPrice { get; set; }
         [Display(Name = "Скидка, руб.")]
         [Required(ErrorMessage = "Обязательное поле")]
-        [Range(0, double.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Не меньше нуля")]
         public double Discount { get; set; }
         [Display(Name = "Цена со скидкой, руб.")]
         public double DiscountedPrice => FullPrice - (FullPrice * Discount);

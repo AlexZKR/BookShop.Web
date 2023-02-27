@@ -1,42 +1,43 @@
 @model ProductViewModel
 
 @{
-    ViewData["Title"] = $"Информация о товаре";
+    ViewData["Title"] = $"Редактирование товара";
     var discount = Model.Discount.ToString("p0");
 
 }
 <div class="container-1 my-4 mx-5">
-    <h1>Информация о товаре</h1>
+    <h1>Редактирование товара</h1>
 
     <a asp-controller="Products" asp-action="Index" class="btn btn-primary mt-2">Обратно к списку</a>
     <hr>
-    <form asp-route-id="@Model.Id" enctype="multipart/form-data" method="post">
+    <form asp-controller="Products" asp-action="BookEdit" enctype="multipart/form-data" method="post">
         <div class="row">
             <div class="col-4">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id"/>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
-                    <input disabled asp-for="Name" class="form-control" />
+                    <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
-                    <textarea disabled asp-for="Description" class="form-control"></textarea>
+                    <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Quantity" class="control-label"></label>
-                    <input disabled asp-for="Quantity" class="form-control"></input>
+                    <input asp-for="Quantity" class="form-control"></input>
                     <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Sold" class="control-label"></label>
-                    <input disabled asp-for="Sold" class="form-control"></input>
+                    <input asp-for="Sold" class="form-control"></input>
                     <span asp-validation-for="Sold" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="FullPrice" class="control-label"></label>
-                    <input disabled asp-for="FullPrice" class="form-control"></input>
+                    <input asp-for="FullPrice" class="form-control"></input>
                     <span asp-validation-for="FullPrice" class="text-danger"></span>
                 </div>
                 <div class="row my-2 ">
@@ -46,7 +47,7 @@
 
                 <div class="form-group">
                     <label asp-for="Discount" class="control-label"></label>
-                    <input disabled value="@discount" class="form-control"></input>
+                    <input value="@discount" class="form-control"></input>
                     <span asp-validation-for="Discount" class="text-danger"></span>
                 </div>
                 <div class="row my-2 ">
@@ -110,18 +111,12 @@
                 <div class="form-group row">
                     <label class="fw-bold h3 mx-5" asp-for="PictureUri" class="control-label"></label>
                     <img style="height: 700px; width: 550px;" src="Books/@Model.PictureUri" alt="">
+                    <input type="hidden" asp-for="PictureUri" />
                 </div>
             </div>
         </div>
+        <input type="submit" value="Сохранить" class="btn btn-success"/>
     </form>
-
-@{
-    var parms = new Dictionary<string, string>
-        {
-            { "itemId", Model.Id.ToString() }
-        };
-}
-
 </div>
 
 

@@ -8,4 +8,6 @@ public static class RequestExtensions
         .Headers["x-requested-with"]
         .Equals("XMLHttpRequest");
     }
+
+    
 }
