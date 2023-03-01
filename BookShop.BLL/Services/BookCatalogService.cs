@@ -76,7 +76,9 @@ public class BookCatalogService : IBookCatalogService
         {
             var paginatedFilterSpec = new BookCatalogFilterPaginatedSpecification(skip: itemsPage
                 * pageIndex, take: itemsPage, AuthorId, cover, genre, lang);
-            return await bookRepository.CountAsync(paginatedFilterSpec);
+            int q = await bookRepository.CountAsync(paginatedFilterSpec);
+            logger.LogInformation($"CountAsync: {q} books in DB");
+            return q;
         }
         else
         {

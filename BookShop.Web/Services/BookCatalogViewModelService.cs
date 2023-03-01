@@ -70,7 +70,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
         };
 
         vm.PaginationInfo.IsNextPageHasItems = (vm.PaginationInfo.TotalItems - vm.PaginationInfo.ItemsPerPage*vm.PaginationInfo.ActualPage) > 0 ? true : false;
-        vm.PaginationInfo.TotalPages = vm.PaginationInfo.TotalItems / vm.PaginationInfo.ItemsPerPage;
+        vm.PaginationInfo.TotalPages = CalculateTotalPages(vm.PaginationInfo.TotalItems,vm.PaginationInfo.ItemsPerPage);
         vm.PaginationInfo.Next = (vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1) ? "is-disabled" : "";
         vm.PaginationInfo.Previous = (vm.PaginationInfo.ActualPage == 0) ? "is-disabled" : "";
 
@@ -119,5 +119,13 @@ public class BookCatalogViewModelService : ICatalogViewModelService
         var allItem = new SelectListItem() { Value = "0", Text = "Все", Selected = true };
         items.Insert(0, allItem);
         return items;
+    }
+
+    private int CalculateTotalPages(int totalItems, int ItemsPerPage)
+    {
+        int res = 0;
+        res = (int)Math.Ceiling((double)totalItems/(double)ItemsPerPage);
+        logger.LogInformation($"Total pages: {res}");
+        return res;
     }
 }
