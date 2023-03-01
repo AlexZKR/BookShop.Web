@@ -8,9 +8,20 @@
 
 <div class="col-12 col-md-4 mb-4 ">
     <div class="card h-100 ">
-        <a asp-controller="Product" class="text-center" asp-action="Index" asp-route-id="@Model.Id">
-            <img src="~/img/books/@Model.PictureUri" class="card-img-top " alt="...">
-        </a>
+        <div class="row">
+            <div class="col-10 text-center">
+                <a asp-controller="Product" class="text-center" asp-action="Index" asp-route-id="@Model.Id">
+                    <img src="~/img/books/@Model.PictureUri" class="card-img-top " alt="...">
+                </a>
+            </div>
+            <div class="col-1">
+                <button onclick="updateFavourite('@Model.Id')" class="btn text-white" title="Добавить в избранные">
+                    <div id="favIcon-@Model.Id">
+                        <i class="@iconType "></i>
+                    </div>
+                </button>
+            </div>
+        </div>
         <div class="card-body">
             <ul class="list-unstyled d-flex justify-content-between">
                 <li>
@@ -36,15 +47,9 @@
             </ul>
 
                 <h1 class="h3">@Model.Name
-                    <a class="text-danger" title="Любимые" asp-controller="Catalog" asp-action="UpdateFav"
-                        asp-route-prodId="@Model.Id" asp-route-returnUrl="@returnUrl">
-                        <i class="@iconType h2"></i>
-                    </a>
+
                 </h1>
-
-
             <p class="card-text">
-
             </p>
         </div>
     </div>

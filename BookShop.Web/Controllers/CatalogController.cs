@@ -12,14 +12,17 @@ public class CatalogController : Controller
     private readonly IFavouriteService<BaseProduct> favouriteService;
     private readonly ICatalogViewModelService catalogViewModelService;
     private readonly IRatingService ratingService;
+    private readonly IAppLogger<CatalogController> logger;
 
     public CatalogController(IFavouriteService<BaseProduct> favouriteService,
                              ICatalogViewModelService catalogViewModelService,
-                             IRatingService ratingService)
+                             IRatingService ratingService,
+                             IAppLogger<CatalogController> logger)
     {
         this.favouriteService = favouriteService;
         this.catalogViewModelService = catalogViewModelService;
         this.ratingService = ratingService;
+        this.logger = logger;
     }
     public async Task<IActionResult> Index([FromQuery] string? SearchQuery,
                                            int? pageId,
@@ -40,9 +43,11 @@ public class CatalogController : Controller
     public async Task<IActionResult> UpdateFav([FromQuery]int itemId)
     {
         await favouriteService.UpdateFavourite(HttpContext.GetUsername(), itemId.ToString());
+        var check = favouriteService.CheckIfFavourite(HttpContext.GetUsername(), itemId);
+        logger.LogInformation($"item id {itemId}; updated fav to: {check}");
         return Json(new
         {
-            isFavourite = favouriteService.CheckIfFavourite(HttpContext.GetUsername(), itemId),
+            isFavourite = check
         });
     }
 
