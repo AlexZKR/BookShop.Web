@@ -56,5 +56,72 @@ else
         });
       }
     }
+
+
+    function prevPage(page)
+    {
+      let pageNum = --page;
+      if(pageNum == 0)
+      {
+        console.log("Page is 0, stop # " + pageNum);
+      }
+      else
+      {
+        console.log("Switching to prev page # " + pageNum);
+        loadPage(pageNum);
+      }
+    }
+
+    function nextPage(page, maxPage)
+    {
+      let pageNum = ++page;
+      if(pageNum > maxPage)
+      {
+        console.log("Page is at max, stop # " + pageNum);
+      }
+      else
+      {
+        console.log("Switching to next page # " + pageNum);
+        loadPage(pageNum);
+      }
+    }
+
+    function loadPage(page)
+    {
+      var pageS = `${page}`;
+      loadPaginationData();
+      $.ajax(
+        {
+          @* url: "Products/GetProductsPage?page=" + page, *@
+          url:"@Url.Action("GetProductsPage","Products","pageS")",
+          type: "get",
+          success: function (data, textStatus, jqXHR)
+          {
+            console.log(textStatus + ": " + jqXHR.status);
+            @* console.log(data); *@
+            $("#catalogView").html(data);
+          }
+        });
+    }
+
+    function loadPaginationData()
+    {
+      let page = 1;
+      $.ajax(
+        {
+          @* url: "Products/GetCountData?tmp="+page, *@
+          @* url:"@Url.Action("GetCountData","Products")", *@
+          url:"Info/GetCountData",
+          type: "get",
+
+          success: function (data, textStatus, jqXHR)
+          {
+            console.log(textStatus + ": " + jqXHR.status);
+            console.log("Total books: "+ data.count);
+            console.log("Page size: "+ data.pageSize);
+            console.log("Total pages: "+ data.count/data.pageSize);
+          }
+        });
+    }
   </script>
 }

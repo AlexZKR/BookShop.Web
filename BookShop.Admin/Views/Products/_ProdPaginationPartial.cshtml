@@ -8,25 +8,25 @@
                 @if(@Model.ActualPage != 0)
                 {
                 <div class="col-md-2 col-xs-12">
-                    <a class="esh-pager-item-left esh-pager-item--navigable esh-pager-item @Model.Previous"
-                        id="Previous" aria-label="Previous">
+                    <button id="prevPage" onclick="prevPage(document.getElementById('actualPage').textContent)" class="btn btn-primary"
+                        aria-label="Previous">
                         Предыдущая
-                    </a>
+                    </button>
                 </div>
                 }
                 <div class="col-md-8 col-xs-12">
                     <span class="esh-pager-item">
-                        @Model.ItemsPerPage из @Model.TotalItems товаров - Страница @(Model.ActualPage + 1) -
+                        @Model.ItemsPerPage из @Model.TotalItems товаров - Страница <span id="actualPage"> @Model.ActualPage </span> -
                         @Model.TotalPages
                     </span>
                 </div>
                 @if(@Model.IsNextPageHasItems)
                 {
                 <div class="col-md-2 col-xs-12">
-                    <a class="esh-pager-item-right esh-pager-item--navigable esh-pager-item @Model.Next" id="Next"
+                    <button id="nextPage" onclick="nextPage(document.getElementById('actualPage').textContent)" class="btn btn-primary"
                         aria-label="Next">
                         Следующая
-                    </a>
+                    </button>
                 </div>
                 }
             </nav>

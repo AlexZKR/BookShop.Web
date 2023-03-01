@@ -45,6 +45,37 @@ public class ProductsController : Controller
         return View(vm);
     }
 
+    [HttpGet("GetProductsPage")]
+    public async Task<ActionResult<object>> GetProductsPage([FromQuery]int page)
+    {
+        var response = await productService.GetBooksPaged<ResponseDTO>(page, SD.PageSize);
+        if (response != null && response.IsSuccess)
+        {
+            var list = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(response.Result)!);
+            return PartialView("_ProductListPartial", list!.Select(d => mapper.Map<ProductViewModel>(d)).OrderByDescending(x => x.Name).ToList());
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+    public async Task<ActionResult<object>> GetCountData()
+    {
+        var response = await productService.CountBooks<ResponseDTO>();
+        if (response != null && response.IsSuccess)
+        {
+            return Json(new {
+                count = (mapper.Map<CountDataDTO>(response.Result)).BooksTotal,
+                pageSize = SD.PageSize
+            });
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
 
     [HttpGet("BookInfo")]
     public async Task<IActionResult> BookInfo([FromQuery] int itemId)

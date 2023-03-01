@@ -103,6 +103,8 @@ public class BookCatalogService : IBookCatalogService
         return books;
     }
 
+    public async Task<int> CountBooksAsync() => await bookRepository.CountAsync();
+
     public async Task<Book> AddBookAsync(Book book)
     {
         return book = await bookRepository.AddAsync(book);
