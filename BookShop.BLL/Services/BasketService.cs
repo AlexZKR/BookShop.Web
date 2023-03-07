@@ -62,7 +62,6 @@ public class BasketService : IBasketService
                     break;
             }
             await basketRepository.UpdateAsync(basket);
-            // await basketItemRepository.UpdateAsync(item);
             return item;
         }
         throw new Exceptions.NotFoundException($"Basket item with id {itemId} was not found");

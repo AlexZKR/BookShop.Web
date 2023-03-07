@@ -11,6 +11,7 @@ public class ViewModelMapProfile : Profile
     public ViewModelMapProfile()
     {
         CreateMap<BasketItem, BasketItemViewModel>().ReverseMap();
+        // .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice)).ReverseMap();
         CreateMap<CatalogItemViewModel, Book>().ReverseMap()
         .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.Name))
         .ForPath(dest => dest.Rating.Rating, opt => opt.MapFrom(src => src.Rating));

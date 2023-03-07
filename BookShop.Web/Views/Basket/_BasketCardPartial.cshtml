@@ -27,12 +27,12 @@
             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                 @if (Model.Discount > 0)
                 {
-                    <small class="fw-bold" style="text-decoration: line-through;">@Model.FullPrice</small>
+                    <small class="fw-bold" style="text-decoration: line-through;">@Model.TotalPrice</small>
                     <small class="fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</small>
                 }
                 else
                 {
-                    <small class="fw-bold">@Model.FullPrice руб.</small>
+                    <small class="fw-bold">@Model.TotalPrice руб.</small>
                 }
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end mx-4">

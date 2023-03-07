@@ -8,7 +8,7 @@ public class BasketItemViewModel
     public int BasketId { get; set; }
     public int ProductId { get; set; }
     public string? ProductName { get; set; }
-    public double FullPrice { get; set; }
+    public double TotalPrice { get; set; }
     public double Discount { get; set; }
     public double DiscountedPrice { get; set; }
 
