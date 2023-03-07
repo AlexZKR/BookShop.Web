@@ -9,6 +9,16 @@ public static class ConfigureWebServices
 {
     public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+                policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
         //viewmodel services
         services.AddTransient<IBasketViewModelService, BasketViewModelService>();
         services.AddTransient<ICheckOutViewModelService, CheckOutViewModelService>();
@@ -18,7 +28,8 @@ public static class ConfigureWebServices
         services.AddTransient<IRatingViewModelService, RatingViewModelService>();
 
         //automapper config
-        var mapperConfig = new MapperConfiguration(mc => {
+        var mapperConfig = new MapperConfiguration(mc =>
+        {
             mc.AddProfile(new DTOMapProfile());
             mc.AddProfile(new ViewModelMapProfile());
         });

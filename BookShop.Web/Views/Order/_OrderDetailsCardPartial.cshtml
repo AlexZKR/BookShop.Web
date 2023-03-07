@@ -22,10 +22,10 @@
             </div>
 
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <p class="text-muted mb-0 small">@Model.FullPrice руб.</p>
+                <p class="text-muted mb-0 small">@Model.FullPrice.ToString("N2") руб.</p>
             </div>
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <p class="text-muted mb-0 small fw-bold">@Model.DiscountedPrice руб.</p>
+                <p class="text-muted mb-0 small fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</p>
             </div>
         </div>
 

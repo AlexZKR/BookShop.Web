@@ -1,7 +1,7 @@
 @model OrderItemViewModel
 
 @{
-    var discount = Model.Discount == 0 ? "-" : $"{Model.Discount * 100}%";
+    var discount = Model.Discount == 0 ? "-" : $"{(Model.Discount * 100).ToString("N2")}%";
 }
 
 <div class="card shadow-1 border-2 mb-2 card-hover">
@@ -22,10 +22,10 @@
             </div>
 
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <p class="text-muted mb-0 small">@Model.FullPrice руб.</p>
+                <p class="text-muted mb-0 small">@Model.FullPrice.ToString("N2") руб.</p>
             </div>
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <p class="text-muted mb-0 small fw-bold">@Model.DiscountedPrice руб.</p>
+                <p class="text-muted mb-0 small fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</p>
             </div>
         </div>
 
