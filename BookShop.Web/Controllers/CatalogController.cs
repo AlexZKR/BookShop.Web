@@ -33,14 +33,14 @@ public class CatalogController : Controller
     {
         string username = HttpContext.GetUsername();
         var catalogModel = await catalogViewModelService
-        .GetCatalogViewModel(username,SearchQuery, pageId ?? 0,  AuthorId: author, genre: genre, lang: lang!, cover: cover);
+        .GetCatalogViewModel(username, SearchQuery, pageId ?? 0, AuthorId: author, genre: genre, lang: lang!, cover: cover);
 
         return View(catalogModel);
     }
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> UpdateFav([FromQuery]int itemId)
+    public async Task<IActionResult> UpdateFav([FromQuery] int itemId)
     {
         await favouriteService.UpdateFavourite(HttpContext.GetUsername(), itemId.ToString());
         var check = favouriteService.CheckIfFavourite(HttpContext.GetUsername(), itemId);
@@ -54,7 +54,7 @@ public class CatalogController : Controller
     [Authorize]
     public async Task<IActionResult> UpdateRating(int id, int rating, string returnUrl)
     {
-        await ratingService.SetRating(HttpContext.GetUsername(),id,rating);
+        await ratingService.SetRating(HttpContext.GetUsername(), id, rating);
         return RedirectToAction(nameof(Index));
     }
 

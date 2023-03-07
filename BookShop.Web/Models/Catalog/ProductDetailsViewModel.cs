@@ -13,7 +13,7 @@ public class ProductDetailsViewModel
     public double DiscountedPrice { get; set; }
     public double Discount { get; set; }
     public bool IsOnDiscount { get; set; }
-    public bool IsFavourite { get; set; }
+    public bool IsFavourite { get; set; } = false;
 
     //properties table
 

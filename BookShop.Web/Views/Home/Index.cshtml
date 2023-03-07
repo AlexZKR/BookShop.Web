@@ -65,27 +65,32 @@
         console.log("Sending book id " + itemId);
       $.ajax(
       {
-        url: "Catalog/UpdateFav",
+        url: "/Catalog/UpdateFav",
         type: "get",
         data:
         {
           itemId:itemId,
         },
-        success: function (data, textStatus, jqXHR)
-        {
-          console.log(textStatus + ": " + jqXHR.status);
+        statusCode:{
+          200: function (data, textStatus, jqXHR)
+          {
+            console.log(textStatus + ": " + jqXHR.status);
 
-          console.log("Item id " + itemId + "; isFavourite: " + data.isFavourite);
-          console.log("Updating catalog card id " + itemId);
-          if(data.isFavourite == true)
-          {
-            $("#favIcon-" + itemId).find('i').removeClass('fa-regular fa-heart');
-            $("#favIcon-" + itemId).find('i').addClass('fa-solid fa-heart');          }
-          else
-          {
-            $("#favIcon-" + itemId).find('i').removeClass('fa-solid fa-heart');
-            $("#favIcon-" + itemId).find('i').addClass('fa-regular fa-heart');
-          }
+            console.log("Item id " + itemId + "; isFavourite: " + data.isFavourite);
+            console.log("Updating catalog card id " + itemId);
+            if(data.isFavourite == true)
+            {
+              $("#favIcon-" + itemId).find('i').removeClass('fa-regular fa-heart');
+              $("#favIcon-" + itemId).find('i').addClass('fa-solid fa-heart');          }
+            else
+            {
+              $("#favIcon-" + itemId).find('i').removeClass('fa-solid fa-heart');
+              $("#favIcon-" + itemId).find('i').addClass('fa-regular fa-heart');
+            }
+          },
+          401: function(data, textStatus, jqXHR){
+              window.location.href = "http://localhost:5092/Identity/Account/Login?ReturnUrl=%2FHome%2FIndex";
+          },
         }
       });
     }

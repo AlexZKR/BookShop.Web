@@ -124,7 +124,15 @@
                     <div class="card-body">
                         <div id="favIconTop-@Model.Id">
                             <h1 class="h2 col-6"> @Model.Name
-                                <i title="В любимых" class="fa-solid fa-heart text-danger"></i>
+                                @if(Model.IsFavourite == true)
+                                {
+                                    <i class="fa-solid fa-heart text-danger" ></i>
+                                }
+                                else
+                                {
+
+                                    <i class="fa-solid fa-heart text-danger" hidden ></i>
+                                }
                             </h1>
                         </div>
                         @if (Model.DiscountedPrice > 0)
@@ -265,32 +273,39 @@
         {
           itemId:itemId,
         },
-        success: function (data, textStatus, jqXHR)
+        statusCode:
         {
-          console.log(textStatus + ": " + jqXHR.status);
+            200: function (data, textStatus, jqXHR)
+            {
+            console.log(textStatus + ": " + jqXHR.status);
 
-          console.log("Item id " + itemId + "; isFavourite: " + data.isFavourite);
-          console.log("Updating page of product id " + itemId);
-          if(data.isFavourite == true)
-          {
-            $("#favIcon-" + itemId).find('i').removeClass('fa-regular fa-heart');
-            $("#favIcon-" + itemId).find('i').addClass('fa-solid fa-heart');
-            $("#favIcon-" + itemId).find('i').text(' Убрать из любимых');
+            console.log("Item id " + itemId + "; isFavourite: " + data.isFavourite);
+            console.log("Updating page of product id " + itemId);
+            if(data.isFavourite == true)
+            {
+                $("#favIcon-" + itemId).find('i').removeClass('fa-solid fa-heart');
+                $("#favIcon-" + itemId).find('i').addClass('fa-regular fa-heart');
+                $("#favIcon-" + itemId).find('i').text(' Убрать из любимых');
 
-
-            $("#favIconTop-" + itemId).find('i').removeClass('fa-regular fa-heart');
-            $("#favIconTop-" + itemId).find('i').addClass('fa-solid fa-heart');
+                $("#favIconTop-" + itemId).find('i').removeClass('fa-regular fa-heart');
+                $("#favIconTop-" + itemId).find('i').addClass('fa-solid fa-heart');
+                $("#favIconTop-" + itemId).find('i').removeAttr('hidden');
             }
-          else
-          {
-            $("#favIcon-" + itemId).find('i').removeClass('fa-solid fa-heart');
-            $("#favIcon-" + itemId).find('i').addClass('fa-regular fa-heart');
-            $("#favIcon-" + itemId).find('i').text(' Добавить в любимые');
+            else
+            {
+                $("#favIcon-" + itemId).find('i').removeClass('fa-regular fa-heart');
+                $("#favIcon-" + itemId).find('i').addClass('fa-solid fa-heart');
+                $("#favIcon-" + itemId).find('i').text(' Добавить в любимые');
 
 
-            $("#favIconTop-" + itemId).find('i').removeClass('fa-solid fa-heart');
-            $("#favIconTop-" + itemId).find('i').addClass('fa-regular fa-heart');
-          }
+                $("#favIconTop-" + itemId).find('i').removeClass('fa-solid fa-heart');
+                $("#favIconTop-" + itemId).find('i').addClass('fa-regular fa-heart');
+            }
+            },
+            401: function(data, textStatus, jqXHR)
+            {
+                window.location.href = "http://localhost:5092/Identity/Account/Login?ReturnUrl=%2FHome%2FIndex";
+            },
         }
       });
     }
