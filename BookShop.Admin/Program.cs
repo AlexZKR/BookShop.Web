@@ -26,9 +26,6 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Orders}/{action=Index}/{id?}");
-// app.MapControllerRoute(
-//     name: "withoutParams",
-//     pattern: "{controller=Products}/{action=GetCountData}");
 app.MapControllers();
 
 app.Run();

@@ -37,6 +37,5 @@ public class DTOMapProfile : Profile
             .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => (EnumHelper<Genre>.GetName(src.Genre))))
             .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => (EnumHelper<Tag>.GetName(src.Tag))));
 
-        CreateMap<CountDataDTO, int>().ReverseMap();
     }
 }

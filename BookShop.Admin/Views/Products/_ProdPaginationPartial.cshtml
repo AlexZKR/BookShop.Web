@@ -5,30 +5,25 @@
     <div class="container-fluid">
         <article class="esh-pager-wrapper row">
             <nav>
-                @if(@Model.ActualPage != 0)
-                {
                 <div class="col-md-2 col-xs-12">
                     <button id="prevPage" onclick="prevPage(document.getElementById('actualPage').textContent)" class="btn btn-primary"
                         aria-label="Previous">
                         Предыдущая
                     </button>
                 </div>
-                }
+
                 <div class="col-md-8 col-xs-12">
                     <span class="esh-pager-item">
-                        @Model.ItemsPerPage из @Model.TotalItems товаров - Страница <span id="actualPage"> @Model.ActualPage </span> -
-                        @Model.TotalPages
+                        @Model.ItemsPerPage из <span id="totalItems">@Model.TotalItems</span> товаров - Страница <span id="actualPage"> @Model.ActualPage </span> -
+                        <span id="totalPages">@Model.TotalPages</span>
                     </span>
                 </div>
-                @if(@Model.IsNextPageHasItems)
-                {
                 <div class="col-md-2 col-xs-12">
                     <button id="nextPage" onclick="nextPage(document.getElementById('actualPage').textContent)" class="btn btn-primary"
                         aria-label="Next">
                         Следующая
                     </button>
                 </div>
-                }
             </nav>
         </article>
     </div>

@@ -14,6 +14,6 @@ public class DTOMapProfile : Profile
         CreateMap<OrderItemDTO, OrderItemViewModel>().ReverseMap();
         CreateMap<BuyerDTO, BuyerViewModel>().ReverseMap();
         CreateMap<ProductDTO, ProductViewModel>().ReverseMap();
-        CreateMap<CountDataDTO, int>().ReverseMap();
+        //CreateMap<CountDataDTO,int>().ConvertUsing(src => src.BooksTotal);
     }
 }

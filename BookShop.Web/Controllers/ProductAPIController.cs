@@ -73,15 +73,15 @@ public class ProductAPIController : ControllerBase
     }
 
     [HttpGet("count")]
+    [ActionName("count")]
     public async Task<ActionResult<object>> CountAsync()
     {
          try
         {
             var booksCount = await bookService.CountBooksAsync();
-            var dto = mapper.Map<List<CountDataDTO>>(booksCount);
-            response.Result = dto;
+            // var dto = mapper.Map<CountDataDTO>(booksCount);
+            response.Result = new CountDataDTO {BooksTotal = booksCount};
             logger.LogInformation($"Action {nameof(CountAsync)} Got {booksCount} books in DB");
-
         }
         catch (Exception ex)
         {
@@ -89,7 +89,6 @@ public class ProductAPIController : ControllerBase
             response.ErrorMessage = new List<string> { ex.ToString() };
             logger.LogInformation($"Action {nameof(CountAsync)} Som problem");
         }
-        response.DisplayMessage = $"Action {nameof(CountAsync)} Got {(response.Result as CountDataDTO)!.BooksTotal} books in DB";
         return response;
     }
 

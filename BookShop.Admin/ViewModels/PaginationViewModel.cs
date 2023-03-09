@@ -9,6 +9,4 @@ public class PaginationViewModel
     public string? Previous { get; set; }
     public string? Next { get; set; }
 
-    //if next page does not have items, then dont display "next" button
-    public bool IsNextPageHasItems { get; set; } = true;
 }

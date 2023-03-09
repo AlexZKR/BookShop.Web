@@ -67,11 +67,9 @@ public class OrdersController : Controller
         {
             vm.StatusMessage = "Error loading data. Try later.";
             vm.IsSuccess = false;
-            //return PartialView("_OrdersMenuPartial",vm);
+
         }
 
-        //TODO: add for user specific orders
-        //if(vm.Buyers.Count == 0) vm.StatusMessage = "Nothing found";
 
         return PartialView("_OrdersMenuPartial", vm);
     }

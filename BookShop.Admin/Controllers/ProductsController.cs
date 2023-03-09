@@ -13,12 +13,15 @@ public class ProductsController : Controller
 {
     private readonly IProductService productService;
     private readonly IMapper mapper;
+    private readonly ILogger<ProductsController> logger;
 
     public ProductsController(IProductService productService,
-    IMapper mapper)
+    IMapper mapper,
+    ILogger<ProductsController> logger)
     {
         this.productService = productService;
         this.mapper = mapper;
+        this.logger = logger;
     }
 
     public async Task<IActionResult> Index()
@@ -46,11 +49,12 @@ public class ProductsController : Controller
     }
 
     [HttpGet("GetProductsPage")]
-    public async Task<ActionResult<object>> GetProductsPage([FromQuery]int page)
+    public async Task<ActionResult<object>> GetProductsPage(int page)
     {
         var response = await productService.GetBooksPaged<ResponseDTO>(page, SD.PageSize);
         if (response != null && response.IsSuccess)
         {
+            logger.LogInformation($"Sending request for page {page}");
             var list = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(response.Result)!);
             return PartialView("_ProductListPartial", list!.Select(d => mapper.Map<ProductViewModel>(d)).OrderByDescending(x => x.Name).ToList());
         }
@@ -60,13 +64,19 @@ public class ProductsController : Controller
         }
     }
 
-    public async Task<ActionResult<object>> GetCountData()
+    [HttpGet]
+    [Route("Products/PaginationInfo")]
+    public async Task<ActionResult<object>> PaginationInfo()
     {
+        logger.LogInformation("Sending page info");
         var response = await productService.CountBooks<ResponseDTO>();
         if (response != null && response.IsSuccess)
         {
+            var dto = JsonConvert.DeserializeObject<CountDataDTO>(Convert.ToString(response.Result)!);
+            logger.LogInformation($"There are {dto!.BooksTotal} books.");
+
             return Json(new {
-                count = (mapper.Map<CountDataDTO>(response.Result)).BooksTotal,
+                count = dto!.BooksTotal,
                 pageSize = SD.PageSize
             });
         }
@@ -75,7 +85,6 @@ public class ProductsController : Controller
             return NotFound();
         }
     }
-
 
     [HttpGet("BookInfo")]
     public async Task<IActionResult> BookInfo([FromQuery] int itemId)
