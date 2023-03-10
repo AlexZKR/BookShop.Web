@@ -32,6 +32,15 @@ else
 @section Scripts
 {
   <script>
+
+    window.onload = onPageLoad();
+
+    function onPageLoad()
+    {
+      loadPaginationData();
+      updateButtons();
+    }
+
     function deleteItem(itemId)
     {
 
@@ -56,11 +65,11 @@ else
       }
     }
 
-
     function prevPage(page)
     {
       let pageNum = parseInt(page);
       pageNum--;
+
       if(pageNum == 0)
       {
         console.log("Page is 0, stop # " + pageNum);
@@ -71,6 +80,7 @@ else
         $("#actualPage").html(pageNum);
         loadPage(pageNum);
       }
+      updateButtons();
     }
 
     function nextPage(page)
@@ -78,7 +88,6 @@ else
       let pageNum = parseInt(page);
       pageNum++;
       var maxPage = $('#totalPages').text();
-
       if(pageNum > maxPage)
       {
         console.log("Page is at max, stop # " + pageNum);
@@ -88,6 +97,29 @@ else
         console.log("Switching to next page # " + pageNum);
         $("#actualPage").html(pageNum);
         loadPage(pageNum);
+      }
+      updateButtons();
+    }
+
+    function updateButtons()
+    {
+      var page = $('#actualPage').text();
+      var totalPages = $('#totalPages').text();
+      if(page - 1 == 0 || page == 0)
+      {
+        $("#prevPage").prop("disabled",true);
+      }
+      else
+      {
+        $("#prevPage").prop("disabled",false);
+      }
+      if(page + 1 == totalPages || page >= totalPages)
+      {
+        $("#nextPage").prop("disabled",true);
+      }
+      else
+      {
+        $("#nextPage").prop("disabled",false);
       }
     }
 
