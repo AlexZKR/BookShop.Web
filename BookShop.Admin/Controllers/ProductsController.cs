@@ -33,7 +33,7 @@ public class ProductsController : Controller
         {
             var list = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(response.Result)!);
             vm.Products = list!.Select(d => mapper.Map<ProductViewModel>(d)).OrderByDescending(x => x.Name).ToList();
-            vm.Pagination.ActualPage = 1;
+            vm.Pagination.ActualPage = 0;
             vm.Pagination.ItemsPerPage = SD.PageSize;
         }
         else

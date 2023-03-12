@@ -67,10 +67,11 @@ else
 
     function prevPage(page)
     {
+      console.log("Sys page: " + page);
       let pageNum = parseInt(page);
-      pageNum--;
+      pageNum -= 1;
 
-      if(pageNum == 0)
+      if(page == 0)
       {
         console.log("Page is 0, stop # " + pageNum);
       }
@@ -85,10 +86,11 @@ else
 
     function nextPage(page)
     {
+      console.log("Sys page: " + page);
       let pageNum = parseInt(page);
       pageNum++;
       var maxPage = $('#totalPages').text();
-      if(pageNum > maxPage)
+      if(page == maxPage)
       {
         console.log("Page is at max, stop # " + pageNum);
       }
@@ -105,7 +107,7 @@ else
     {
       var page = $('#actualPage').text();
       var totalPages = $('#totalPages').text();
-      if(page - 1 == 0 || page == 0)
+      if(page == 0)
       {
         $("#prevPage").prop("disabled",true);
       }
@@ -113,7 +115,8 @@ else
       {
         $("#prevPage").prop("disabled",false);
       }
-      if(page + 1 == totalPages || page >= totalPages)
+
+      if(page == totalPages)
       {
         $("#nextPage").prop("disabled",true);
       }
@@ -158,7 +161,7 @@ else
             console.log(textStatus + ": " + jqXHR.status);
             console.log("Total books: "+ data.count);
             console.log("Page size: "+ data.pageSize);
-            var totalPages = Math.ceil(data.count/data.pageSize);
+            var totalPages = Math.ceil(data.count/data.pageSize -1);
             console.log("Total pages: "+ totalPages);
 
             $('#totalPages').text(totalPages);
