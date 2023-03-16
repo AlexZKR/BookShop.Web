@@ -15,6 +15,7 @@
             <div class="col-4">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id"/>
+                <input type="hidden" asp-for="AuthorId"/>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
@@ -67,23 +68,22 @@
                                 @Html.DisplayNameFor(m => m.Genre)
                                     </td>
                                     <td>
-                                @Html.DisplayFor(m => m.Genre)
+                                <div class="row-2">
+        <select class="form-control" asp-for="@Model.Genre" asp-items="@Model.Genres">
+        </select>
+    </div>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td>
-                                @Html.DisplayNameFor(m => m.Tag)
+                                @Html.DisplayNameFor(m => m.Lang)
                                     </td>
                                     <td>
-                                @Html.DisplayFor(m => m.Tag)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                @Html.DisplayNameFor(m => m.Language)
-                                    </td>
-                                    <td>
-                                @Html.DisplayFor(m => m.Language)
+                                <div class="row-2">
+        <select class="form-control" asp-for="@Model.Lang" asp-items="@Model.Languages">
+        </select>
+    </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -91,7 +91,10 @@
                                 @Html.DisplayNameFor(m => m.Cover)
                                     </td>
                                     <td>
-                                @Html.DisplayFor(m => m.Cover)
+                                <div class="row-2">
+        <select class="form-control" asp-for="@Model.Cover" asp-items="@Model.Covers">
+        </select>
+    </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -99,13 +102,22 @@
                                 @Html.DisplayNameFor(m => m.PagesCount)
                                     </td>
                                     <td>
-                                @Html.DisplayFor(m => m.PagesCount)
+                                <input asp-for="PagesCount" class="form-control"></input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                @Html.DisplayNameFor(m => m.Authors)
+                                    </td>
+                                    <td>
+                                <div class="row-2 mb-4">
+        <select class="form-control" asp-for="@Model.AuthorId" asp-items="@Model.Authors">
+        </select>
+    </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
-
             </div>
             <div class="col-4">
                 <div class="form-group row">

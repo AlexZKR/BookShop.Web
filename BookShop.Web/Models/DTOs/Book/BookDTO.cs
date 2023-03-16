@@ -8,10 +8,10 @@ public class BookDTO
     public int PagesCount { get; set; }
 
     //enums
-    public string? Genre { get; set; }
-    public string? Cover { get; set; }
-    public string? Language { get; set; }
-    public string? Tag { get; set; } = "none";
+    public int? Genre { get; set; }
+    public int? Cover { get; set; }
+    public int? Language { get; set; }
+    public int? Tag { get; set; }
     public int AuthorId { get; set; }
     //public AuthorDTO? AuthorDTO { get; set; }
 

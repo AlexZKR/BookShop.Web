@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BookShop.Web.Infrastructure;
+namespace BookShop.Admin.Infrastructure;
 public static class EnumHelper<T> where T : struct, Enum
 {
     public static IEnumerable<T> GetValues(Enum value)
@@ -24,6 +24,19 @@ public static class EnumHelper<T> where T : struct, Enum
         else
             return null;
     }
+
+    public static T GetEnumValueFromString(string value)
+{
+    T result;
+    if (Enum.TryParse(value, true, out result))
+    {
+        if (Enum.IsDefined(typeof(T), result))
+        {
+            return result;
+        }
+    }
+    throw new ArgumentException("Invalid enum value: " + value);
+}
 
     public static IEnumerable<string> GetNames(Enum value)
     {
@@ -51,20 +64,6 @@ public static class EnumHelper<T> where T : struct, Enum
 
         return resourceKey; // Fallback with the key name
     }
-
-    public static T GetEnumValueFromString(string value)
-{
-    T result;
-    if (Enum.TryParse(value, true, out result))
-    {
-        if (Enum.IsDefined(typeof(T), result))
-        {
-            return result;
-        }
-    }
-    throw new ArgumentException("Invalid enum value: " + value);
-}
-
 
     public static string? GetDisplayValue(T? value)
     {

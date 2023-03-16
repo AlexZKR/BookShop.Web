@@ -32,10 +32,17 @@ public class DTOMapProfile : Profile
         CreateMap<AuthorDTO, Author>().ReverseMap();
 
         CreateMap<BookDTO, Book>().ReverseMap()
-            .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => (EnumHelper<Cover>.GetName(src.Cover))))
-            .ForMember(dest => dest.Language, opt => opt.MapFrom(src => (EnumHelper<Language>.GetName(src.Language))))
-            .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => (EnumHelper<Genre>.GetName(src.Genre))))
-            .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => (EnumHelper<Tag>.GetName(src.Tag))));
-
+            .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => ((int)src.Cover)))
+            .ForMember(dest => dest.Language, opt => opt.MapFrom(src => ((int)src.Language)))
+            .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((int)src.Genre)))
+            .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => ((int)src.Tag)));
+// CreateMap<BookDTO, Book>()
+//         .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => ((int)src.Cover!).ToString()))
+//         .ForMember(dest => dest.Language, opt => opt.MapFrom(src => ((int)src.Lang!).ToString()))
+//         .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((int)src.Genre!).ToString()));
+//         CreateMap<Book, BookDTO>()
+//         .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => (EnumHelper<Cover>.GetEnumValueFromString(src.Cover!))))
+//         .ForMember(dest => dest.Language, opt => opt.MapFrom(src => (EnumHelper<Language>.GetEnumValueFromString(src.Language!))))
+//         .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => (EnumHelper<Genre>.GetEnumValueFromString(src.Genre!))))
     }
 }

@@ -6,10 +6,10 @@ public class ProductDTO
     public string? Name { get; set; }
     public string? Description { get; set; }
     public int PagesCount { get; set; }
-    public Genre Genre { get; set; }
-    public Cover Cover { get; set; }
-    public Language Language { get; set; }
-    public Tag Tag { get; set; }
+    public int? Genre { get; set; }
+    public int? Cover { get; set; }
+    public int? Language { get; set; }
+    public int? Tag { get; set; }
     public double FullPrice { get; set; }
     public double Discount { get; set; }
     public int Quantity { get; set; }

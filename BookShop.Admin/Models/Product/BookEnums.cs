@@ -4,7 +4,7 @@ namespace BookShop.Admin.Models.Product;
 
 public enum Genre
 {
-    [Display(Name = "Все")]
+    [Display(Name = "Не определен")]
     All,
     [Display(Name = "Художественная")]
     Fiction,
@@ -28,7 +28,7 @@ public enum Genre
 
 public enum Cover
 {
-    [Display(Name = "Все")]
+    [Display(Name = "Не определена")]
     All,
     [Display(Name = "Твердая")]
     HardCover,
@@ -40,7 +40,7 @@ public enum Cover
 
 public enum Language
 {
-    [Display(Name = "Все")]
+    [Display(Name = "Не определен")]
     All,
     [Display(Name = "Русский")]
     Russian,
