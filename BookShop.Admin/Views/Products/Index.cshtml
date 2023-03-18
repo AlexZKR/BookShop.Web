@@ -1,7 +1,7 @@
 @model ProductsPageViewModel
 
 @{
-    ViewData["Title"] = "Менеджер каталога";
+  ViewData["Title"] = "Менеджер каталога";
 }
 
 @if(Model.IsSuccess == false)
@@ -13,20 +13,22 @@
 else
 {
 <div class="container-1 py-5 mx-5">
-    <div class="row">
-        <div class="col-lg-4">
-    <h1>Управление каталогом</h1>
-</div>
+  <div class="row">
+    <div class="col-lg-3">
+      <h1>Управление каталогом</h1>
+    </div>
+    <div class="col-lg-4 mt-2">
+      <a asp-controller="Products" asp-action="Create" class="btn btn-primary mx-4 h3">
+        Создать <i class="fa-solid fa-plus"></i>
+      </a>
+    </div>
+  </div>
 
-
-    <div id="catalogView">
+    <div id="catalogView" class="mb-3">
         <partial name="_ProductListPartial" model="@Model.Products"/>
     </div>
-
     <partial name="_ProdPaginationPartial" model="@Model.Pagination"/>
-
-    </div>
-</div>
+  </div>
 }
 
 @section Scripts
@@ -58,7 +60,7 @@ else
           success: function (data, textStatus, jqXHR)
           {
             console.log(textStatus + ": " + jqXHR.status);
-            alert("Книга № " + data.itemId + " удалена.")
+            alert("Книга № " + itemId + " удалена.")
             $("#item-"+itemId).empty();
           }
         });

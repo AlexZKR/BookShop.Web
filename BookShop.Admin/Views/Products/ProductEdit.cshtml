@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = $"Редактирование товара";
     var discount = Model.Discount.ToString("p0");
-
 }
 <div class="container-1 my-4 mx-5">
     <h1>Редактирование товара</h1>
@@ -12,126 +11,134 @@
     <hr>
     <form asp-controller="Products" asp-action="BookEdit" enctype="multipart/form-data" method="post">
         <div class="row">
-            <div class="col-4">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id"/>
-                <input type="hidden" asp-for="AuthorId"/>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea asp-for="Description" class="form-control"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Quantity" class="control-label"></label>
-                    <input asp-for="Quantity" class="form-control"></input>
-                    <span asp-validation-for="Quantity" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Sold" class="control-label"></label>
-                    <input asp-for="Sold" class="form-control"></input>
-                    <span asp-validation-for="Sold" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FullPrice" class="control-label"></label>
-                    <input asp-for="FullPrice" class="form-control"></input>
-                    <span asp-validation-for="FullPrice" class="text-danger"></span>
-                </div>
-                <div class="row my-2 ">
-                    <div class="control-label col-4 fw-bold">Цена со скидкой:</div>
-                    <div class="col">@Model.DiscountedPrice руб.</div>
-                </div>
+            <div class="col-5 mx-2">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id"/>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control"></input>
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sold" class="control-label"></label>
+                        <input asp-for="Sold" class="form-control"></input>
+                        <span asp-validation-for="Sold" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullPrice" class="control-label"></label>
+                        <input asp-for="FullPrice" class="form-control"></input>
+                        <span asp-validation-for="FullPrice" class="text-danger"></span>
+                    </div>
+                    <div class="row my-2 ">
+                        <div class="control-label col-4 fw-bold">Цена со скидкой:</div>
+                        <div class="col">@Model.DiscountedPrice руб.</div>
+                    </div>
 
-                <div class="form-group">
-                    <label asp-for="Discount" class="control-label"></label>
-                    <input value="@discount" class="form-control"></input>
-                    <span asp-validation-for="Discount" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Discount" class="control-label"></label>
+                        <input asp-for="Discount" class="form-control"></input>
+                        <span asp-validation-for="Discount" class="text-danger"></span>
+                    </div>
+                    @* <div class="row my-2 ">
+                        <div class="control-label col-4 fw-bold">Рейтинг:</div>
+                        <div class="col">@Model.Rating </div>
+                    </div> *@
                 </div>
-                <div class="row my-2 ">
-                    <div class="control-label col-4 fw-bold">Рейтинг:</div>
-                    <div class="col">@Model.Rating </div>
-                </div>
-                <hr>
-                <table class="table table-hover table-striped">
-                            <thead>
-                                <th colspan="2">
-                                    <h5>Характеристики:</h5>
-                                </th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                @Html.DisplayNameFor(m => m.Genre)
-                                    </td>
-                                    <td>
-                                <div class="row-2">
-        <select class="form-control" asp-for="@Model.Genre" asp-items="@Model.Genres">
-        </select>
-    </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                @Html.DisplayNameFor(m => m.Lang)
-                                    </td>
-                                    <td>
-                                <div class="row-2">
-        <select class="form-control" asp-for="@Model.Lang" asp-items="@Model.Languages">
-        </select>
-    </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                @Html.DisplayNameFor(m => m.Cover)
-                                    </td>
-                                    <td>
-                                <div class="row-2">
-        <select class="form-control" asp-for="@Model.Cover" asp-items="@Model.Covers">
-        </select>
-    </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                @Html.DisplayNameFor(m => m.PagesCount)
-                                    </td>
-                                    <td>
-                                <input asp-for="PagesCount" class="form-control"></input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                @Html.DisplayNameFor(m => m.Authors)
-                                    </td>
-                                    <td>
-                                <div class="row-2 mb-4">
-        <select class="form-control" asp-for="@Model.AuthorId" asp-items="@Model.Authors">
-        </select>
-    </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
             </div>
-            <div class="col-4">
-                <div class="form-group row">
-                    <label class="fw-bold h3 mx-5" asp-for="PictureUri" class="control-label"></label>
-                    <img style="height: 700px; width: 550px;" src="Books/@Model.PictureUri" alt="">
-                    <input type="hidden" asp-for="PictureUri" />
+            <div class="col-5 mx-4">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <th colspan="2">
+                            <h5>Характеристики:</h5>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(m => m.PagesCount)
+                            </td>
+                            <td>
+                                <input asp-for="PagesCount" class="form-control"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Genre)
+                            </td>
+                            <td>
+                                <div class="row-2">
+                                    <select class="form-control" asp-for="@Model.Genre" asp-items="@Model.Genres">
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Lang)
+                            </td>
+                            <td>
+                            <div class="row-2">
+                                <select class="form-control" asp-for="@Model.Lang" asp-items="@Model.Languages">
+                                </select>
+                            </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Cover)
+                            </td>
+                            <td>
+                                <div class="row-2">
+                                    <select class="form-control" asp-for="@Model.Cover" asp-items="@Model.Covers">
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Tag)
+                            </td>
+                            <td>
+                                <div class="row-2">
+                                    <select class="form-control" asp-for="@Model.Tag" asp-items="@Model.Tags">
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(m => m.Authors)
+                            </td>
+                            <td>
+                                <div class="row-2 mb-4">
+                                    <select class="form-control" asp-for="@Model.AuthorId" asp-items="@Model.Authors">
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group row mx-4 mt-0">
+                    <label class="fw-bold h4" asp-for="PictureUri" class="control-label"></label>
+                    <input type="file" class="form-control" name="picture" />
                 </div>
             </div>
         </div>
-        <input type="submit" value="Сохранить" class="btn btn-success"/>
+        <input type="submit" value="Сохранить" class="btn btn-success my-3 row"/>
     </form>
 </div>
-
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

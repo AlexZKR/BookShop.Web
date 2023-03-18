@@ -49,10 +49,10 @@
                     <input disabled value="@discount" class="form-control"></input>
                     <span asp-validation-for="Discount" class="text-danger"></span>
                 </div>
-                <div class="row my-2 ">
+                @* <div class="row my-2 ">
                     <div class="control-label col-4 fw-bold">Рейтинг:</div>
                     <div class="col">@Model.Rating </div>
-                </div>
+                </div> *@
                 <hr>
                 <table class="table table-hover table-striped">
                             <thead>
@@ -69,14 +69,14 @@
                                 @Html.DisplayFor(m => m.GenreDisplay)
                                     </td>
                                 </tr>
-                                @* <tr>
+                                <tr>
                                     <td>
                                 @Html.DisplayNameFor(m => m.Tag)
                                     </td>
                                     <td>
-                                @Html.DisplayFor(m => m.Tag)
+                                @Html.DisplayFor(m => m.TagDisplay)
                                     </td>
-                                </tr> *@
+                                </tr>
                                 <tr>
                                     <td>
                                 @Html.DisplayNameFor(m => m.Lang)
@@ -103,7 +103,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
 
             </div>
             <div class="col-4">

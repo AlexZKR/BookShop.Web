@@ -12,7 +12,6 @@ namespace BookShop.Web.Controllers;
 // Query filtering
 // https://stackoverflow.com/questions/70632225/asp-net-core-web-api-route-by-query-parameter
 [Route("api/orders")]
-// [ApiController]
 public class OrdersAPIController : ControllerBase
 {
     private readonly IOrderService orderService;
@@ -25,17 +24,7 @@ public class OrdersAPIController : ControllerBase
         this.mapper = mapper;
         response = new ResponseDTO();
     }
-    //Getting full list of buyers. Then,
-    //only unproccessed orders or orders specific to buyer by buyerId
-    //[HttpGet("api/orders")]
-    //[Route("api/orders")]
-    // [HttpGet]
-    // public ActionResult<object> Get()
-    // {
-    //     response.DisplayMessage = "Hello from BookShopOrdersAPI! :)";
-    //     return response;
-    // }
-    ///api/orders/buyers
+
     [HttpGet("buyers")]
     public async Task<ActionResult<object>> GetBuyers()
     {

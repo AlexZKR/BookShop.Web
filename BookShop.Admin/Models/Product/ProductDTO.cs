@@ -16,6 +16,6 @@ public class ProductDTO
     public int Sold { get; set; }
     public string? PictureUri { get; set; }
     public double Rating { get; set; }
-    public int AuthorId { get; set; }
+    public int? AuthorId { get; set; }
 
 }

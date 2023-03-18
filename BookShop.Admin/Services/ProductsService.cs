@@ -24,6 +24,16 @@ public class ProductService : BaseService, IProductService
         });
     }
 
+    public async Task<T> GetAuthors<T>()
+    {
+        return await SendAsync<T>(new APIRequest()
+        {
+            APIType = SD.APIType.GET,
+            URL = SD.MainAPIBase + "/api/books/authors",
+            AccessToken = ""
+        });
+    }
+
     public async Task<T> GetBooksPaged<T>(int page, int pageSize)
     {
         return await SendAsync<T>(new APIRequest()

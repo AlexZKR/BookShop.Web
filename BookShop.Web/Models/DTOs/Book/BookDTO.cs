@@ -12,7 +12,7 @@ public class BookDTO
     public int? Cover { get; set; }
     public int? Language { get; set; }
     public int? Tag { get; set; }
-    public int AuthorId { get; set; }
+    public int? AuthorId { get; set; }
     //public AuthorDTO? AuthorDTO { get; set; }
 
     //$$

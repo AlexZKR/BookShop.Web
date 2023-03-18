@@ -6,6 +6,7 @@ using BookShop.Admin.Models;
 using BookShop.Admin.Models.Product;
 using BookShop.Admin.ViewModels.Catalog;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace BookShop.Admin.Controllers;
@@ -110,7 +111,6 @@ public class ProductsController : Controller
             return View("_ProductInfoPartial", vm);
     }
 
-
     [HttpDelete]
     [QueryParameterConstraintAttribute("itemId")]
     public async Task<ActionResult<object>> BookDelete([FromQuery] int itemId)
@@ -157,6 +157,7 @@ public class ProductsController : Controller
         {
             var book = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(response.Result)!);
             vm = mapper.Map<ProductViewModel>(book);
+            vm.Authors = (await GetAuthorsSelectList()).ToList();
         }
         else
         {
@@ -174,10 +175,68 @@ public class ProductsController : Controller
         if (ModelState.IsValid)
         {
             var dto = mapper.Map<ProductDTO>(model);
+            if(Request.Form.Files["picture"] == null)
+                dto.PictureUri = "no_img.jpg";
+            else
+                dto.PictureUri = Path.GetFileName(Request.Form.Files["picture"]!.FileName);
+            if(dto.Discount > 1)
+                dto.Discount = dto.Discount / 100;
+            logger.LogInformation("Filename: " + dto.PictureUri);
             await productService.UpdateBook<ResponseDTO>(dto);
             return RedirectToAction(nameof(Index));
         }
+        model = await PopulateVMSelectLists(model);
         return View("ProductEdit",model);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        var vm = await PopulateVMSelectLists(new ProductViewModel());
+        return View("ProductCreate", vm);
+    }
+
+    [HttpPost("BookCreate")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> BookCreate(ProductViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var dto = mapper.Map<ProductDTO>(model);
+             if(Request.Form.Files["picture"] == null)
+                dto.PictureUri = "no_img.jpg";
+            else
+                dto.PictureUri = Path.GetFileName(Request.Form.Files["picture"]!.FileName);
+            if(dto.Discount > 1)
+                dto.Discount = dto.Discount / 100;
+            await productService.AddBook<ResponseDTO>(dto);
+            return RedirectToAction(nameof(Index));
+        }
+        model = await PopulateVMSelectLists(model);
+        return View("ProductCreate",model);
+    }
+
+    private async Task<IEnumerable<SelectListItem>> GetAuthorsSelectList()
+    {
+        logger.LogInformation("GetAuthors called");
+        var response = await productService.GetAuthors<ResponseDTO>();
+        var authorNames = JsonConvert.DeserializeObject<List<AuthorDTO>>(Convert.ToString(response.Result)!);
+        var items = authorNames!.Select(n => new SelectListItem() { Text = n.Name, Value = n.Id.ToString()})
+            .OrderBy(n => n.Text)
+            .ToList();
+
+        var allItem = new SelectListItem() { Value = "0", Text = "Не определен", Selected = true };
+        items.Insert(0, allItem);
+        return items;
+    }
+
+    private async Task<ProductViewModel> PopulateVMSelectLists(ProductViewModel vm)
+    {
+        vm.Genres = EnumHelper<Genre>.GetStaticDataFromEnum(Genre.All).ToList();
+        vm.Covers = EnumHelper<Cover>.GetStaticDataFromEnum(Cover.All).ToList();
+        vm.Languages = EnumHelper<Language>.GetStaticDataFromEnum(Language.All).ToList();
+        vm.Tags = EnumHelper<Tag>.GetStaticDataFromEnum(Tag.None).ToList();
+        vm.Authors = (await GetAuthorsSelectList()).ToList();
+        return vm;
+    }
 }

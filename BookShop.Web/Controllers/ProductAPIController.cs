@@ -43,11 +43,29 @@ public class ProductAPIController : ControllerBase
             response.ErrorMessage = new List<string> { ex.ToString() };
             logger.LogWarning($"GetBook {id} ex: {ex.Message}");
         }
-
         response.DisplayMessage = $"GetBook id: {id}";
         return response;
     }
 
+    [HttpGet("authors")]
+    public async Task<ActionResult<object>> GetAuthors()
+    {
+        try
+        {
+            var authors = await bookService.GetAuthors();
+            var dtos = mapper.Map<List<AuthorDTO>>(authors);
+            response.Result = dtos;
+            logger.LogInformation($"Action {nameof(GetAuthors)} Sent: {dtos.Count} entities");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessage = new List<string> { ex.ToString() };
+            logger.LogWarning($"Action {nameof(GetAuthors)} ex: {ex.Message}");
+        }
+        response.DisplayMessage = $"Action {nameof(GetAuthors)}";
+        return response;
+    }
 
     [HttpGet]
     [QueryParameterConstraint("page", "pageSize")]
@@ -58,7 +76,7 @@ public class ProductAPIController : ControllerBase
             var books = await bookService.GetBooksPaged(page, pageSize);
             var dtos = mapper.Map<List<BookDTO>>(books);
             response.Result = dtos;
-            logger.LogWarning($"Action {nameof(GetBooksPaged)} page: {page}; pageSize: {pageSize}; Sent {dtos.Count} books");
+            logger.LogInformation($"Action {nameof(GetBooksPaged)} page: {page}; pageSize: {pageSize}; Sent {dtos.Count} books");
 
         }
         catch (Exception ex)

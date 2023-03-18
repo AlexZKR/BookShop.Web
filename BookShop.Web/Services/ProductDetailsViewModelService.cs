@@ -44,9 +44,9 @@ public class ProductDetailsViewModelService : IProductDetailsViewModelService
             IsOnDiscount = false,
             IsFavourite = favouriteService.CheckIfFavourite(username, item),
 
-            Genre = EnumHelper<Genre>.GetDisplayValue(Genre.Fiction),
-            Language = EnumHelper<Language>.GetDisplayValue(Language.Russian),
-            Cover = EnumHelper<Cover>.GetDisplayValue(Cover.HardCover),
+            Genre = EnumHelper<Genre>.GetDisplayValue(item.Genre),
+            Language = EnumHelper<Language>.GetDisplayValue(item.Language),
+            Cover = EnumHelper<Cover>.GetDisplayValue(item.Cover),
 
             //nav data
             AuthorId = item.Author.Id,
