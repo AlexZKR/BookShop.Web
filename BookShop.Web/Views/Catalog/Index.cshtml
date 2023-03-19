@@ -1,5 +1,4 @@
 @model CatalogViewModel
-
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-3">
@@ -10,54 +9,26 @@
             {
                 <h2 class="mb-4" >Результаты запроса: "@Model.FilterInfo.SearchQuery"</h2>
             }
-            @* <div class="row">
-                <div class="col-md-6">
-                    <ul class="list-inline shop-top-menu pb-3 pt-1">
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" href="#">Все</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" href="#">На скидке</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none" href="#">Бестселлеры</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none" href="#">Классика</a>
-                        </li>
-                    </ul>
+
+            @if (Model.CatalogItems.Count != 0 && (Model.FilterInfo.SearchQuery == "" || Model.FilterInfo.SearchQuery == null))
+            {
+                <div class="mx-4 mb-4">
+                    <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
                 </div>
-                <div class="col-md-6 pb-4">
-                    <div class="d-flex">
-                        <select class="form-control">
-                            <option>Популярные</option>
-                            <option>Дешевые</option>
-                            <option>Дорогие</option>
-                            <option>По алфавиту</option>
-                        </select>
-                    </div>
-                </div>
-            </div>*@
-        @if (Model.CatalogItems.Count != 0 && Model.FilterInfo.SearchQuery == "")
-        {
-            <div class="mx-4 mb-4">
-                <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
-            </div>
-        }
+            }
             @* Prod cards *@
             <div class="row" id="list">
                 <partial name="_CatalogListPartial" model="@Model" />
             </div>
-
             @* Prod cards *@
 
-        @if (Model.CatalogItems.Count != 0 && Model.FilterInfo.SearchQuery == "")
-        {
-            <div class="mx-4">
-                <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
-            </div>
-        }
-</div>
+            @if (Model.CatalogItems.Count != 0 && (Model.FilterInfo.SearchQuery == "" || Model.FilterInfo.SearchQuery == null))
+            {
+                <div class="mx-4">
+                    <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
+                </div>
+            }
+        </div>
     </div>
 </div>
 

@@ -31,12 +31,12 @@
                 </div>
                 @if(@Model.IsNextPageHasItems)
                 {
-                <div class="col-md-2 col-xs-12">
-                    <a class="esh-pager-item-right esh-pager-item--navigable esh-pager-item @Model.Next" id="Next"
-                        asp-all-route-data="nextRouteData" aria-label="Next">
-                        Следующая
-                    </a>
-                </div>
+                    <div class="col-md-2 col-xs-12">
+                        <a class="esh-pager-item-right esh-pager-item--navigable esh-pager-item @Model.Next" id="Next"
+                            asp-all-route-data="nextRouteData" aria-label="Next">
+                            Следующая
+                        </a>
+                    </div>
                 }
             </nav>
         </article>

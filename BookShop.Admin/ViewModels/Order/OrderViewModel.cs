@@ -10,6 +10,7 @@ public class OrderViewModel : BaseViewModel
     public int TotalItems { get; set; }
     public double TotalDiscount { get; set; }
     public double TotalPrice { get; set; }
+    public double FullPrice { get; set; }
 
     public string? BuyerId { get; set; }
     public string? BuyerName { get; set; }

@@ -175,9 +175,7 @@ public class ProductsController : Controller
         if (ModelState.IsValid)
         {
             var dto = mapper.Map<ProductDTO>(model);
-            if(Request.Form.Files["picture"] == null)
-                dto.PictureUri = "no_img.jpg";
-            else
+            if(Request.Form.Files["picture"] != null)
                 dto.PictureUri = Path.GetFileName(Request.Form.Files["picture"]!.FileName);
             if(dto.Discount > 1)
                 dto.Discount = dto.Discount / 100;

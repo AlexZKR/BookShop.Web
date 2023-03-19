@@ -1,7 +1,7 @@
 @model OrderViewModel
 @{
     string discount = @Model.TotalDiscount == 0 ? "-" : @Model.TotalDiscount.ToString("N2");
-    string finalPrice = (@Model.TotalPrice - @Model.TotalDiscount).ToString("N2");
+    string finalPrice = (@Model.TotalPrice).ToString("N2");
     string status = @Model.IsInProcess == true ? "В обработке" : "Обработан";
     string statusColor = @Model.IsInProcess == true ? "danger" : "success";
 }

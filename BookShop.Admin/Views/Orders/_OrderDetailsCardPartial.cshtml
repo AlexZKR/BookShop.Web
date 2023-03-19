@@ -1,7 +1,7 @@
 @model OrderItemViewModel
 
 @{
-    var discount = Model.Discount == 0 ? "-" : $"{(Model.Discount * 100).ToString("N2")}%";
+    var discount = Model.Discount == 0 ? "-" : $"{(Model.Discount * 100).ToString("N0")}%";
 }
 
 <div class="card shadow-1 border-2 mb-2 card-hover">
@@ -9,7 +9,7 @@
         <div class="row">
 
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <a class="nav-link" href="@SD.MainAPIBase/Product/Index/@Model.ProductId">
+                <a class="nav-link" asp-controller="Product" asp-action="Index" asp-route-id="@Model.ProductId">
                     <p class="text-muted mb-0">@Model.ProductName</p>
                 </a>
             </div>
@@ -22,7 +22,7 @@
             </div>
 
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <p class="text-muted mb-0 small">@Model.FullPrice.ToString("N2") руб.</p>
+                <p class="text-muted mb-0 small">@Model.TotalPrice.ToString("N2") руб.</p>
             </div>
             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                 <p class="text-muted mb-0 small fw-bold">@Model.DiscountedPrice.ToString("N2") руб.</p>

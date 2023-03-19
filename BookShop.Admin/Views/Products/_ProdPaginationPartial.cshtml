@@ -2,7 +2,7 @@
 
 @* for viewing purposes we display pages +1 *@
 @{
-     var actualPageView = @Model.ActualPage+1;
+     var actualPageView = @Model.ActualPage;
 }
 
 <div class="esh-pager">
@@ -18,7 +18,7 @@
 
                 <div class="col-md-8 col-xs-12 my-2">
                     <span class="esh-pager-item">
-                        @Model.ItemsPerPage из <span id="totalItems">@Model.TotalItems</span> товаров - Страница <span id="actualPage"> @actualPageView </span> -
+                        Всего <span id="totalItems">@Model.TotalItems</span> товаров - Страница <span id="actualPage"> @actualPageView </span> -
                         <span id="totalPages">@Model.TotalPages</span>
                     </span>
                 </div>

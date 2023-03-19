@@ -69,8 +69,6 @@ public class OrdersController : Controller
             vm.IsSuccess = false;
 
         }
-
-
         return PartialView("_OrdersMenuPartial", vm);
     }
     [HttpGet]
@@ -104,6 +102,9 @@ public class OrdersController : Controller
                     order.PaymentType = "Карта";
                 break;
             }
+
+            order.FullPrice = order.OrderItems.Sum(i => i.TotalPrice);
+
             if(Request.IsAjaxRequest())
                 return PartialView("OrderDetails",order);
             else

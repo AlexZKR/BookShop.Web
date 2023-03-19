@@ -31,11 +31,11 @@ public class BookCatalogViewModelService : ICatalogViewModelService
         this.mapper = mapper;
     }
 
-    public async Task<CatalogViewModel> GetCatalogViewModel(string username,string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE,  int AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
+    public async Task<CatalogViewModel> GetCatalogViewModel(string username, string? searchQuery, int pageIndex = 0, int itemsPage = SD.ITEMS_PER_PAGE, int AuthorId = 0, int? cover = null, int? genre = null, int? lang = null)
     {
         logger.LogInformation("GetCatalogItemsViewModels called");
 
-        List<Book> itemsOnPage = await bookCatalogService.GetCatalogItems(username, searchQuery,pageIndex, itemsPage, AuthorId, cover, genre, lang );
+        List<Book> itemsOnPage = await bookCatalogService.GetCatalogItems(username, searchQuery, pageIndex, itemsPage, AuthorId, cover, genre, lang);
 
         var vm = new CatalogViewModel()
         {
@@ -50,7 +50,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
                 IsOnDiscount = b.Discount != 0,
                 IsAvailable = b.Quantity != 0,
                 IsFavourite = favouriteService.CheckIfFavourite(username, b),
-                Rating = new RatingViewModel {Rating = ratingService.GetRating(username,b.Id).Result},
+                Rating = new RatingViewModel { Rating = ratingService.GetRating(username, b.Id).Result },
             }).ToList(),
             FilterInfo = new CatalogFilterViewModel()
             {
@@ -62,15 +62,14 @@ public class BookCatalogViewModelService : ICatalogViewModelService
             },
             PaginationInfo = new PaginationViewModel()
             {
-
                 ActualPage = pageIndex,
                 ItemsOnPage = itemsOnPage.Count,
                 TotalItems = await bookCatalogService.TotalItemsCountAsync(searchQuery, AuthorId, cover, genre, lang, pageIndex, itemsPage),
             }
         };
 
-        vm.PaginationInfo.IsNextPageHasItems = (vm.PaginationInfo.TotalItems - SD.ITEMS_PER_PAGE*vm.PaginationInfo.ActualPage) > 0 ? true : false;
-        vm.PaginationInfo.TotalPages = CalculateTotalPages(vm.PaginationInfo.TotalItems,SD.ITEMS_PER_PAGE);
+        vm.PaginationInfo.IsNextPageHasItems = (vm.PaginationInfo.TotalItems - SD.ITEMS_PER_PAGE * vm.PaginationInfo.ActualPage) > 0 ? true : false;
+        vm.PaginationInfo.TotalPages = CalculateTotalPages(vm.PaginationInfo.TotalItems, SD.ITEMS_PER_PAGE);
         vm.PaginationInfo.Next = (vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1) ? "is-disabled" : "";
         vm.PaginationInfo.Previous = (vm.PaginationInfo.ActualPage == 0) ? "is-disabled" : "";
 
@@ -85,15 +84,15 @@ public class BookCatalogViewModelService : ICatalogViewModelService
 
         var vm = new CatalogViewModel()
         {
-            CatalogItems = products.Select( p => new CatalogItemViewModel
+            CatalogItems = products.Select(p => new CatalogItemViewModel
             {
-                 Id = p.Id,
-                 Name = p.Name,
-                 PictureUri = p.PictureUri,
-                 Price = p.FullPrice,
-                 DiscountedPrice = p.DiscountedPrice,
-                 IsFavourite = favouriteService.CheckIfFavourite(username, p),
-                 IsOnDiscount = p.Discount > 0 ? true : false,
+                Id = p.Id,
+                Name = p.Name,
+                PictureUri = p.PictureUri,
+                Price = p.FullPrice,
+                DiscountedPrice = p.DiscountedPrice,
+                IsFavourite = favouriteService.CheckIfFavourite(username, p),
+                IsOnDiscount = p.Discount > 0 ? true : false,
 
             }).ToList(),
         };
@@ -124,7 +123,7 @@ public class BookCatalogViewModelService : ICatalogViewModelService
     private int CalculateTotalPages(int totalItems, int ItemsPerPage)
     {
         int res = 0;
-        res = (int)Math.Ceiling((double)totalItems/(double)ItemsPerPage);
+        res = (int)Math.Ceiling((double)totalItems / (double)ItemsPerPage);
         logger.LogInformation($"Total pages: {res}");
         return res;
     }
