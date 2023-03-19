@@ -11,18 +11,18 @@ public class Basket : BaseEntity, IAggregateRoot
     public int TotalItems => items.Sum(i => i.Quantity);
     public double TotalDiscountSize => items.Sum(i => i.DiscountSize);
     public double TotalDiscountedPrice => items.Sum(i => i.DiscountedPrice);
-    
+
 
     public Basket(string buyerId)
     {
         BuyerId = buyerId;
     }
 
-    public void AddItem(int itemId, double fullPrice, double discount, int quantity = 1)
+    public void AddItem(int itemId, double fullPrice, double discount, string productName, int quantity = 1)
     {
         if (!Items.Any(i => i.ProductId == itemId))
         {
-            items.Add(new BasketItem(itemId, quantity, fullPrice, discount));
+            items.Add(new BasketItem(itemId, quantity, fullPrice, discount, productName));
             return;
         }
         var existingItem = Items.First(i => i.ProductId == itemId);

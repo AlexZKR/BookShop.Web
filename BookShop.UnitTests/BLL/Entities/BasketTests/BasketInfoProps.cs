@@ -8,6 +8,7 @@ public class BasketInfoProps
     private readonly double testUnitPrice = 10;
     private readonly double testDiscount = 0.1;
     private readonly int testQuantity = 2;
+    private readonly string testProductName = "test prodName";
     private readonly string buyerId = "Test buyerId";
 
     #region TotalItems
@@ -25,7 +26,7 @@ public class BasketInfoProps
     public void ReturnsTotalItemsWithOneItem()
     {
         Basket basket = new Basket(buyerId);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity);
 
         var result = basket.TotalItems;
 
@@ -36,8 +37,8 @@ public class BasketInfoProps
     public void ReturnsTotalItemsWithMultipleItems()
     {
         var basket = new Basket(buyerId);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity * 2);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity*2);
 
         var result = basket.TotalItems;
 
@@ -61,7 +62,7 @@ public class BasketInfoProps
     public void ReturnsTotalPriceWithOneItem()
     {
         Basket basket = new Basket(buyerId);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity);
 
         var result = basket.TotalDiscountedPrice;
 
@@ -72,8 +73,8 @@ public class BasketInfoProps
     public void ReturnsTotalPriceWithMultipleItems()
     {
         var basket = new Basket(buyerId);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity * 2);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity*2);
 
         var result = basket.TotalDiscountedPrice;
 
@@ -98,7 +99,7 @@ public class BasketInfoProps
     public void ReturnsTotalDiscountSizeWithOneItem()
     {
         Basket basket = new Basket(buyerId);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity);
 
         var result = basket.TotalDiscountSize;
 
@@ -109,8 +110,8 @@ public class BasketInfoProps
     public void ReturnsTotalDiscountSizeWithMultipleItems()
     {
         Basket basket = new Basket(buyerId);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity);
-        basket.AddItem(testCatalogItemId, testUnitPrice, testDiscount, testQuantity*2);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity);
+        basket.AddItem(testCatalogItemId,testUnitPrice,testDiscount,testProductName,testQuantity*2);
 
         var result = basket.TotalDiscountSize;
 

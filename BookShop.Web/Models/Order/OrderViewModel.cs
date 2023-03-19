@@ -6,6 +6,7 @@ public class OrderViewModel
     public int OrderId { get; set; }
     public string? BuyerId { get; set; }
     public double TotalPrice { get; set; }
+    public double FullPrice { get; set; }
     public double TotalDiscount { get; set; }
     public string? BuyerFirstName { get; set; }
     public string? BuyerLastName { get; set; }

@@ -50,7 +50,7 @@ public class BasketController : Controller
         }
 
         var basket = await basketService.AddItemToBasket(username,
-            id, item.FullPrice, item.Discount);
+            id, item.FullPrice, item.Discount, item.Name);
 
         return RedirectToAction(nameof(Index));
     }

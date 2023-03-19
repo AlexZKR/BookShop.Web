@@ -1,6 +1,5 @@
 #pragma warning disable CS8618 // Required by Entity Framework
 
-using System.ComponentModel.DataAnnotations.Schema;
 using BookShop.BLL.Interfaces;
 
 namespace BookShop.BLL.Entities.Order;

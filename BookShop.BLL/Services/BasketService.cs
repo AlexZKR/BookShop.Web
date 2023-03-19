@@ -27,7 +27,7 @@ public class BasketService : IBasketService
         this.basketItemRepository = basketItemRepository;
     }
 
-    public async Task<Basket> AddItemToBasket(string username, int catalogItemId, double price, double discount, int quantity = 1)
+    public async Task<Basket> AddItemToBasket(string username, int catalogItemId, double price, double discount, string productName, int quantity = 1)
     {
         var basketSpec = new BasketWithItemsSpecification(username);
         var basket = await basketRepository.FirstOrDefaultAsync(basketSpec);
@@ -38,7 +38,7 @@ public class BasketService : IBasketService
             await basketRepository.AddAsync(basket);
         }
 
-        basket.AddItem(catalogItemId, price, discount, quantity);
+        basket.AddItem(catalogItemId, price, discount, productName, quantity);
 
         await basketRepository.UpdateAsync(basket);
         return basket;
@@ -133,7 +133,7 @@ public class BasketService : IBasketService
 
         foreach (var item in anonymousBasket.Items)
         {
-            userBasket.AddItem(item.ProductId, item.FullPrice, item.Quantity);
+            userBasket.AddItem(item.ProductId, item.FullPrice, item.Discount, item.ProductName!, item.Quantity);
         }
 
         await basketRepository.UpdateAsync(userBasket);

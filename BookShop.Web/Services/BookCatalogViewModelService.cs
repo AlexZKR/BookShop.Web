@@ -64,13 +64,13 @@ public class BookCatalogViewModelService : ICatalogViewModelService
             {
 
                 ActualPage = pageIndex,
-                ItemsPerPage = SD.ITEMS_PER_PAGE,
+                ItemsOnPage = itemsOnPage.Count,
                 TotalItems = await bookCatalogService.TotalItemsCountAsync(searchQuery, AuthorId, cover, genre, lang, pageIndex, itemsPage),
             }
         };
 
-        vm.PaginationInfo.IsNextPageHasItems = (vm.PaginationInfo.TotalItems - vm.PaginationInfo.ItemsPerPage*vm.PaginationInfo.ActualPage) > 0 ? true : false;
-        vm.PaginationInfo.TotalPages = CalculateTotalPages(vm.PaginationInfo.TotalItems,vm.PaginationInfo.ItemsPerPage);
+        vm.PaginationInfo.IsNextPageHasItems = (vm.PaginationInfo.TotalItems - SD.ITEMS_PER_PAGE*vm.PaginationInfo.ActualPage) > 0 ? true : false;
+        vm.PaginationInfo.TotalPages = CalculateTotalPages(vm.PaginationInfo.TotalItems,SD.ITEMS_PER_PAGE);
         vm.PaginationInfo.Next = (vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1) ? "is-disabled" : "";
         vm.PaginationInfo.Previous = (vm.PaginationInfo.ActualPage == 0) ? "is-disabled" : "";
 

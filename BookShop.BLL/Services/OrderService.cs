@@ -75,7 +75,7 @@ public class OrderService : IOrderService
             var product = await productRepository.GetByIdAsync(item.ProductId);
             if (product == null) throw new Exceptions.NotFoundException($"Item with id {item.ProductId} not found in db");
 
-            var orderItem = new OrderItem(item.Id,
+            var orderItem = new OrderItem(item.ProductId,
                                           product.Name,
                                           item.FullPrice,
                                           item.Discount,

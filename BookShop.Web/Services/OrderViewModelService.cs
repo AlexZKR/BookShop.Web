@@ -42,6 +42,7 @@ public class OrderViewModelService : IOrderViewModelService
             OrderId = order.Id,
             BuyerId = order.Buyer.BuyerId,
             TotalPrice = order.TotalPrice,
+            FullPrice = order.FullPrice,
             TotalDiscount = order.TotalDiscount,
             BuyerFirstName = order.Buyer.FirstName,
             BuyerLastName = order.Buyer.LastName,
@@ -61,7 +62,7 @@ public class OrderViewModelService : IOrderViewModelService
             {
                 ProductId = i.ProductId,
                 ProductName = i.ProductName,
-                FullPrice = i.FullPrice,
+                FullPrice = i.TotalPrice,
                 DiscountedPrice = i.DiscountedPrice,
                 Discount = i.Discount,
                 Units = i.Units,

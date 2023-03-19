@@ -44,20 +44,32 @@ public class OrderController : Controller
         this.basketViewModelService = basketViewModelService;
         this.orderViewModelService = orderViewModelService;
     }
+
     [Route("Index")]
     public async Task<IActionResult> Index()
     {
-        var user = await userManager.GetUserAsync(HttpContext.User);
-        var checkVM = await SetCheckOutVMAsync();
-        if (user != null)
+        try
         {
-            checkVM.FirstName = user.FirstName;
-            checkVM.LastName = user.LastName;
-            checkVM.Email = user.Email;
-            checkVM.PhoneNumber = user.PhoneNumber;
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var checkVM = await SetCheckOutVMAsync();
+            if (user != null)
+            {
+                checkVM.FirstName = user.FirstName;
+                checkVM.LastName = user.LastName;
+                checkVM.Email = user.Email;
+                checkVM.PhoneNumber = user.PhoneNumber;
+            }
+            return View(checkVM);
+        }
+        catch (ArgumentNullException)
+        {
+            return RedirectToAction("Index", "Catalog");
+        }
+        catch(Exception)
+        {
+            throw;
         }
 
-        return View(checkVM);
     }
 
     [Route("PlaceOrder")]
@@ -69,17 +81,14 @@ public class OrderController : Controller
         Order order = await orderService.CreateOrderAsync(address, buyer, orderInfo);
         var orderVm = await orderViewModelService.CreateOrderViewModelAsync(order.Id);
         return View("OrderDetails",orderVm);
-        //return RedirectToAction("OrderDetails", order.Id);
     }
 
-    // [HttpGet("{orderId:int}")]
     [Route("[action]/{orderId:int}")]
     public async Task<IActionResult> OrderDetails(int orderId)
     {
         var orderVm = await orderViewModelService.CreateOrderViewModelAsync(orderId);
         return View(orderVm);
     }
-
 
     //private helpers
     private async Task<CheckOutViewModel> SetCheckOutVMAsync()

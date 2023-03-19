@@ -26,6 +26,7 @@ public static class ConfigureWebServices
         services.AddTransient<ICatalogViewModelService, BookCatalogViewModelService>();
         services.AddTransient<IProductDetailsViewModelService, ProductDetailsViewModelService>();
         services.AddTransient<IRatingViewModelService, RatingViewModelService>();
+        
 
         //automapper config
         var mapperConfig = new MapperConfiguration(mc =>

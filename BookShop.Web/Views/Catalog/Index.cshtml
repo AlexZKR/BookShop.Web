@@ -8,7 +8,7 @@
         <div class="col-lg-9">
             @if (Model.FilterInfo!.SearchQuery != null)
             {
-                <h2>Результаты запроса: "@Model.FilterInfo.SearchQuery"</h2>
+                <h2 class="mb-4" >Результаты запроса: "@Model.FilterInfo.SearchQuery"</h2>
             }
             @* <div class="row">
                 <div class="col-md-6">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>*@
-        @if (Model.CatalogItems.Count != 0)
+        @if (Model.CatalogItems.Count != 0 && Model.FilterInfo.SearchQuery == "")
         {
             <div class="mx-4 mb-4">
                 <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
@@ -51,7 +51,7 @@
 
             @* Prod cards *@
 
-        @if (Model.CatalogItems.Count != 0)
+        @if (Model.CatalogItems.Count != 0 && Model.FilterInfo.SearchQuery == "")
         {
             <div class="mx-4">
                 <partial name="_PaginationPartial" model="@Model.PaginationInfo" />
