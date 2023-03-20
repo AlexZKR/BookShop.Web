@@ -6,26 +6,26 @@
 <form asp-controller="Catalog" asp-action="Index" method="get">
     <div class="row">
         @Html.DisplayNameFor(Model => Model.Genres)
-        <select asp-for="@Model.genre" asp-items="@Model.Genres">
+        <select class="form-control" asp-for="@Model.genre" asp-items="@Model.Genres">
         </select>
     </div>
     <div class="row">
         @Html.DisplayNameFor(Model => Model.Languages)
-        <select asp-for="@Model.lang" asp-items="@Model.Languages">
+        <select class="form-control" asp-for="@Model.lang" asp-items="@Model.Languages">
         </select>
     </div>
     <div class="row">
         @Html.DisplayNameFor(Model => Model.Covers)
-        <select asp-for="@Model.cover" asp-items="@Model.Covers">
+        <select class="form-control" asp-for="@Model.cover" asp-items="@Model.Covers">
         </select>
     </div>
     <hr class="mt-4 mb-2">
     <div class="row mb-4">
         @Html.DisplayNameFor(Model => Model.Authors)
-        <select asp-for="@Model.author" asp-items="@Model.Authors">
+        <select class="form-control" asp-for="@Model.author" asp-items="@Model.Authors">
         </select>
     </div>
     <div class="row" class="my-4">
-        <input type="submit" value="Search" class="btn btn-success" />
+        <input type="submit" value="Применить" class="btn btn-success" />
     </div>
 </form>
